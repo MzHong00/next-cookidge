@@ -1,0 +1,28 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    width: fit-content;
+    height: fit-content;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    @include m.flex-layout(row, center, center, 0.5rem);
+    flex-shrink: 0;
+    position: relative;
+    border: none;
+    border-radius: 5px;
+    background-color: inherit;
+    white-space: nowrap;
+
+    &:hover {
+        filter: brightness(0.95);
+    }
+
+    &>svg {
+        font-size: var(--icon-size-medium);
+    }
+
+    &>img {
+        width: 100%;
+        border-radius: 50%;
+    }
+}
