@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { IconBox } from "@/components/iconBox";
+import { IconBox } from "@/components/common/iconBox";
 
 import styles from "./fridgeIntroduce.module.scss";
 

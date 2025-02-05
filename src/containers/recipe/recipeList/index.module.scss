@@ -1,0 +1,14 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    @include m.flex-layout(row);
+    flex-wrap: wrap;
+
+    &>li {
+        flex-grow: 1;
+
+        &>* {
+            width: 100%;
+        }
+    }
+}
