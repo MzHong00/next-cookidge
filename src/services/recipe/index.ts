@@ -1,4 +1,4 @@
-import axios from ".";
+import axios from "..";
 
 import type { IUser } from "@/types/user";
 import type { PagenationParams } from "@/types";
@@ -6,7 +6,7 @@ import type { IIngredient } from "@/types/ingredient";
 import type { IRecipe, IRecipeInput, IRecipeQuery } from "@/types/recipe";
 
 export class RecipeService {
-  static readonly root = "/api/recipe";
+  static readonly root = "/recipe";
 
   static async readRecipe(
     id?: IRecipe["_id"]
@@ -15,10 +15,10 @@ export class RecipeService {
   }
 
   // next cookidge에서 다른 표현 방법 고려 (IRecipeCard)
-  static async readRecipeList(config: {
+  static async readRecipeList(config?: {
     params: Partial<PagenationParams> & Partial<IRecipeQuery>;
     signal: AbortSignal;
-  }) {
+  }): Promise<IRecipe[]> {
     return (await axios.get(`${this.root}/read-list`, config)).data;
   }
 

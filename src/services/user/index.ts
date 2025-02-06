@@ -1,6 +1,6 @@
-import { IUser } from "@/types/user";
-import axios from ".";
-import { PagenationParams } from "@/types";
+import axios from "..";
+import type { IUser } from "@/types/user";
+import type { PagenationParams } from "@/types";
 
 export class UserService {
   static readonly root = "/user";

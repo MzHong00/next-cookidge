@@ -1,7 +1,7 @@
-import axios from ".";
+import axios from "..";
 
 export class AuthService {
-  static readonly api = "/api/auth";
+  static readonly api = "/auth";
 
   static async issueAccessToken() {
     const response = (await axios.get(`${this.api}/issue-token`))?.data;
