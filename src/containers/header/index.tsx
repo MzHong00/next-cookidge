@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { Logo } from "@/components/logo";
+import { Logo } from "@/components/common/logo";
 
 import styles from "./index.module.scss";
 

@@ -1,37 +1,27 @@
-"use client";
+import { RecipeDetail } from "@/containers/recipe/recipeDetail";
+import { RecipeQueries } from "@/services/recipe/queries";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { useParams } from "next/navigation";
+export default async function RecipeDetailPage({
+  params,
+  searchParams,
+}: {
+  params: { id: string };
+  searchParams: Record<string, string | undefined>;
+}) {
+  const { id } = await params;
+  const { p } = await searchParams;
+  const queryClient = new QueryClient();
 
-export default function RecipeDetail() {
-  const { id } = useParams();
+  queryClient.prefetchQuery(RecipeQueries.detailQuery(id));
 
   return (
-    <motion.div
-      layoutId={`thumbnail${id}`}
-      transition={{
-        type: "spring",
-        stiffness: 80,
-        damping: 20,
-      }}
-      style={{
-        overflow: "hidden",
-        borderRadius: "0px",
-      }}
-    >
-      <Image
-        src="/noon.jpg"
-        alt="Expanded Image"
-        width={300}
-        height={300}
-        priority
-        style={{
-          width:"100%",
-          height: "100%",
-          objectFit: "cover",
-        }}
-      />
-    </motion.div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <RecipeDetail id={id} backgroundWithPublicID={p} />
+    </HydrationBoundary>
   );
 }

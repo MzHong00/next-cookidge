@@ -1,9 +1,11 @@
-"use client";
-
 import { RecipeList } from "@/containers/recipe/recipeList";
+import { Suspense } from "react";
 
-export default function RecipePage() {
+export default async function RecipePage() {
+
   return (
-    <RecipeList />
+    <Suspense fallback="기달">
+      <RecipeList />
+    </Suspense>
   );
 }
