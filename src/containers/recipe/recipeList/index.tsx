@@ -1,52 +1,51 @@
 "use client";
 
+import Masonry from "react-layout-masonry";
 import { useSearchParams } from "next/navigation";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import { RecipeQueries } from "@/services/recipe/queries";
 import { RecipeThumbnail } from "@/components/recipe/recipeThumbnail";
+import { useViewportDivision } from "@/hooks/useViewportDivision";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 import styles from "./index.module.scss";
-import { IRecipe } from "@/types/recipe";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
-export function RecipeList() {
+const THUMBNAIL_MAX_WIDTH = 400;
+const THUMBNAIL_MAX_DIVISION = 4;
+const LIST_GAP = 10;
+
+function RecipeList() {
   const searchParams = useSearchParams();
   const { data, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery(
     RecipeQueries.listQuery(searchParams.toString())
   );
   const target = useIntersectionObserver({ hasNextPage, fetchNextPage });
+  const column = useViewportDivision(THUMBNAIL_MAX_WIDTH, {
+    maxDiv: THUMBNAIL_MAX_DIVISION,
+  });
 
   return (
     <div className={styles.container}>
-      <ul className={styles.list}>
+      <Masonry columns={column} gap={LIST_GAP}>
         {data.pages.map((page) =>
-          page.map((recipe) => (
-            <ThumbnailList key={recipe._id} recipe={recipe} />
+          page.map(({ _id, pictures }) => (
+            <article key={_id}>
+              <RecipeThumbnail
+                _id={_id}
+                pictures={pictures}
+                width={THUMBNAIL_MAX_WIDTH}
+                height={THUMBNAIL_MAX_WIDTH}
+                priority
+                sizes="(max-width: 400px) 100vw, (max-width: 800px) 50vw, (max-width: 1200px) 33vw, 25vw"
+              />
+            </article>
           ))
         )}
-      </ul>
-      <div ref={target}>타겟</div>
+      </Masonry>
+      <div ref={target} />
     </div>
   );
 }
 
-const ThumbnailList = ({ recipe }: { recipe: IRecipe }) => {
-  const [calcHeight, setCalcHeight] = useState(0);
-  const ref = useRef<HTMLLIElement | null>(null);
-
-  useEffect(() => {
-    if (ref.current) {
-      const height = window.getComputedStyle(ref.current).height;
-      const calcHeight = Math.round(Number(height.slice(0, height.length - 2)));
-      setCalcHeight(calcHeight);
-    }
-  }, [ref?.current]);
-
-  return (
-    <li key={recipe._id} ref={ref} style={{gridRowEnd: `span ${calcHeight}`}}>
-      <RecipeThumbnail {...recipe} />
-    </li>
-  );
-};
+export default RecipeList;

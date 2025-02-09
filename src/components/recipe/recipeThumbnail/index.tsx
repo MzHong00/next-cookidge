@@ -1,17 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import Image, { type ImageProps } from "next/image";
+
 import { IRecipe } from "@/types/recipe";
 import { PIdToURL } from "@/utils/pidToUrl";
 
 import styles from "./index.module.scss";
 
-export const RecipeThumbnail = ({
-  _id,
-  pictures,
-}: Pick<IRecipe, "_id" | "pictures">) => {
+interface Props
+  extends Pick<IRecipe, "_id" | "pictures">,
+    Partial<ImageProps> {}
+
+export const RecipeThumbnail = ({ _id, pictures, ...props }: Props) => {
   return (
     <Link
       href={{
@@ -20,24 +22,18 @@ export const RecipeThumbnail = ({
           p: pictures[0],
         },
       }}
+      style={{ width: "100%" }}
     >
       <motion.div
         layoutId={`thumbnail${_id}`}
-        className={styles.thubmnail}
+        className={styles.thumbnail}
         transition={{
           type: "spring",
           stiffness: 100,
           damping: 20,
         }}
       >
-        <Image
-          src={PIdToURL(pictures[0])}
-          alt="Thumbnail"
-          width={400}
-          height={400}
-          // fill
-          // sizes="(max-width: 830px) 100vw, (max-width: 1240px) 50vw, (max-width: 1650px) 33vw, 25vw"
-        />
+        <Image src={PIdToURL(pictures[0])} alt="Thumbnail" {...props} />
       </motion.div>
     </Link>
   );
