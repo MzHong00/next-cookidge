@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+
 import { RecipeQueries } from "@/services/recipe/queries";
 import { PIdToURL } from "@/utils/pidToUrl";
-import { useQuery } from "@tanstack/react-query";
-import { motion } from "framer-motion";
-import Image from "next/image";
 
 interface Props {
   id: string;

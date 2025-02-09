@@ -14,7 +14,6 @@ export const Home = () => {
 
   return (
     <div>
-       
       <RecipeIntroduce />
       <FridgeIntroduce />
     </div>

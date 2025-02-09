@@ -3,7 +3,7 @@ import axios from "axios";
 import { AuthService } from "./auth";
 
 const instance = axios.create({
-    baseURL: `${process.env.NEXT_PUBLIC_SERVER_API}/api`
+    baseURL: `http://localhost:3000/api/`
 });
 
 instance.interceptors.request.use(

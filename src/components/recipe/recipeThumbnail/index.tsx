@@ -6,18 +6,24 @@ import { motion } from "framer-motion";
 import { IRecipe } from "@/types/recipe";
 import { PIdToURL } from "@/utils/pidToUrl";
 
-interface Props extends Pick<IRecipe, "_id" | "pictures"> {}
+import styles from "./index.module.scss";
 
-export const RecipeThumbnail = ({ _id, pictures }: Props) => {
+export const RecipeThumbnail = ({
+  _id,
+  pictures,
+}: Pick<IRecipe, "_id" | "pictures">) => {
   return (
-    <Link href={{
-      pathname: `/recipe/${_id}`,
-      query: {
-        p: pictures[0]
-      }
-    }} >
+    <Link
+      href={{
+        pathname: `/recipe/${_id}`,
+        query: {
+          p: pictures[0],
+        },
+      }}
+    >
       <motion.div
         layoutId={`thumbnail${_id}`}
+        className={styles.thubmnail}
         transition={{
           type: "spring",
           stiffness: 100,
@@ -27,9 +33,10 @@ export const RecipeThumbnail = ({ _id, pictures }: Props) => {
         <Image
           src={PIdToURL(pictures[0])}
           alt="Thumbnail"
-          width={300}
-          height={300}
-          style={{ width: "100%", objectFit: "cover" }}
+          width={400}
+          height={400}
+          // fill
+          // sizes="(max-width: 830px) 100vw, (max-width: 1240px) 50vw, (max-width: 1650px) 33vw, 25vw"
         />
       </motion.div>
     </Link>
