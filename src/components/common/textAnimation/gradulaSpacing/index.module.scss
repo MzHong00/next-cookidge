@@ -1,0 +1,5 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    @include m.flex-layout(row, center, center);
+}
