@@ -16,8 +16,8 @@ export class RecipeService {
 
   // next cookidge에서 다른 표현 방법 고려 (IRecipeCard)
   static async readRecipeList(config?: {
-    params: Partial<PagenationParams> & Partial<IRecipeQuery>;
-    signal: AbortSignal;
+    params?: Partial<PagenationParams> & Partial<IRecipeQuery>;
+    signal?: AbortSignal;
   }): Promise<IRecipe[]> {
     return (await axios.get(`${this.root}/read-list`, config)).data;
   }
