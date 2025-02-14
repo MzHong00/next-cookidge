@@ -1,9 +1,0 @@
-@use '/src/styles//mixin.scss' as m;
-
-.container {
-    height: 100vh;
-
-    &>a {
-        @include m.main-button();
-    }
-}

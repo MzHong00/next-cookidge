@@ -1,8 +1,13 @@
-import { Home } from "@/containers/home";
+import { MainIntroduce } from "@/containers/home/main/mainIntroduce";
+import { IntroduceBackground } from "@/containers/home/background/introduceBackground";
+
+import styles from "./page.module.scss";
 
 export default function HomePage() {
-
   return (
-    <Home />
+    <div className={styles.container}>
+      <MainIntroduce />
+      <IntroduceBackground />
+    </div>
   );
 }
