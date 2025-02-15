@@ -75,7 +75,7 @@ export const MainIntroduce = memo(() => {
 
 const LinkIconCard = ({ href, Icon, text }: ServiceType) => {
   return (
-    <Link href={href} className={styles.card}>
+    <Link href={href} className={styles.card} scroll={false}>
       <Icon />
       <hr />
       <h4>{text}</h4>
