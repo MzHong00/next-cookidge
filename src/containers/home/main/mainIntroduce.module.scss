@@ -1,0 +1,39 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    @include m.flex-layout(column, center, center, 3rem);
+}
+
+.logoText {
+    @include m.flex-layout(column, center, center, 0);
+
+    &>p {
+        color: rgb(var(--color-main-medium));
+    }
+
+    &>:first-child {
+        gap: 0.5rem;
+        font-size: 4rem;
+        font-weight: bold;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+}
+
+.services {
+    @include m.flex-layout(row, center, center, 2rem);
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 200px;
+    height: 150px;
+    padding: 1rem;
+    @include m.flex-layout(column, center, center);
+    border-radius: 10px;
+    border: 1px solid;
+    background-color: rgb(var(--background));
+
+    &>svg {
+        font-size: 2rem;
+    }
+}
