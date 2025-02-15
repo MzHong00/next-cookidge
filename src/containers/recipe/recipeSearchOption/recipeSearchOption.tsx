@@ -1,6 +1,6 @@
-import { RecipeSort } from "@/components/recipe/sort";
+import { RecipeSort } from "@/components/features/recipe/sort";
 import { SearchBox } from "@/components/common/search";
-import { RecipeFilter } from "@/components/recipe/filter/recipeFilter";
+import { RecipeFilter } from "@/components/features/recipe/filter/recipeFilter";
 
 import styles from "./recipeSearchOption.module.scss";
 

@@ -3,7 +3,7 @@ import { useSearchParams } from "next/navigation";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import { RecipeQueries } from "@/services/recipe/queries";
-import { RecipeThumbnail } from "@/components/recipe/recipeThumbnail";
+import { RecipeThumbnail } from "@/components/features/recipe/recipeThumbnail";
 import { useViewportDivision } from "@/hooks/useViewportDivision";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
