@@ -6,6 +6,11 @@ import { PIdToURL } from "@/utils/pidToUrl";
 import styles from "./introduceBackground.module.scss";
 
 const RECIPE_COUNT = 10;
+const MAX_BOTTOM = 500;
+const MIN_ANIMATION_DURATION = 10;
+const ANIAMTION_DURATION_RANDOM = 80;
+const ANIAMTION_DELAY_RANDOM = 10;
+const ANIMATION_DELAY_DEFAULT = 20;
 
 const fetchRecipes = async () => {
   return RecipeService.readRecipeList({
@@ -18,17 +23,21 @@ export const IntroduceBackground = async () => {
 
   return (
     <section className={styles.container}>
-      {recipes.map(({ _id, pictures }, i) => (
+      {recipes.map(({ _id, pictures }) => (
         <Image
           key={_id}
           src={PIdToURL(pictures[0])}
-          alt="bg-pic"
+          alt="bg"
           width={200}
           height={200}
           style={{
-            bottom: `${Math.random() * 500}px`,
-            animationDuration: `${10 + Math.random() * 50}s`,
-            animationDelay: `${Math.random() * 10 - 20}s`,
+            bottom: `${Math.random() * MAX_BOTTOM}px`,
+            animationDuration: `${
+              MIN_ANIMATION_DURATION + Math.random() * ANIAMTION_DURATION_RANDOM
+            }s`,
+            animationDelay: `${
+              Math.random() * ANIAMTION_DELAY_RANDOM - ANIMATION_DELAY_DEFAULT
+            }s`,
           }}
         />
       ))}
