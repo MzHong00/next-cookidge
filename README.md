@@ -18,3 +18,11 @@ Pinterest의 블록을 쌓아올리는 듯한 Grid Layout이 Masonry Layout이�
 사용법이 굉장히 간단해서 좋았다. 그러나 `display: flex`로 자체적인 계산을 하기 때문에 `grid-template-column`을 사용할 수 없었다. `column`을 직접 인자로 전달해 줘야 하는데 `useViewportDivision`커스텀 제작 후, 반응형으로 제작 완료했다. 최종적으로 반응형 masonry layout 제작 완료
 
 > **`<Dialog />`태그 `initial` 애니메이션 적용 불가 **
+
+> ** Skipping auto-scroll  **
+
+원인: `<Link>`태그로 페이지 이동 시, 스크롤 위치를 유지하기 때문에 `position`속성의 `sticky`, `fixed`에 대한 위치값 계산에서 충돌이 생기는 것이다.
+
+✔ `<Link scroll={false}>`를 사용하여 페이지 전환시 스크롤 위치를 최상단에 위치하게 한다.
+
+> ** document is not defined 에러 **

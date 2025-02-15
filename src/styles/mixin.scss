@@ -13,9 +13,16 @@
 }
 
 @mixin main-button {
-    color: white;
+    color: rgb(var(--foreground));
     background-color: rgb(var(--color-main-medium)) !important;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
+    border: none !important;
+}
+
+@mixin main-button-dark {
+    color: rgb(var(--foreground));
+    background-color: rgb(var(--color-dark)) !important;
+    border-radius: var(--border-radius);
     border: none !important;
 }
 

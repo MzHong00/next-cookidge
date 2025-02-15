@@ -4,7 +4,7 @@ import Provider from "./provider";
 import { Header } from "@/components/layout/header/header";
 import { Navbar } from "@/components/layout/navbar";
 
-import "@/styles/globals.css";
+import "@/styles/globals.scss";
 import styles from './styles.module.scss';
 
 export const metadata: Metadata = {

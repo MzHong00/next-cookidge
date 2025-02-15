@@ -1,3 +1,5 @@
+@use '/src/styles/mixin.scss' as m;
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -97,4 +99,50 @@ ol {
 
 select {
   cursor: pointer;
+}
+
+
+// mixin className으로 즉시 사용 (Tailwind 처럼)
+.flex-column {
+  @include m.flex-layout(column);
+}
+
+.flex-column-center {
+  @include m.flex-layout(column, center, center);
+}
+
+.flex-column-between {
+  @include m.flex-layout(column, center, space-between);
+}
+
+.flex-row {
+  @include m.flex-layout(row);
+}
+
+.flex-row-center {
+  @include m.flex-layout(row, center, center);
+}
+
+.flex-row-between {
+  @include m.flex-layout(row, center, space-between);
+}
+
+.pos-abs-center {
+  @include m.posCenter();
+}
+
+.pos-abs-centerX {
+  @include m.posCenterX();
+}
+
+.pos-abs-centerY {
+  @include m.posCenterY();
+}
+
+.main-button {
+  @include m.main-button();
+}
+
+.main-button-dark {
+  @include m.main-button-dark();
 }
