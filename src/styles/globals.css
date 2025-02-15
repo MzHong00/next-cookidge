@@ -5,19 +5,21 @@
 }
 
 :root {
-  --foreground: #ededed;
-  --background: #0a0a0a;
+  --foreground: 237, 237, 237;
+  --background: 10, 10, 10;
   --color-main-medium: 96, 159, 255;
+  --color-dark: 37, 40, 48;
   --color-grey-light: 227, 227, 227;
   --color-grey-medium: 121, 121, 121;
   --icon-size-medium: 1.25em;
   --base-box-shadow: 0px 1px 2px 1px silver;
+  --border-radius: 10px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 237, 237, 237;
+    --foreground: 10, 10, 10;
   }
 }
 
@@ -29,8 +31,8 @@ body {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: rgb(var(--foreground));
+  background: rgb(var(--background));
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -53,14 +55,22 @@ a {
 button,
 input[type="button"],
 input[type="submit"],
-input[type="date"] {
+input[type="date"],
+input[type="search"] {
   background-color: transparent;
   background-image: none;
   font-weight: inherit;
   line-height: inherit;
   font-size: inherit;
   color: inherit;
+  outline: none;
   border: none;
+}
+
+button,
+input[type="button"],
+input[type="submit"],
+input[type="date"] {
   cursor: pointer;
 }
 
