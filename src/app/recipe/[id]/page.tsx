@@ -1,10 +1,15 @@
 import { RecipeDetail } from "@/containers/recipe/recipeDetail/recipeDetail";
+import { RecipeService } from "@/services/recipe";
 import { RecipeQueries } from "@/services/recipe/queries";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
+
+const fetchRecipe = async (id: string) => {
+  return await RecipeService.readRecipe(id);
+};
 
 export default async function RecipeDetailPage({
   params,
@@ -15,13 +20,8 @@ export default async function RecipeDetailPage({
 }) {
   const { id } = await params;
   const { p } = await searchParams;
-  const queryClient = new QueryClient();
 
-  queryClient.prefetchQuery(RecipeQueries.detailQuery(id));
+  const recipe = await fetchRecipe(id);
 
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <RecipeDetail id={id} backgroundWithPublicID={p} />
-    </HydrationBoundary>
-  );
+  return <RecipeDetail recipe={recipe} backgroundWithPublicID={p} />;
 }

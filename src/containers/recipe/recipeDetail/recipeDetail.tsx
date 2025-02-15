@@ -2,22 +2,21 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
 
-import { RecipeQueries } from "@/services/recipe/queries";
+import type { IRecipe } from "@/types/recipe";
 import { PIdToURL } from "@/utils/pidToUrl";
 
 interface Props {
-  id: string;
+  recipe: IRecipe;
   backgroundWithPublicID?: string;
 }
 
-export function RecipeDetail({ id, backgroundWithPublicID }: Props) {
-  const { data } = useQuery(RecipeQueries.detailQuery(id));
+export function RecipeDetail({ recipe, backgroundWithPublicID }: Props) {
+  const { _id, pictures } = recipe;
 
   return (
     <motion.div
-      layoutId={`thumbnail${id}`}
+      layoutId={`thumbnail${_id}`}
       transition={{
         type: "spring",
         stiffness: 80,
@@ -25,7 +24,7 @@ export function RecipeDetail({ id, backgroundWithPublicID }: Props) {
       }}
     >
       <Image
-        src={PIdToURL(data?.pictures[0] || backgroundWithPublicID || "")}
+        src={PIdToURL(pictures[0] || backgroundWithPublicID || "")}
         alt="Expanded Image"
         width={300}
         height={300}
