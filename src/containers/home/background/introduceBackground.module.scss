@@ -9,6 +9,7 @@
     transform: perspective(1500px) rotateY(40deg);
 
     &>* {
+        width: auto;
         height: auto;
         position: absolute;
         border-radius: 10px;
