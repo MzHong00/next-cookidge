@@ -8,33 +8,46 @@ import { IRecipe } from "@/types/recipe";
 import { PIdToURL } from "@/utils/pidToUrl";
 
 import styles from "./index.module.scss";
+import { IconBox } from "@/components/common/iconBox";
 
-interface Props
-  extends Pick<IRecipe, "_id" | "pictures">,
-    Partial<ImageProps> {}
+interface Props extends Partial<ImageProps> {
+  recipe: IRecipe;
+}
 
-export const RecipeThumbnail = ({ _id, pictures, ...props }: Props) => {
+export const RecipeThumbnail = ({ recipe, ...props }: Props) => {
   return (
-    <Link
-      href={{
-        pathname: `/recipe/${_id}`,
-        query: {
-          p: pictures[0],
-        },
+    <motion.div
+      layoutId={`thumbnail${recipe._id}`}
+      className={styles.thumbnail}
+      transition={{
+        type: "spring",
+        stiffness: 100,
+        damping: 20,
       }}
-      style={{ width: "100%" }}
     >
-      <motion.div
-        layoutId={`thumbnail${_id}`}
-        className={styles.thumbnail}
-        transition={{
-          type: "spring",
-          stiffness: 100,
-          damping: 20,
+      <HoverThumbnail {...recipe} />
+      <Image src={PIdToURL(recipe.pictures[0])} alt="Thumbnail" {...props} />
+    </motion.div>
+  );
+};
+
+const HoverThumbnail = (props: IRecipe) => {
+  const { _id, name, introduction, pictures } = props;
+
+  return (
+    <motion.div className={styles.hoverRecipe} whileHover={{ opacity: 1 }}>
+      <h4>{name}</h4>
+      <p>{introduction}</p>
+      <Link
+        href={{
+          pathname: `/recipe/${_id}`,
+          query: {
+            p: pictures[0],
+          },
         }}
       >
-        <Image src={PIdToURL(pictures[0])} alt="Thumbnail" {...props} />
-      </motion.div>
-    </Link>
+        <IconBox className={styles.recipeLinkButton}>자세히</IconBox>
+      </Link>
+    </motion.div>
   );
 };

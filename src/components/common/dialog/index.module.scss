@@ -1,0 +1,28 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    min-width: 300px;
+    min-height: 300px;
+    @include m.flex-layout(column, center, center);
+    position: relative;
+    border-radius: var(--border-radius);
+    background-color: rgb(var(--color-dark));
+    color: rgb(var(--foreground));
+    box-shadow: 0px 0px 20px 3px;
+
+    &>button:first-child {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 1.5rem;
+    }
+}
+
+.background {
+    width: 100%;
+    height: 100vh;
+    @include m.flex-layout(row, center, center, 0);
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}

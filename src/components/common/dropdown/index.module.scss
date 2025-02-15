@@ -1,0 +1,19 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    @include m.flex-layout(column, center, center);
+    position: relative;
+    background-color: rgb(var(--color-dark));
+    color: rgb(var(--foreground));
+}
+
+.menu {
+    min-width: 300px;
+    @include m.flex-layout(column, center, center);
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    border-radius: var(--border-radius);
+    background-color: inherit;
+    z-index: 10;
+}

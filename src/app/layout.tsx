@@ -1,20 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 
-import { Header } from "@/containers/header";
+import Provider from "./provider";
+import { Header } from "@/containers/header/header";
+import { Navbar } from "@/components/navbar";
 
 import "@/styles/globals.css";
-import Provider from "./provider";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import styles from './layout.module.scss';
 
 export const metadata: Metadata = {
   title: "Cookidge",
@@ -29,10 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         <Provider>
-          <Header />
+          <Header className={styles.header}/>
           <main>{children}</main>
+          <Navbar className={styles.navbar}/>
         </Provider>
       </body>
     </html>

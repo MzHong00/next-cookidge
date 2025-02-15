@@ -1,0 +1,27 @@
+@use '/src/styles/mixin.scss' as m;
+
+.header {
+    padding: 0.5rem;
+    @include m.flex-layout(row, center, normal);
+    flex-wrap: wrap;
+    position: sticky;
+    top: 4.5rem;
+    z-index: 10;
+
+    &>:first-child {
+        height: 3rem;
+        border-radius: var(--border-radius);
+        background-color: rgb(var(--color-dark));
+        flex-grow: 1
+    }
+}
+
+.option {
+    @include m.flex-layout(row, center, normal);
+
+    &>* {
+        height: 3rem;
+        border-radius: var(--border-radius);
+        background-color: rgb(var(--color-dark));
+    }
+}

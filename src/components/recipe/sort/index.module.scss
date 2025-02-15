@@ -1,0 +1,9 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    @include m.flex-layout(row, stretch, stretch, 0);
+
+    &>button {
+        padding-inline: 0.25rem;
+    }
+}

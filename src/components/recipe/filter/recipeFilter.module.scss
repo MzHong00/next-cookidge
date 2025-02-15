@@ -1,0 +1,31 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    @include m.flex-layout(row, stretch, stretch, 0);
+
+    &>button {
+        padding-inline: 0.25rem;
+    }
+}
+
+.category {
+    @include m.flex-layout(row, stretch, space-between, 0.75rem);
+    flex-wrap: nowrap;
+    border-radius: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    & button {
+        border-radius: 10px;
+        transition-duration: 0.3s;
+    }
+}
+
+.inActiveButton {
+    visibility: hidden;
+}

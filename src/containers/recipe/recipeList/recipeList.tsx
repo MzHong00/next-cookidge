@@ -1,5 +1,3 @@
-"use client";
-
 import Masonry from "react-layout-masonry";
 import { useSearchParams } from "next/navigation";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
@@ -9,7 +7,7 @@ import { RecipeThumbnail } from "@/components/recipe/recipeThumbnail";
 import { useViewportDivision } from "@/hooks/useViewportDivision";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
-import styles from "./index.module.scss";
+import styles from "./recipeList.module.scss";
 
 const THUMBNAIL_MAX_WIDTH = 400;
 const THUMBNAIL_MAX_DIVISION = 4;
@@ -29,11 +27,10 @@ function RecipeList() {
     <div className={styles.container}>
       <Masonry columns={column} gap={LIST_GAP}>
         {data.pages.map((page) =>
-          page.map(({ _id, pictures }) => (
-            <article key={_id}>
+          page.map((recipe) => (
+            <article key={recipe._id}>
               <RecipeThumbnail
-                _id={_id}
-                pictures={pictures}
+                recipe={recipe}
                 width={THUMBNAIL_MAX_WIDTH}
                 height={THUMBNAIL_MAX_WIDTH}
                 priority

@@ -1,0 +1,7 @@
+@use '/src/styles/mixin.scss' as m;
+
+.header {
+    height: 4.5rem;
+    @include m.flex-layout(row, center, space-between);
+    background-color: inherit;
+}

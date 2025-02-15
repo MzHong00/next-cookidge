@@ -1,4 +1,4 @@
-import { RecipeDetail } from "@/containers/recipe/recipeDetail";
+import { RecipeDetail } from "@/containers/recipe/recipeDetail/recipeDetail";
 import { RecipeQueries } from "@/services/recipe/queries";
 import {
   dehydrate,
