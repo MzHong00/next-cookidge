@@ -1,10 +1,7 @@
 @use '/src/styles/mixin.scss' as m;
 
 .container {
-    --border-length: 2px;
-
     width: fit-content;
-    position: relative;
     @include m.flex-layout(row, normal, space-evenly, 0);
     z-index: 10;
 
@@ -16,9 +13,8 @@
 .navContainer {
     padding: 0.25rem;
     @include m.flex-layout(row, normal, space-evenly, 0);
-    border: var(--border-length) solid;
+    border: 2px solid;
     border-radius: var(--border-radius);
-
 }
 
 .profile {
