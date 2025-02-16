@@ -1,1 +1,20 @@
 @use '/src/styles/mixin.scss' as m;
+
+.background {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    z-index: -10;
+}
+
+.overview {
+    padding: 1rem;
+    backdrop-filter: blur(20px);
+    background-color: rgba(var(--color-main), 0.1);
+    border-radius: var(--border-radius);
+    box-shadow: 0px 0px 10px 1px rgb(var(--color-grey-medium));
+}
+
+.pictureSlider {
+    border-radius: var(--border-radius);
+}

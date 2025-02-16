@@ -7,7 +7,7 @@ import { RecipeSearchOption } from "@/containers/recipe/recipeSearchOption/recip
 
 const RecipeList = dynamic(
   () => import("@/containers/recipe/recipeList/recipeList"),
-  { ssr: false }
+  { ssr: false,loading:() => <div>기달</div> }
 );
 
 export default function RecipePage() {

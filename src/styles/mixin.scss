@@ -14,7 +14,7 @@
 
 @mixin main-button {
     color: rgb(var(--foreground));
-    background-color: rgb(var(--color-main-medium)) !important;
+    background-color: rgb(var(--color-main)) !important;
     border-radius: var(--border-radius);
     border: none !important;
 }
@@ -26,19 +26,19 @@
     border: none !important;
 }
 
-@mixin posCenterX($position: absolute) {
+@mixin pos-center-x($position: absolute) {
     position: $position;
     left: 50%;
     transform: translateX(-50%);
 }
 
-@mixin posCenterY($position: absolute) {
+@mixin pos-center-y($position: absolute) {
     position: $position;
     top: 50%;
     transform: translateY(-50%);
 }
 
-@mixin posCenter($position: absolute) {
+@mixin pos-center($position: absolute) {
     position: $position;
     top: 50%;
     left: 50%;

@@ -18,7 +18,7 @@ export class RecipeQueries {
   }
   
   static listQuery(slug: string) {
-    const limit = 6;
+    const limit = 10;
     return infiniteQueryOptions({
       queryKey: [...this.keys.list, slug],
       queryFn:({ pageParam, signal }) =>

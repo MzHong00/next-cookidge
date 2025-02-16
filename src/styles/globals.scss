@@ -9,7 +9,7 @@
 :root {
   --foreground: 237, 237, 237;
   --background: 10, 10, 10;
-  --color-main-medium: 96, 159, 255;
+  --color-main: 96, 159, 255;
   --color-dark: 37, 40, 48;
   --color-grey-light: 227, 227, 227;
   --color-grey-medium: 121, 121, 121;
@@ -128,15 +128,15 @@ select {
 }
 
 .pos-abs-center {
-  @include m.posCenter();
+  @include m.pos-center();
 }
 
 .pos-abs-centerX {
-  @include m.posCenterX();
+  @include m.pos-center-x();
 }
 
 .pos-abs-centerY {
-  @include m.posCenterY();
+  @include m.pos-center-y();
 }
 
 .main-button {

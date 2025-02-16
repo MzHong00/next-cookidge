@@ -1,11 +1,5 @@
 import { RecipeDetail } from "@/containers/recipe/recipeDetail/recipeDetail";
 import { RecipeService } from "@/services/recipe";
-import { RecipeQueries } from "@/services/recipe/queries";
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
 
 const fetchRecipe = async (id: string) => {
   return await RecipeService.readRecipe(id);
