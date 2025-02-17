@@ -39,13 +39,16 @@
     &>button {
         padding: 0;
         border-radius: 100%;
-        background-color: rgb(var(--color-grey-medium));
+        background-color: rgba(var(--color-grey-light), 0.5);
         font-size: 1.5rem;
-        opacity: 0.8;
         overflow: hidden;
 
         &>*{
             padding: 0;
+        }
+
+        & svg{
+            filter: contrast(0.1);
         }
     }
 
