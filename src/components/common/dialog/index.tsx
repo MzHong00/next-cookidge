@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { RiCloseLine } from "@react-icons/all-files/ri/RiCloseLine";
 
 import styles from "./index.module.scss";
+import { twistFade } from "@/lib/framer-motion";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   buttonName?: string;
@@ -19,8 +20,14 @@ export const DialogButton = ({
   ...props
 }: Props) => {
   const [isShow, setIsShow] = useState<boolean>(false);
+  const [mounted, setMounted] = useState<boolean>(false);
 
-  return (
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  return mounted ? (
     <>
       <button onClick={() => setIsShow(true)} {...props}>
         {buttonChildren ?? buttonName}
@@ -36,9 +43,10 @@ export const DialogButton = ({
               }}
             >
               <motion.div
-                initial={{ opacity: 0, rotateY: "50deg", rotate: "5deg" }}
-                animate={{ opacity: 1, rotateY: "0deg", rotate: "0deg" }}
-                exit={{ opacity: 0, rotateY: "50deg", rotate: "-5deg" }}
+                variants={twistFade}
+                initial="initial"
+                animate="animate"
+                exit="exit"
                 transition={{ duration: 0.2 }}
               >
                 <div className={styles.container}>
@@ -54,5 +62,5 @@ export const DialogButton = ({
         document.body
       )}
     </>
-  );
+  ) : null;
 };
