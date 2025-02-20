@@ -48,7 +48,12 @@ export const PictureSlider = ({
       >
         {pictures.map((picture) => (
           <li key={picture}>
-            <Image src={PIdToURL(picture)} alt="image" fill />
+            <Image
+              src={PIdToURL(picture)}
+              alt="image"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </li>
         ))}
       </ul>
