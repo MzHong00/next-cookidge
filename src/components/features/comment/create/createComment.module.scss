@@ -1,0 +1,19 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    width: 100%;
+    height: 3rem;
+    @include m.flex-layout(row);
+
+    textarea {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: var(--border-radius);
+        color: rgb(var(--foreground));
+        background-color: rgb(var(--color-dark));
+        
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
