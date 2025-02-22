@@ -2,19 +2,12 @@
 
 .container {
     width: fit-content;
-    @include m.flex-layout(row, normal, space-evenly, 0);
-    z-index: 10;
-
-    &>* {
-        background-color: rgb(var(--color-dark));
-    }
-}
-
-.navContainer {
     padding: 0.25rem;
     @include m.flex-layout(row, normal, space-evenly, 0);
     border: 2px solid;
     border-radius: var(--border-radius);
+    z-index: 10;
+    background-color: rgb(var(--color-dark));
 }
 
 .profile {

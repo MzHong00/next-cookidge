@@ -15,17 +15,15 @@ interface Props {
 export function Navbar({ style, className }: Partial<Props>) {
   return (
     <nav style={style} className={`${styles.container} ${className}`}>
-      <div className={styles.navContainer}>
-        <button className={styles.profile}>
-          <RiUserLine />
-        </button>
+      <button className={styles.profile}>
+        <RiUserLine />
+      </button>
 
-        <nav className={styles.nav}>
-          <Link href="/">
-            <RiHome5Line />
-          </Link>
-        </nav>
-      </div>
+      <nav className={styles.nav}>
+        <Link href="/">
+          <RiHome5Line />
+        </Link>
+      </nav>
     </nav>
   );
 }
