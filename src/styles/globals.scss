@@ -97,6 +97,11 @@ ol {
   margin: 0;
 }
 
+textarea {
+  outline: none;
+  resize: none;
+}
+
 select {
   cursor: pointer;
 }
