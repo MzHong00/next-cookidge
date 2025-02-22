@@ -1,0 +1,30 @@
+@use '/src/styles/mixin.scss' as m;
+
+.commentList {
+    background-color: rgba(var(--color-dark), 0.6);
+}
+
+.comment {
+    @include m.flex-layout(row, center, normal, 0.5rem);
+
+    .profileButton {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+    }
+
+    .nameBar {
+        display: flex;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+
+        &>:first-child {
+            font-size: 1rem;
+        }
+    }
+
+    .actionBar {
+        padding-left: 0.5rem;
+        color: grey
+    }
+}
