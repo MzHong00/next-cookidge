@@ -1,4 +1,4 @@
-import { RecipeSort } from "@/components/features/recipe/sort";
+import { RecipeSort } from "@/components/features/recipe/sort/recipeSort";
 import { SearchBox } from "@/components/common/search";
 import { RecipeFilter } from "@/components/features/recipe/filter/recipeFilter";
 
