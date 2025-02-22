@@ -1,9 +1,9 @@
 import { BiSort } from "@react-icons/all-files/bi/BiSort";
 
 import { IconBox } from "@/components/common/iconBox";
-
-import styles from "./index.module.scss";
 import { Dropdown } from "@/components/common/dropdown";
+
+import styles from "./recipeSort.module.scss";
 
 export const RecipeSort = () => {
   return (
