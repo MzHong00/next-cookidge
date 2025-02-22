@@ -1,5 +1,5 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
-import { RecipeService } from ".";
+import { RecipeService } from "..";
 import type { IRecipe } from "@/types/recipe";
 
 export class RecipeQueries {
@@ -13,7 +13,6 @@ export class RecipeQueries {
       queryKey: [this.keys.root, recipeId],
       queryFn: () => RecipeService.readRecipe(recipeId),
       enabled: !!recipeId,
-      retry: false,
     });
   }
   
@@ -35,7 +34,6 @@ export class RecipeQueries {
 
         return lastPageParam + 1;
       },
-      retry: false,
     });
   }
 }
