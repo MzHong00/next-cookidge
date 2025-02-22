@@ -1,0 +1,11 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    @include m.flex-layout(row, center);
+
+    &>img {
+        border-radius: 100%;
+        object-position: center;
+        object-fit: cover;
+    }
+}
