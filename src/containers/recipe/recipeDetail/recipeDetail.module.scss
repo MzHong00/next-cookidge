@@ -1,20 +1,74 @@
 @use '/src/styles/mixin.scss' as m;
 
-.background {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    z-index: -10;
-}
-
-.overview {
-    padding: 1rem;
-    backdrop-filter: blur(20px);
-    background-color: rgba(var(--color-main), 0.1);
-    border-radius: var(--border-radius);
-    box-shadow: 0px 0px 10px 1px rgb(var(--color-grey-medium));
-}
-
 .pictureSlider {
+    height: 500px;
     border-radius: var(--border-radius);
+}
+
+.card {
+    padding: 1rem;
+    @include m.flex-layout(column);
+    position: relative;
+    background-color: rgba(var(--color-dark), 0.4);
+    border-radius: var(--border-radius);
+    box-shadow: 0px 0px 8px -2px;
+}
+
+.contentContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.contents {
+    padding: 1rem;
+    @include m.flex-layout(column);
+    color: rgb(var(--foreground));
+    background-color: rgba(var(--color-dark), 0.55);
+    border-radius: var(--border-radius);
+
+    &>section:first-of-type {
+        @include m.flex-layout(row);
+        flex-wrap: wrap;
+
+        &>* {
+            background-color: rgba(var(--color-dark), 0.8);
+        }
+    }
+}
+
+.ingredients {
+    @include m.flex-layout(row);
+    flex-wrap: wrap;
+
+    &>li {
+        @include m.main-button-dark();
+
+        &>div {
+            box-shadow: 0px 0px 2px 0px;
+        }
+    }
+}
+
+.cardTabIndex {
+    padding-block: 0.25rem;
+    padding-inline: 0.5rem;
+    @include m.flex-layout(row);
+    border-radius: inherit;
+}
+
+.underline {
+    padding-inline: 1rem;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: rgb(var(--color-main));
+}
+
+@media screen and (max-width: 768px) {
+    .contentContainer {
+        grid-template-columns: 1fr;
+    }
 }
