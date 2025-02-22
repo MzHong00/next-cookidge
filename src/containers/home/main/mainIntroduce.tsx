@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { RiBook2Line } from "@react-icons/all-files/ri/RiBook2Line";
 import { RiFridgeLine } from "@react-icons/all-files/ri/RiFridgeLine";
 
+import { fadeSlide } from "@/lib/framer-motion";
 import { GradualSpacing } from "@/components/common/textAnimation/gradulaSpacing";
 
 import styles from "./mainIntroduce.module.scss";
@@ -31,18 +32,20 @@ const SERVICE_TYPES: ServiceType[] = [
   },
 ];
 
+const ANIMATE_DELAY = 1;
+const ANIMATE_DURATION = 1;
+const HOVER_SCALE = 1;
+
 export const MainIntroduce = memo(() => {
   return (
     <section className={styles.container}>
       <div className={styles.logoText}>
         <GradualSpacing text="Cookidge" />
         <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-            transition: { duration: 1, delay: 1 },
-          }}
+          variants={fadeSlide}
+          initial="upSlide"
+          animate="visible"
+          transition={{ delay: ANIMATE_DELAY, duration: ANIMATE_DURATION }}
         >
           레시피 & 냉장고 서비스
         </motion.p>
@@ -55,14 +58,16 @@ export const MainIntroduce = memo(() => {
           return (
             <motion.div
               key={type.text}
-              initial={{ opacity: 0, x: 50 * direction }}
-              exit={{ opacity: 0, x: 50 * direction }}
-              whileInView={{
-                opacity: 1,
-                x: 0,
-                transition: { type: "spring", delay: 1.5, duration: 1 },
+              variants={fadeSlide}
+              custom={50 * direction}
+              initial="leftSlide"
+              animate="visible"
+              transition={{
+                type: "spring",
+                delay: ANIMATE_DELAY * 1.5,
+                duration: ANIMATE_DURATION,
               }}
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: HOVER_SCALE }}
             >
               <LinkIconCard {...type} />
             </motion.div>
