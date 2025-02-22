@@ -8,7 +8,7 @@ import styles from "./introduceBackground.module.scss";
 const RECIPE_COUNT = 10;
 const MAX_BOTTOM = 500;
 const MIN_ANIMATION_DURATION = 10;
-const ANIAMTION_DURATION_RANDOM = 80;
+const ANIAMTION_DURATION_RANDOM = 100;
 const ANIAMTION_DELAY_RANDOM = 10;
 const ANIMATION_DELAY_DEFAULT = 20;
 
