@@ -10,7 +10,7 @@ export class RecipeQueries {
 
   static detailQuery(recipeId: IRecipe["_id"]) {
     return queryOptions({
-      queryKey: [this.keys.root, recipeId],
+      queryKey: [...this.keys.root, recipeId],
       queryFn: () => RecipeService.readRecipe(recipeId),
       enabled: !!recipeId,
     });

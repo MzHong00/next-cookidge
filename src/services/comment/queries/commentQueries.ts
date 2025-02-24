@@ -14,7 +14,7 @@ export class CommentQueries {
     const { recipeId, limit = 10 } = query;
 
     return infiniteQueryOptions({
-      queryKey: [this.keys.comment, recipeId],
+      queryKey: [...this.keys.comment, recipeId],
       queryFn: ({ pageParam, signal }) =>
         CommentService.readCommentsQuery({
           params: {

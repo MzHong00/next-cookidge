@@ -13,7 +13,7 @@ export class UserQueries {
 
   static meQuery() {
     return queryOptions({
-      queryKey: [this.keys.me],
+      queryKey: [...this.keys.me],
       queryFn: () => UserService.fetchMe(),
       refetchOnWindowFocus: false,
     });
@@ -21,7 +21,7 @@ export class UserQueries {
 
   static userQuery(name?: IUser["name"]) {
     return queryOptions({
-      queryKey: [this.keys.user, name],
+      queryKey: [...this.keys.user, name],
       queryFn: () => (name ? UserService.fetchUser(name) : null),
       enabled: !!name,
     });
@@ -37,7 +37,7 @@ export class UserQueries {
     const { user_name = "", limit = 10 } = option || {};
 
     return infiniteQueryOptions({
-      queryKey: [this.keys.infinite, user_name],
+      queryKey: [...this.keys.infinite, user_name],
       queryFn: ({ pageParam, signal }) =>
         UserService.searchUser({
           signal,
