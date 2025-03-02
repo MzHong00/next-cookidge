@@ -132,16 +132,16 @@ select {
   @include m.flex-layout(row, center, space-between);
 }
 
-.pos-abs-center {
-  @include m.pos-center();
+.abs-center {
+  @include m.abs-center();
 }
 
-.pos-abs-centerX {
-  @include m.pos-center-x();
+.abs-centerX {
+  @include m.abs-center-x();
 }
 
-.pos-abs-centerY {
-  @include m.pos-center-y();
+.abs-centerY {
+  @include m.abs-center-y();
 }
 
 .main-button {
