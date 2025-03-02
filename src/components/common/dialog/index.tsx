@@ -1,26 +1,36 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { useEffect, useState } from "react";
+import { twistFade } from "@/lib/framer-motion";
 import { AnimatePresence, motion } from "motion/react";
 import { RiCloseLine } from "@react-icons/all-files/ri/RiCloseLine";
 
 import styles from "./index.module.scss";
-import { twistFade } from "@/lib/framer-motion";
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  buttonName?: string;
-  buttonChildren?: React.ReactNode;
+interface Props
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+  buttonComponent: React.ReactNode;
+  children:
+    | React.ReactNode
+    | (({ closeHandler }: { closeHandler: () => void }) => React.ReactNode);
 }
 
 export const DialogButton = ({
-  buttonName = "버튼",
-  buttonChildren,
+  buttonComponent,
   children,
   ...props
 }: Props) => {
   const [isShow, setIsShow] = useState<boolean>(false);
   const [mounted, setMounted] = useState<boolean>(false);
+
+  const openHandler = () => {
+    setIsShow(true);
+  };
+
+  const closeHandler = () => {
+    setIsShow(false);
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -29,8 +39,8 @@ export const DialogButton = ({
 
   return mounted ? (
     <>
-      <button onClick={() => setIsShow(true)} {...props}>
-        {buttonChildren ?? buttonName}
+      <button onClick={openHandler} {...props}>
+        {buttonComponent || "버튼"}
       </button>
 
       {createPortal(
@@ -48,13 +58,14 @@ export const DialogButton = ({
                 animate="animate"
                 exit="exit"
                 transition={{ duration: 0.2 }}
+                className={styles.container}
               >
-                <div className={styles.container}>
-                  <button onClick={() => setIsShow(false)}>
-                    <RiCloseLine />
-                  </button>
-                  {children}
-                </div>
+                <button onClick={closeHandler}>
+                  <RiCloseLine />
+                </button>
+                {typeof children === "function"
+                  ? children({ closeHandler })
+                  : children}
               </motion.div>
             </div>
           )}
