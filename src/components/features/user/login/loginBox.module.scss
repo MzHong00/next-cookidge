@@ -1,0 +1,61 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    width: 600px;
+    aspect-ratio: 1/0.8;
+}
+
+.loginLayout {
+    padding: 0;
+    flex-grow: 1;
+
+    &>section {
+        padding: 1rem;
+        border-radius: inherit;
+    }
+}
+
+.loginSection {
+    padding: 1rem;
+    @include m.flex-layout(column);
+    background-color: rgb(var(--color-dark));
+    flex-basis: 60%;
+    z-index: 10;
+
+    &>button {
+        width: 100%;
+        padding-block: 0.5rem;
+        border: 1px solid silver;
+        border-radius: var(--border-radius);
+        transition-duration: 0.3s;
+
+        &:hover {
+            color: rgb(var(--background));
+            background-color: rgb(var(--foreground));
+        }
+
+        &>* {
+            background-color: unset;
+        }
+    }
+}
+
+.subSection {
+    position: relative;
+    background-color: rgb(var(--color-main), 0.7);
+    flex-grow: 1;
+    overflow: hidden;
+
+    &>svg {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        font-size: 8rem;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .container {
+        width: 100%;
+    }
+}
