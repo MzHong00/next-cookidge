@@ -3,7 +3,8 @@
 .container {
     min-width: 300px;
     min-height: 300px;
-    @include m.flex-layout(column, center, center);
+    padding: 1rem;
+    @include m.flex-layout(column, normal, normal, 0.5rem);
     position: relative;
     border-radius: var(--border-radius);
     background-color: rgb(var(--color-dark));
@@ -11,11 +12,13 @@
     box-shadow: 0px 0px 5px 1px;
     overflow: hidden;
 
-    &>button:first-child {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 1.5rem;
+    &>header {
+        width: 100%;
+        @include m.flex-layout(row-reverse, center, space-between);
+        
+        & svg {
+            font-size: 1.5rem;
+        }
     }
 }
 

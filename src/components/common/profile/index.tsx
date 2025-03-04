@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 import type { IUser } from "@/types/user";
-import { PIdToURL } from "@/utils/pidToUrl";
 
 import styles from './index.module.scss'
 
@@ -19,7 +18,7 @@ export const Profile = ({
     <div className={`${styles.container} ${className}`} {...props}>
       {picture && (
         <Image
-          src={PIdToURL(picture)}
+          src={picture}
           alt="프로필"
           width={PROFILE_WIDTH}
           height={PROFILE_WIDTH}

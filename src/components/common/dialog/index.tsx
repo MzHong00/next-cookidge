@@ -10,6 +10,7 @@ import styles from "./index.module.scss";
 
 interface Props
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+  DialogTitle?: string;
   buttonComponent: React.ReactNode;
   children:
     | React.ReactNode
@@ -17,6 +18,7 @@ interface Props
 }
 
 export const DialogButton = ({
+  DialogTitle,
   buttonComponent,
   children,
   ...props
@@ -60,9 +62,12 @@ export const DialogButton = ({
                 transition={{ duration: 0.2 }}
                 className={styles.container}
               >
-                <button onClick={closeHandler}>
-                  <RiCloseLine />
-                </button>
+                <header>
+                  <button onClick={closeHandler}>
+                    <RiCloseLine />
+                  </button>
+                  {DialogTitle && <h2>{DialogTitle}</h2>}
+                </header>
                 {typeof children === "function"
                   ? children({ closeHandler })
                   : children}
