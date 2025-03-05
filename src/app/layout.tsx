@@ -5,7 +5,6 @@ import { Header } from "@/components/layout/header/header";
 import { Navbar } from "@/components/layout/navbar";
 
 import "@/styles/globals.scss";
-import styles from './styles.module.scss';
 
 export const metadata: Metadata = {
   title: "Cookidge",
@@ -22,9 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Provider>
-          <Header className={styles.header}/>
+          <Header />
           <main>{children}</main>
-          <Navbar className={styles.navbar}/>
+          <Navbar />
         </Provider>
       </body>
     </html>

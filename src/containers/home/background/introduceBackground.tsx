@@ -1,29 +1,25 @@
-import Image from "next/image";
+"use client";
 
-import { RecipeService } from "@/services/recipe";
+import Image from "next/image";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+
 import { PIdToURL } from "@/utils/pidToUrl";
+import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 
 import styles from "./introduceBackground.module.scss";
 
-const RECIPE_COUNT = 10;
 const MAX_BOTTOM = 500;
 const MIN_ANIMATION_DURATION = 10;
 const ANIAMTION_DURATION_RANDOM = 100;
 const ANIAMTION_DELAY_RANDOM = 10;
 const ANIMATION_DELAY_DEFAULT = 20;
 
-const fetchRecipes = async () => {
-  return RecipeService.readRecipeList({
-    params: { limit: RECIPE_COUNT },
-  });
-};
-
-export const IntroduceBackground = async () => {
-  const recipes = await fetchRecipes();
+export const IntroduceBackground = () => {
+  const { data: recipes } = useSuspenseInfiniteQuery(RecipeQueries.listQuery());
 
   return (
     <section className={styles.container}>
-      {recipes.map(({ _id, pictures }) => (
+      {recipes.pages[0].map(({ _id, pictures }) => (
         <Image
           key={_id}
           src={PIdToURL(pictures[0])}

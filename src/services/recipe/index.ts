@@ -3,7 +3,7 @@ import axios from "..";
 import type { IUser } from "@/types/user";
 import type { PagenationParams } from "@/types";
 import type { IIngredient } from "@/types/ingredient";
-import type { IRecipe, IRecipeInput, IRecipeQuery } from "@/types/recipe";
+import type { IRecipe, IRecipeInput } from "@/types/recipe";
 
 export class RecipeService {
   static readonly root = "/recipe";
@@ -14,12 +14,14 @@ export class RecipeService {
     return (await axios.get(`${this.root}/read/detail/${id}`)).data[0];
   }
 
-  // next cookidge에서 다른 표현 방법 고려 (IRecipeCard)
-  static async readRecipeList(config?: {
-    params?: Partial<PagenationParams> & Partial<IRecipeQuery>;
+  static async readRecipeList(config: {
+    slug?: string;
+    params?: Partial<PagenationParams>;
     signal?: AbortSignal;
   }): Promise<IRecipe[]> {
-    return (await axios.get(`${this.root}/read-list`, config)).data;
+    const { slug = "", ...props } = config;
+
+    return (await axios.get(`${this.root}/read-list?${slug}`, props)).data;
   }
 
   static async readMyRecipe(config: {

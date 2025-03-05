@@ -13,8 +13,9 @@ const THUMBNAIL_MAX_WIDTH = 400;
 const THUMBNAIL_MAX_DIVISION = 4;
 const LIST_GAP = 10;
 
-export const RecipeList=()=> {
+export const RecipeList = () => {
   const searchParams = useSearchParams();
+  
   const { data, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery(
     RecipeQueries.listQuery(searchParams.toString())
   );
@@ -42,4 +43,4 @@ export const RecipeList=()=> {
       <div ref={target} />
     </article>
   );
-}
+};

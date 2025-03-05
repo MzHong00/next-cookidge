@@ -3,7 +3,7 @@ import axios from "axios";
 import { AuthService } from "./auth";
 
 const instance = axios.create({
-    baseURL: `/api/`
+    baseURL: `api/`
 });
 
 instance.interceptors.request.use(
@@ -22,7 +22,7 @@ instance.interceptors.response.use(
   },
   async (error) => {
     // 엑세스 토큰 만료 (재발급 로직)
-    if (error.response.status === 498) {
+    if (error.response?.status === 498) {
       const accessToken = await AuthService.issueAccessToken();
       
       if (!accessToken) return Promise.resolve();
@@ -41,7 +41,7 @@ instance.interceptors.response.use(
     }
 
     // 리프레시 토큰 만료 (로그아웃 로직)
-    if (error.response.status === 488) {
+    if (error.response?.status === 488) {
       AuthService.logout();
     }
 
