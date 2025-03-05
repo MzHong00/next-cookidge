@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { PIdToURL } from "@/utils/pidToUrl";
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
@@ -15,11 +15,11 @@ const ANIAMTION_DELAY_RANDOM = 10;
 const ANIMATION_DELAY_DEFAULT = 20;
 
 export const IntroduceBackground = () => {
-  const { data: recipes } = useSuspenseInfiniteQuery(RecipeQueries.listQuery());
+  const { data: recipes } = useInfiniteQuery(RecipeQueries.listQuery());
 
   return (
     <section className={styles.container}>
-      {recipes.pages[0].map(({ _id, pictures }) => (
+      {recipes?.pages[0].map(({ _id, pictures }) => (
         <Image
           key={_id}
           src={PIdToURL(pictures[0])}
