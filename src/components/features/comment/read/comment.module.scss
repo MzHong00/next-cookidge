@@ -1,7 +1,7 @@
 @use '/src/styles/mixin.scss' as m;
 
 .commentList {
-    background-color: rgba(var(--color-dark), 0.6);
+    background-color: rgba(var(--color-dark), 0.5)
 }
 
 .comment {

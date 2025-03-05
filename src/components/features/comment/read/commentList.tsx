@@ -3,7 +3,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import type { IUser } from "@/types/user";
@@ -15,8 +14,9 @@ import { UserQueries } from "@/services/user/queries/userQueries";
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import { CommentQueries } from "@/services/comment/queries/commentQueries";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { Profile } from "@/components/common/profile";
 import { IconBox } from "@/components/common/iconBox";
-import { SubjectBox } from "@/components/common/subjectBox";
+import { FlexColumn } from "@/components/common/flexBox";
 import { CreateComment } from "../create/createComment";
 import { DeleteCommentButton } from "../delete/deleteCommentButton";
 
@@ -29,7 +29,8 @@ export const CommentList = ({ recipe_id }: { recipe_id: IRecipe["_id"] }) => {
   const setTarget = useIntersectionObserver({ hasNextPage, fetchNextPage });
 
   return (
-    <SubjectBox title="댓글" className={styles.commentList}>
+    <FlexColumn className={styles.commentList}>
+      <h2>댓글</h2>
       <CreateComment recipeId={recipe_id} />
       <div className="flex-column">
         {data?.pages.map((page) =>
@@ -39,7 +40,7 @@ export const CommentList = ({ recipe_id }: { recipe_id: IRecipe["_id"] }) => {
         )}
         <div id="observer" ref={setTarget} style={{ height: "10%" }} />
       </div>
-    </SubjectBox>
+    </FlexColumn>
   );
 };
 
@@ -65,12 +66,7 @@ const Comment = ({
     <div className={styles.comment}>
       <Link href={`/user/${user[0].name}`}>
         <IconBox className={styles.profileButton}>
-          <Image
-            src={PIdToURL(user[0].picture)}
-            alt=""
-            width={40}
-            height={40}
-          />
+          <Profile picture={PIdToURL(user[0].picture)}/>
         </IconBox>
       </Link>
       <div>

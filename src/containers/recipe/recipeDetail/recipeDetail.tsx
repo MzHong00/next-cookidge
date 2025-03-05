@@ -10,6 +10,7 @@ import { RiCalendarLine } from "@react-icons/all-files/ri/RiCalendarLine";
 
 import type { IRecipe } from "@/types/recipe";
 import type { IIngredient } from "@/types/ingredient";
+import { PIdToURL } from "@/utils/pidToUrl";
 import { fadeSlide } from "@/lib/framer-motion";
 import { CurrentDateGap } from "@/utils/currentDateGap";
 import { INGREDIENT_CATEGORIES } from "@/constants/ingredient";
@@ -45,11 +46,11 @@ export function RecipeDetail({ id }: { id: string }) {
         animate="visible"
       >
         <Link href={`/user/${name}`}>
-          <Profile _id={_id} name={name} picture={picture} />
+          <Profile _id={_id} name={name} picture={PIdToURL(picture)} />
         </Link>
 
         <TabIndex tab={tab} onClick={changeTabHandler} />
-        
+
         {tab === SECTION[0] && (
           <motion.div
             variants={fadeSlide}
