@@ -1,5 +1,5 @@
-import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default () => {
   const router = useRouter();
@@ -11,29 +11,50 @@ export default () => {
   );
 
   const routing = useCallback(
-    (params: URLSearchParams) => {
-      router.replace(`?${params.toString()}`, { scroll: false });
+    (updatedParams: URLSearchParams) => {
+      router.replace(`?${updatedParams.toString()}`, { scroll: false });
     },
     [router]
   );
 
-  const setSearchParams = useMemo(
-    () => ({
-      set: (name: string, value: string) => {
-        params.set(name, value);
-        routing(params);
-      },
-      append: (name: string, value: string) => {
-        params.append(name, value);
-        routing(params);
-      },
-      delete: (name: string, value?: string) => {
-        params.delete(name, value);
-        routing(params);
-      },
-    }),
+  const setParam = useCallback(
+    (name: string, value: string) => {
+      params.set(name, value);
+      routing(params);
+    },
     [params, routing]
   );
 
-  return [searchParams, setSearchParams] as const;
+  const appendParam = useCallback(
+    (name: string, value: string) => {
+      const targetParamValues = params.getAll(name);
+      const isDulicated = targetParamValues.find((param) => value === param);
+
+      // 중복 값일때, 해당 값 제거
+      if (isDulicated) {
+        params.delete(name);
+
+        const nonDulicatedParam = targetParamValues.filter((v) => v !== value);
+        nonDulicatedParam.forEach((v) => params.append(name, v));
+      } else {
+        params.append(name, value);
+      }
+      
+      routing(params);
+    },
+    [params, routing]
+  );
+
+  const deleteParam = useCallback(
+    (name: string, value?: string) => {
+      params.delete(name, value);
+      routing(params);
+    },
+    [params, routing]
+  );
+
+  return [
+    searchParams,
+    { set: setParam, append: appendParam, delete: deleteParam },
+  ] as const;
 };
