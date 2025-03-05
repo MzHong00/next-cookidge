@@ -10,6 +10,7 @@
   --foreground: 237, 237, 237;
   --background: 10, 10, 10;
   --color-main: 96, 159, 255;
+  --color-dark-light: 67, 73, 87;
   --color-dark: 37, 40, 48;
   --color-grey-light: 227, 227, 227;
   --color-grey-medium: 121, 121, 121;
@@ -74,6 +75,10 @@ input[type="button"],
 input[type="submit"],
 input[type="date"] {
   cursor: pointer;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
 }
 
 dialog {
