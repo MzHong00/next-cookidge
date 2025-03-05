@@ -1,9 +1,10 @@
 @use '/src/styles/mixin.scss' as m;
 
 .container {
-    width: fit-content;
-    padding: 0.25rem;
-    @include m.flex-layout(row, normal, space-evenly, 0);
+    padding: 0.5rem;
+    @include m.abs-center-x(fixed);
+    bottom: 10px;
+    @include m.flex-layout(row, normal, space-evenly);
     border: 2px solid;
     border-radius: var(--border-radius);
     z-index: 10;
@@ -12,27 +13,23 @@
 
 .profile {
     width: 40px;
+    height: 40px;
     @include m.flex-layout(row, center, center, 0);
     border-radius: 100%;
-    aspect-ratio: 1;
+    background-color: rgba(silver, 0.2);
+    overflow: hidden;
 }
 
 .nav {
     @include m.flex-layout(row, normal, normal, 0);
-
     background-color: rgb(var(--foreground));
     border-radius: var(--border-radius);
     overflow: hidden;
 
     &>a {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 40px;
+        height: 40px;
         @include m.flex-layout(row, center, center, 0.5rem);
-        color: rgb(var(--color-grey-medium));
+        color: rgb(var(--background));
     }
-}
-
-.extendActive {
-    border-top: none;
-    border-radius: 0 0 10px 10px;
 }
