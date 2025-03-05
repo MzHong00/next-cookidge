@@ -22,3 +22,8 @@ export const FOOD_CATEGORIES: EmojiCatgories[] = [
     text: "디저트",
   },
 ];
+
+export const RECIPE_SORT = [
+  { query: "time", text: "시간순" },
+  { query: "like", text: "좋아요순" },
+];
