@@ -6,7 +6,7 @@ import { twistFade } from "@/lib/framer-motion";
 import { AnimatePresence, motion } from "motion/react";
 import { RiCloseLine } from "@react-icons/all-files/ri/RiCloseLine";
 
-import styles from "./index.module.scss";
+import styles from "./dialog.module.scss";
 
 interface Props
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children"> {

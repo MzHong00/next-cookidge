@@ -8,8 +8,7 @@ import { RiUserLine } from "@react-icons/all-files/ri/RiUserLine";
 import { PIdToURL } from "@/utils/pidToUrl";
 import { NAV_TYPES } from "@/constants/nav";
 import { Profile } from "@/components/common/profile";
-import { DialogButton } from "@/components/common/dialog";
-import { LoginBox } from "@/components/features/user/login/loginBox";
+import { DialogButton } from "@/components/common/dialog/dialogButton";
 import { UserQueries } from "@/services/user/queries/userQueries";
 
 import styles from "./index.module.scss";
@@ -26,13 +25,15 @@ export function Navbar({ style, className }: Partial<Props>) {
     <nav style={style} className={`${styles.container} ${className}`}>
       <div className={styles.profile}>
         {user ? (
-          <DialogButton buttonComponent={<Profile picture={PIdToURL(user.picture)} />}>
+          <DialogButton
+            buttonComponent={<Profile picture={PIdToURL(user.picture)} />}
+          >
             <Link href="user">내 정보</Link>
           </DialogButton>
         ) : (
-          <DialogButton DialogTitle="로그인" buttonComponent={<RiUserLine />}>
-            <LoginBox />
-          </DialogButton>
+          <Link href="/login" scroll={false}>
+            <RiUserLine />
+          </Link>
         )}
       </div>
 

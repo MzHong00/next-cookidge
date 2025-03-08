@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { RiGroupLine } from "@react-icons/all-files/ri/RiGroupLine";
@@ -25,17 +25,22 @@ import { CommentList } from "@/components/features/comment/read/commentList";
 import styles from "./recipeDetail.module.scss";
 
 const SECTION = ["요리소개", "조리과정"] as const;
+const SLIDE_MOVE_PX = 300;
 
 export function RecipeDetail({ id }: { id: string }) {
   const [tab, setTab] = useState<(typeof SECTION)[number]>(SECTION[0]);
+  
   const { data: recipe } = useSuspenseQuery(RecipeQueries.detailQuery(id));
 
   const { ingredients, cooking_steps, user, ...contents } = recipe;
   const { _id, name, picture } = user;
 
-  const changeTabHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setTab(e.currentTarget.innerText as (typeof SECTION)[number]);
-  };
+  const changeTabHandler = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      setTab(e.currentTarget.innerText as (typeof SECTION)[number]);
+    },
+    []
+  );
 
   return (
     <div className="flex-column">
@@ -44,6 +49,7 @@ export function RecipeDetail({ id }: { id: string }) {
         variants={fadeSlide}
         initial="leftSlide"
         animate="visible"
+        custom={SLIDE_MOVE_PX}
       >
         <Link href={`/user/${name}`}>
           <Profile _id={_id} name={name} picture={PIdToURL(picture)} />
@@ -141,25 +147,27 @@ const Ingredients = ({
   );
 };
 
-const TabIndex = ({
-  tab,
-  onClick,
-}: {
-  tab: (typeof SECTION)[number];
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-}) => {
-  return (
-    <div className={styles.cardTabIndex}>
-      {SECTION.map((v) => (
-        <button key={v} onClick={onClick}>
-          <IconBox>
-            {v}
-            {v === tab && (
-              <motion.div layoutId="underline" className={styles.underline} />
-            )}
-          </IconBox>
-        </button>
-      ))}
-    </div>
-  );
-};
+const TabIndex = memo(
+  ({
+    tab,
+    onClick,
+  }: {
+    tab: (typeof SECTION)[number];
+    onClick: React.MouseEventHandler<HTMLButtonElement>;
+  }) => {
+    return (
+      <div className={styles.cardTabIndex}>
+        {SECTION.map((v) => (
+          <button key={v} onClick={onClick}>
+            <IconBox>
+              {v}
+              {v === tab && (
+                <motion.div layoutId="underline" className={styles.underline} />
+              )}
+            </IconBox>
+          </button>
+        ))}
+      </div>
+    );
+  }
+);
