@@ -24,7 +24,7 @@ import styles from "./comment.module.scss";
 
 export const CommentList = ({ recipe_id }: { recipe_id: IRecipe["_id"] }) => {
   const { data, fetchNextPage, hasNextPage } = useSuspenseInfiniteQuery(
-    CommentQueries.infiniteQuery({ recipeId: recipe_id, limit: 10 })
+    CommentQueries.infiniteQuery(recipe_id)
   );
   const setTarget = useIntersectionObserver({ hasNextPage, fetchNextPage });
 
