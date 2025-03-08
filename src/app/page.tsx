@@ -10,9 +10,9 @@ import { IntroduceBackground } from "@/containers/home/background/introduceBackg
 
 import styles from "./page.module.scss";
 
-export default function HomePage() {
+export default async function HomePage() {
   const queryClient = new QueryClient();
-  queryClient.prefetchInfiniteQuery(RecipeQueries.listQuery());
+  await queryClient.prefetchInfiniteQuery(RecipeQueries.listQuery());
 
   return (
     <div className={styles.container}>
