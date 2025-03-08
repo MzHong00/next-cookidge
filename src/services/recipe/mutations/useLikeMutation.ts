@@ -5,34 +5,29 @@ import {
 } from "@tanstack/react-query";
 
 import type { IUser } from "@/types/user";
-import { RecipeService } from "..";
 import type { IRecipe } from "@/types/recipe";
+import { RecipeService } from "..";
 import { RecipeQueries } from "../queries/recipeQueries";
 import { UserQueries } from "@/services/user/queries/userQueries";
 
+//낙관적 업데이트로 작동
 export const useLikeMutation = (recipeId: IRecipe["_id"]) => {
   const queryClient = useQueryClient();
   const { root, list } = RecipeQueries.keys;
-  const me = queryClient.getQueryData([UserQueries.keys.me]) as IUser;
-
-  const detailRecipeQueryKey = [...root, recipeId];
+  const me = queryClient.getQueryData<IUser>(UserQueries.keys.me);
 
   return useMutation({
     mutationFn: () => RecipeService.likeRecipe(recipeId),
     onMutate: async () => {
-      Promise.all([
+      //좋아요를 눌렀을 때, 레시피 리스트와 Detail의 데이터를 최신화하기 위한 작업
+      await Promise.all([
         queryClient.cancelQueries({ queryKey: list }),
-        queryClient.cancelQueries({ queryKey: detailRecipeQueryKey }),
+        queryClient.cancelQueries({ queryKey: [...root, recipeId] }),
       ]);
 
-      const prevInfiniteRecipes = queryClient.getQueryData(
-        list
-      ) as InfiniteData<IRecipe[]>;
-      const prevDetailRecipe = queryClient.getQueryData(
-        detailRecipeQueryKey
-      ) as IRecipe;
+      const prevInfiniteRecipes =
+        queryClient.getQueryData<InfiniteData<IRecipe[]>>(list);
 
-      // 무한 스크롤 레시피 목록에 좋아요만 반영
       if (prevInfiniteRecipes) {
         queryClient.setQueryData(list, (data: InfiniteData<IRecipe[]>) => ({
           ...data,
@@ -41,7 +36,7 @@ export const useLikeMutation = (recipeId: IRecipe["_id"]) => {
               recipe._id === recipeId
                 ? {
                     ...recipe,
-                    like_members: [...recipe.like_members, me._id],
+                    like_members: [...recipe.like_members, me?._id],
                   }
                 : recipe
             )
@@ -49,28 +44,33 @@ export const useLikeMutation = (recipeId: IRecipe["_id"]) => {
         }));
       }
 
+      const prevDetailRecipe = queryClient.getQueryData<IRecipe>([
+        ...root,
+        recipeId,
+      ]);
+
       if (prevDetailRecipe) {
-        queryClient.setQueryData(detailRecipeQueryKey, (recipe: IRecipe) => ({
-          ...recipe,
-          like_members: [...recipe.like_members, me._id],
+        queryClient.setQueryData([...root, recipeId], (prev: IRecipe) => ({
+          ...prev,
+          like_members: [...prev.like_members, me?._id],
         }));
       }
 
-      return { prevInfiniteRecipes, prevDetailRecipe };
+      return { prevDetailRecipe, prevInfiniteRecipes };
     },
-    // onSettled: async () => {
-    //   await Promise.all([
-    //     // 나의 좋아요 리스트 refetch
-    //     queryClient.invalidateQueries({
-    //       queryKey: [root, list, like, me.name],
-    //     }),
-    //   ]);
-    // },
+    onSettled: async () => {
+      await Promise.all([
+        // 나의 좋아요 리스트 refetch
+        queryClient.invalidateQueries({
+          queryKey: [...root, recipeId],
+        }),
+      ]);
+    },
     onError: async (err, variables, context) => {
       await Promise.all([
         queryClient.setQueryData(list, context?.prevInfiniteRecipes),
         queryClient.setQueryData(
-          detailRecipeQueryKey,
+          [...root, recipeId],
           context?.prevDetailRecipe
         ),
       ]);
@@ -78,27 +78,37 @@ export const useLikeMutation = (recipeId: IRecipe["_id"]) => {
   });
 };
 
+//낙관적 업데이트로 작동
 export const useUnlikeMutation = (recipeId: IRecipe["_id"]) => {
   const queryClient = useQueryClient();
   const { root, list } = RecipeQueries.keys;
-  const me = queryClient.getQueryData([UserQueries.keys.me]) as IUser;
-
-  const detailRecipeQueryKey = [root, recipeId];
+  const me = queryClient.getQueryData<IUser>(UserQueries.keys.me)
 
   return useMutation({
     mutationFn: () => RecipeService.unlikeRecipe(recipeId),
     onMutate: async () => {
+      //좋아요를 눌렀을 때, 레시피 리스트와 Detail의 데이터를 최신화하기 위한 작업
       Promise.all([
         queryClient.cancelQueries({ queryKey: list }),
-        queryClient.cancelQueries({ queryKey: detailRecipeQueryKey }),
+        queryClient.cancelQueries({ queryKey: [...root, recipeId] }),
       ]);
+      
+      const prevDetailRecipe = queryClient.getQueryData<IRecipe>([
+        ...root,
+        recipeId,
+      ]);
+      
+      if (prevDetailRecipe) {
+        queryClient.setQueryData([...root, recipeId], (recipe: IRecipe) => ({
+          ...recipe,
+          like_members: recipe.like_members.filter(
+            (member) => member !== me?._id
+          ),
+        }));
+      }
 
-      const prevInfiniteRecipes = queryClient.getQueryData(
-        list
-      ) as InfiniteData<IRecipe[]>;
-      const prevDetailRecipe = queryClient.getQueryData(
-        detailRecipeQueryKey
-      ) as IRecipe;
+      const prevInfiniteRecipes =
+        queryClient.getQueryData<InfiniteData<IRecipe[]>>(list);
 
       // 무한 스크롤 레시피 목록에 좋아요만 반영
       if (prevInfiniteRecipes) {
@@ -110,7 +120,7 @@ export const useUnlikeMutation = (recipeId: IRecipe["_id"]) => {
                 ? {
                     ...recipe,
                     like_members: recipe.like_members.filter(
-                      (member) => member !== me._id
+                      (member) => member !== me?._id
                     ),
                   }
                 : recipe
@@ -119,30 +129,21 @@ export const useUnlikeMutation = (recipeId: IRecipe["_id"]) => {
         }));
       }
 
-      if (prevDetailRecipe) {
-        queryClient.setQueryData(detailRecipeQueryKey, (recipe: IRecipe) => ({
-          ...recipe,
-          like_members: recipe.like_members.filter(
-            (member) => member !== me._id
-          ),
-        }));
-      }
-
       return { prevInfiniteRecipes, prevDetailRecipe };
     },
-    // onSettled: async () => {
-    //   await Promise.all([
-    //     // 나의 좋아요 리스트 refetch
-    //     queryClient.invalidateQueries({
-    //       queryKey: [root, list, like, me.name],
-    //     }),
-    //   ]);
-    // },
+    onSettled: async () => {
+      await Promise.all([
+        // 나의 좋아요 리스트 refetch
+        queryClient.invalidateQueries({
+          queryKey: [...root, recipeId],
+        }),
+      ]);
+    },
     onError: async (err, variables, context) => {
       await Promise.all([
         queryClient.setQueryData(list, context?.prevInfiniteRecipes),
         queryClient.setQueryData(
-          detailRecipeQueryKey,
+          [...root, recipeId],
           context?.prevDetailRecipe
         ),
       ]);

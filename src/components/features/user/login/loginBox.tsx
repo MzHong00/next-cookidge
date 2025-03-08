@@ -19,8 +19,6 @@ export const LoginBox = () => {
 
   return (
     <FlexColumn className={styles.container}>
-      <h2>로그인</h2>
-
       <FlexRow>
         {LOGIN_TYPES.map((type) => (
           <button
