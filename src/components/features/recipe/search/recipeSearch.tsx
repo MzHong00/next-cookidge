@@ -24,7 +24,7 @@ const useSetTitleQuery = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    if (searchParams.get("title")) return;
+    if (!searchParams.get("title") && !title) return;
 
     const timer = setTimeout(() => {
       setSearchParams.set("title", title);

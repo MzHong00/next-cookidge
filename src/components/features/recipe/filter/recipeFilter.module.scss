@@ -1,31 +1,19 @@
 @use '/src/styles/mixin.scss' as m;
 
-.container {
-    @include m.flex-layout(row, stretch, stretch, 0);
+.filterContentsBox {
 
-    &>button {
-        padding-inline: 0.25rem;
-    }
-}
-
-.category {
-    @include m.flex-layout(row, stretch, space-between, 0.75rem);
-    flex-wrap: nowrap;
-    border-radius: 0;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-        display: none;
+    .sectionTitle {
+        margin-block: 0.5rem;
     }
 
-    & button {
-        border-radius: 10px;
-        transition-duration: 0.3s;
-    }
-}
+    .categoryList {
+        @include m.flex-layout(row);
 
-.inActiveButton {
-    visibility: hidden;
+        &>li>button {
+            background-color: rgb(var(--color-dark-light));
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition-duration: 0.3s;
+        }
+    }
 }
