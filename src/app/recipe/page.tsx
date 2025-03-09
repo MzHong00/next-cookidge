@@ -3,6 +3,8 @@
 import dynamic from "next/dynamic";
 
 import { RecipeSearchOption } from "@/containers/recipe/recipeSearchOption/recipeSearchOption";
+import { Steps } from "@/components/common/steps";
+import CreateRecipeForm from "@/components/features/recipe/create/createRecipeForm";
 
 const RecipeList = dynamic(
   () =>
@@ -15,6 +17,7 @@ const RecipeList = dynamic(
 export default function RecipePage() {
   return (
     <>
+      <CreateRecipeForm />
       <RecipeSearchOption />
       <RecipeList />
     </>

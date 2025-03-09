@@ -17,6 +17,7 @@ import { INGREDIENT_CATEGORIES } from "@/constants/ingredient";
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import { IconBox } from "@/components/common/iconBox";
 import { Profile } from "@/components/common/profile";
+import { Underline } from "@/components/common/underline";
 import { PictureSlider } from "@/components/common/pictureSlider";
 import { RecipeStep } from "@/components/features/recipe/step/recipeStep";
 import { LikeButton } from "@/components/features/recipe/like/likeButtton";
@@ -161,9 +162,7 @@ const TabIndex = memo(
           <button key={v} onClick={onClick}>
             <IconBox>
               {v}
-              {v === tab && (
-                <motion.div layoutId="underline" className={styles.underline} />
-              )}
+              {v === tab && <Underline />}
             </IconBox>
           </button>
         ))}
