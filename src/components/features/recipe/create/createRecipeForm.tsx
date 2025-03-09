@@ -1,10 +1,13 @@
-import { Steps } from "@/components/common/steps";
 import {
   useForm,
   SubmitHandler,
   useFieldArray,
   type UseFormReturn,
 } from "react-hook-form";
+
+import { Steps } from "@/components/common/steps";
+
+import styles from './createRecipeForm.module.scss';
 
 interface Props {
   useForm: UseFormReturn<IRecipe, any, undefined>;
@@ -40,7 +43,7 @@ export default function CreateRecipeForm() {
   const onSubmit: SubmitHandler<IRecipe> = (data) => console.log(data);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <Steps>
         <RecipeInfoFields key="정보" useForm={hookForm} />
         <IngredientFields key="재료" useForm={hookForm} />

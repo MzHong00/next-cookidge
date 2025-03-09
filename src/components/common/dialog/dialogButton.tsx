@@ -1,15 +1,16 @@
 "use client";
 
 import { createPortal } from "react-dom";
-import { useEffect, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { twistFade } from "@/lib/framer-motion";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { RiCloseLine } from "@react-icons/all-files/ri/RiCloseLine";
 
 import styles from "./dialog.module.scss";
 
-interface Props
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+interface Props {
+  className?: string;
+  style?: CSSProperties;
   DialogTitle?: string;
   buttonComponent: React.ReactNode;
   children:
@@ -18,10 +19,11 @@ interface Props
 }
 
 export const DialogButton = ({
+  style,
+  children,
+  className,
   DialogTitle,
   buttonComponent,
-  children,
-  ...props
 }: Props) => {
   const [isShow, setIsShow] = useState<boolean>(false);
   const [mounted, setMounted] = useState<boolean>(false);
@@ -41,15 +43,13 @@ export const DialogButton = ({
 
   return mounted ? (
     <>
-      <button onClick={openHandler} {...props}>
-        {buttonComponent || "버튼"}
-      </button>
+      <button onClick={openHandler}>{buttonComponent || "버튼"}</button>
 
       {createPortal(
-        <AnimatePresence>
+        <>
           {isShow && (
             <div
-              className={styles.background}
+              className={`${styles.background}`}
               onClick={(e) => {
                 if (e.target === e.currentTarget) setIsShow(false);
               }}
@@ -58,9 +58,9 @@ export const DialogButton = ({
                 variants={twistFade}
                 initial="initial"
                 animate="animate"
-                exit="exit"
                 transition={{ duration: 0.2 }}
-                className={styles.container}
+                style={style}
+                className={`${styles.container} ${className}`}
               >
                 <header>
                   <button onClick={closeHandler}>
@@ -74,7 +74,7 @@ export const DialogButton = ({
               </motion.div>
             </div>
           )}
-        </AnimatePresence>,
+        </>,
         document.body
       )}
     </>

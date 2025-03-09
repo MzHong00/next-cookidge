@@ -1,45 +1,39 @@
-import Link from "next/link";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
-import useSearchParams from "@/hooks/useSearchParams";
-import { useRouter } from "next/navigation";
+import { IconBox } from "../iconBox";
+import { Underline } from "../underline";
 
-const PARAMS_KEY = "step";
+import styles from "./index.module.scss";
 
 export function Steps({ children }: { children: React.ReactElement[] }) {
-  const router = useRouter();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [curStep, setCurStep] = useState<number>(0);
+  const lastStep = children.length - 1;
 
   return (
-    <div>
-      <nav>
-        <button>이전</button>
-        <section className="flex-row">
-          {children.map((node) => (
-            <Link key={node.key} href={`?${PARAMS_KEY}=${node.key}`}>
+    <div className={styles.container}>
+      <header className="flex-row">
+        {children.map((node, i) => (
+          <button key={node.key} onClick={() => setCurStep(i)}>
+            <IconBox>
               {node.key}
-            </Link>
-          ))}
-        </section>
-      </nav>
-
-      {children.map((node, i) => {
-        const curStep = node.key === searchParams.get(PARAMS_KEY);
-        const isLastStep = children.length === i + 1;
-
-        return (
-          curStep && (
-            <Fragment key={node.key}>
-              {node}
-              {isLastStep ? (
-                <input type="submit" value="완료" />
-              ) : (
-                <button>다음</button>
-              )}
-            </Fragment>
-          )
-        );
-      })}
+              {curStep === i && <Underline />}
+            </IconBox>
+          </button>
+        ))}
+      </header>
+      <main>
+        {children.map(
+          (node, i) =>
+            curStep === i && <Fragment key={node.key}>{node}</Fragment>
+        )}
+      </main>
+      <footer>
+        {lastStep === curStep ? (
+          <input type="submit" value="완료" />
+        ) : (
+          <button onClick={() => setCurStep((prev) => prev + 1)}>다음</button>
+        )}
+      </footer>
     </div>
   );
 }
