@@ -1,4 +1,14 @@
-import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
+import { Steps } from "@/components/common/steps";
+import {
+  useForm,
+  SubmitHandler,
+  useFieldArray,
+  type UseFormReturn,
+} from "react-hook-form";
+
+interface Props {
+  useForm: UseFormReturn<IRecipe, any, undefined>;
+}
 
 export interface IIngredient {
   name: string;
@@ -21,35 +31,33 @@ export interface IRecipe {
 }
 
 export default function CreateRecipeForm() {
+  const hookForm = useForm<IRecipe>();
   const {
-    register,
     handleSubmit,
-    control,
     formState: { errors },
-  } = useForm<IRecipe>();
-
-  const {
-    fields: ingredientFields,
-    append: appendIngredient,
-    remove: removeIngredient,
-  } = useFieldArray({
-    control,
-    name: "ingredients",
-  });
-
-  const {
-    fields: stepFields,
-    append: appendStep,
-    remove: removeStep,
-  } = useFieldArray({
-    control,
-    name: "cooking_steps",
-  });
-
+  } = hookForm;
+  
   const onSubmit: SubmitHandler<IRecipe> = (data) => console.log(data);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <Steps>
+        <RecipeInfoFields key="정보" useForm={hookForm} />
+        <IngredientFields key="재료" useForm={hookForm} />
+        <CookingStepFields key="조리과정" useForm={hookForm} />
+      </Steps>
+    </form>
+  );
+}
+
+const RecipeInfoFields = ({ useForm }: Props) => {
+  const {
+    register,
+    formState: { errors },
+  } = useForm;
+
+  return (
+    <>
       <input
         placeholder="Recipe Name"
         {...register("name", { required: true })}
@@ -81,7 +89,24 @@ export default function CreateRecipeForm() {
         {...register("cooking_time", { required: true })}
       />
       {errors.cooking_time && <span>Cooking time is required</span>}
+    </>
+  );
+};
 
+export const IngredientFields = ({ useForm }: Props) => {
+  const { register, control } = useForm;
+
+  const {
+    fields: ingredientFields,
+    append: appendIngredient,
+    remove: removeIngredient,
+  } = useFieldArray({
+    control,
+    name: "ingredients",
+  });
+
+  return (
+    <>
       <h3>Ingredients</h3>
       {ingredientFields.map((field, index) => (
         <div key={field.id}>
@@ -104,7 +129,24 @@ export default function CreateRecipeForm() {
       >
         Add Ingredient
       </button>
+    </>
+  );
+};
 
+export const CookingStepFields = ({ useForm }: Props) => {
+  const { register, control } = useForm;
+
+  const {
+    fields: stepFields,
+    append: appendStep,
+    remove: removeStep,
+  } = useFieldArray({
+    control,
+    name: "cooking_steps",
+  });
+
+  return (
+    <>
       <h3>Cooking Steps</h3>
       {stepFields.map((field, index) => (
         <div key={field.id}>
@@ -122,8 +164,6 @@ export default function CreateRecipeForm() {
       <button type="button" onClick={() => appendStep({ description: "" })}>
         Add Step
       </button>
-
-      <input type="submit" value="Create Recipe" />
-    </form>
+    </>
   );
-}
+};
