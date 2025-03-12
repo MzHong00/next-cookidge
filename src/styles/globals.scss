@@ -15,7 +15,7 @@
   --color-grey-light: 227, 227, 227;
   --color-grey-medium: 121, 121, 121;
   --icon-size-medium: 1.25em;
-  --base-box-shadow: 0px 1px 2px 1px silver;
+  --base-box-shadow: 0px 0px 2px 1px silver;
   --border-radius: 10px;
 }
 
@@ -30,7 +30,6 @@ html,
 body {
   max-width: 100vw;
   height: 100vh;
-  overflow-x: hidden;
 }
 
 body {
@@ -56,6 +55,9 @@ a {
 }
 
 button,
+select,
+textarea,
+input,
 input[type="button"],
 input[type="submit"],
 input[type="date"],
@@ -107,10 +109,31 @@ textarea {
   resize: none;
 }
 
-select {
+select, label {
   cursor: pointer;
 }
 
+/* width */
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  border-radius: 5px;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-grey-light));
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--color-grey-medium));
+}
 
 // mixin className으로 즉시 사용 (Tailwind 처럼)
 .flex-column {

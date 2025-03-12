@@ -1,5 +1,8 @@
 import type { EmojiCatgories } from "@/types";
 
+export const NAME_LIMIT_LENGTH = 20;
+export const INTRODUCE_LIMIT_LENGTH = 100;
+export const QUANTITY_LIMIT_LENGTH = 10;
 export const FOOD_CATEGORIES: EmojiCatgories[] = [
   {
     emoji: "🍚",

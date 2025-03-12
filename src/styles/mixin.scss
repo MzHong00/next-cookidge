@@ -45,30 +45,6 @@
     transform: translate(-50%, -50%);
 }
 
-@mixin scrollbar() {
-    /* width */
-    &::-webkit-scrollbar {
-        width: 4px;
-        height: 4px;
-    }
-
-    /* Track */
-    &::-webkit-scrollbar-track {
-        border-radius: 5px;
-    }
-
-    /* Handle */
-    &::-webkit-scrollbar-thumb {
-        background: silver;
-        border-radius: 5px;
-    }
-
-    /* Handle on hover */
-    &::-webkit-scrollbar-thumb:hover {
-        background: rgb(var(--color-grey-medium));
-    }
-}
-
 @mixin skeleton-shimmer {
     background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
     background-size: 200% 100%;

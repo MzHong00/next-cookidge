@@ -87,6 +87,12 @@ return mounted ? <Component /> : null
 
 </hr>
 
+> **NextJS zod FileList is not defined 에러**
+
+원인: `pictures: z.instanceof(FileList)` 검증 코드에서 FileList는 브라우저가 제공하는 API이기 떄문에 서버측에서 코드를 실행할 때, FileList를 모른다.
+
+해결: 구글링을 통해 `z.custom<FileList>((val) => val instanceof FileList && val.length > 0` 커스텀하여 해결
+
 >**인터셉터 라우팅 적용 안됨 및 initialTree is not iterable 에러**
 
 ✔ `.next`폴더 제거 후, 개발 서버 재실행

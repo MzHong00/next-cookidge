@@ -4,7 +4,7 @@ import Image from "next/image";
 import { RiArrowDropLeftLine } from "@react-icons/all-files/ri/RiArrowDropLeftLine";
 import { RiArrowDropRightLine } from "@react-icons/all-files/ri/RiArrowDropRightLine";
 
-import type { IRecipe } from "@/types/recipe";
+import type { IRecipe } from "@/types/recipe/recipe";
 import { IconBox } from "@/components/common/iconBox";
 import { useSlide } from "@/hooks/useSlide";
 import { PIdToURL } from "@/utils/pidToUrl";

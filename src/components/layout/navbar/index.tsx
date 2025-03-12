@@ -28,7 +28,7 @@ export function Navbar({ style, className }: Partial<Props>) {
           <DialogButton
             buttonComponent={<Profile picture={PIdToURL(user.picture)} />}
           >
-            <Link href="user">내 정보</Link>
+            <Link href="/user">내 정보</Link>
           </DialogButton>
         ) : (
           <Link href="/login" scroll={false}>

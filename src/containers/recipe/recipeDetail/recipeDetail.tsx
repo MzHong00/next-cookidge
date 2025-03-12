@@ -8,8 +8,7 @@ import { RiGroupLine } from "@react-icons/all-files/ri/RiGroupLine";
 import { RiTimer2Line } from "@react-icons/all-files/ri/RiTimer2Line";
 import { RiCalendarLine } from "@react-icons/all-files/ri/RiCalendarLine";
 
-import type { IRecipe } from "@/types/recipe";
-import type { IIngredient } from "@/types/ingredient";
+import type { IIngredient, IRecipe } from "@/types/recipe/recipe";
 import { PIdToURL } from "@/utils/pidToUrl";
 import { fadeSlide } from "@/lib/framer-motion";
 import { CurrentDateGap } from "@/utils/currentDateGap";

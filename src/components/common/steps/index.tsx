@@ -5,15 +5,21 @@ import { Underline } from "../underline";
 
 import styles from "./index.module.scss";
 
-export function Steps({ children }: { children: React.ReactElement[] }) {
+export const Steps = ({ children }: { children: React.ReactElement[] }) => {
   const [curStep, setCurStep] = useState<number>(0);
   const lastStep = children.length - 1;
 
   return (
     <div className={styles.container}>
-      <header className="flex-row">
+      <header>
         {children.map((node, i) => (
-          <button key={node.key} onClick={() => setCurStep(i)}>
+          <button
+            key={node.key}
+            onClick={(e) => {
+              e.preventDefault();
+              setCurStep(i);
+            }}
+          >
             <IconBox>
               {node.key}
               {curStep === i && <Underline />}
@@ -31,9 +37,16 @@ export function Steps({ children }: { children: React.ReactElement[] }) {
         {lastStep === curStep ? (
           <input type="submit" value="완료" />
         ) : (
-          <button onClick={() => setCurStep((prev) => prev + 1)}>다음</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setCurStep((prev) => prev + 1);
+            }}
+          >
+            다음
+          </button>
         )}
       </footer>
     </div>
   );
-}
+};
