@@ -1,36 +1,34 @@
+"use client";
+
+import Image from "next/image";
+import { Fragment, memo } from "react";
 import {
   useForm,
   SubmitHandler,
   useFieldArray,
   type UseFormReturn,
 } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { RiAddLine } from "@react-icons/all-files/ri/RiAddLine";
 import { CgRemoveR } from "@react-icons/all-files/cg/CgRemoveR";
 
 import { Steps } from "@/components/common/steps";
-
-import styles from "./createRecipeForm.module.scss";
 import { IconBox } from "@/components/common/iconBox";
-import { INGREDIENT_CATEGORIES } from "@/constants/ingredient";
-import { FOOD_CATEGORIES, INTRODUCE_LIMIT_LENGTH } from "@/constants/recipe";
 import { Tooltip } from "@/components/common/toolTip";
 import { InputBox } from "@/components/common/inputBox";
 import { InputFile } from "@/components/common/inputFile";
-import {
-  CreateRecipeSchema,
-  type CreateRecipe,
-} from "@/types/recipe/recipe.contract";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Fragment, memo, useMemo } from "react";
-import { usePreviewImages } from "@/hooks/usePreviewImages";
-import Image from "next/image";
 import { ErrorMessage } from "@/components/common/inputErrorMessage";
+import {
+  type CreateRecipe,
+  CreateRecipeSchema,
+} from "@/types/recipe/recipe.contract";
+import { usePreviewImages } from "@/hooks/usePreviewImages";
+import { INGREDIENT_CATEGORIES } from "@/constants/ingredient";
+import { FOOD_CATEGORIES, INTRODUCE_LIMIT_LENGTH } from "@/constants/recipe";
 
-interface Props {
-  useForm: UseFormReturn<CreateRecipe, any, undefined>;
-}
+import styles from "./createRecipeForm.module.scss";
 
-export default function CreateRecipeForm() {
+export const CreateRecipeForm = () => {
   const hookForm = useForm<CreateRecipe>({
     mode: "onBlur",
     resolver: zodResolver(CreateRecipeSchema),
@@ -40,10 +38,7 @@ export default function CreateRecipeForm() {
     },
   });
 
-  const {
-    handleSubmit,
-    formState: { errors },
-  } = hookForm;
+  const { handleSubmit } = hookForm;
 
   const onSubmit: SubmitHandler<CreateRecipe> = (data) => {
     console.log("제출", data);
@@ -58,6 +53,10 @@ export default function CreateRecipeForm() {
       </Steps>
     </form>
   );
+};
+
+interface Props {
+  useForm: UseFormReturn<CreateRecipe, any, undefined>;
 }
 
 const RecipeInfoFields = ({ useForm }: Props) => {

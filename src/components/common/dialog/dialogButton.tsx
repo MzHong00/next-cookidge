@@ -8,6 +8,13 @@ import { RiCloseLine } from "@react-icons/all-files/ri/RiCloseLine";
 
 import styles from "./dialog.module.scss";
 
+/*
+  buttonComponent: 모달 창 열기 트리거 버튼
+  children: 모달 창 내용
+
+  - 한 줄로 모달창을 구현하기 위해 만든 모달 컴포넌트
+*/
+
 interface Props {
   className?: string;
   style?: CSSProperties;

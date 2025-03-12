@@ -5,6 +5,17 @@ export const metadata: Metadata = {
   description: "Cookidge 레시피 둘러보기",
 };
 
-const RecipeLayout = ({ children }: { children: React.ReactNode }) => children;
-
-export default RecipeLayout;
+export default function RecipeLayout({
+  modal,
+  children,
+}: {
+  modal: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  return (
+    <>
+      {modal}
+      {children}
+    </>
+  );
+}

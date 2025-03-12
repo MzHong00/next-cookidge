@@ -1,10 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import dynamic from "next/dynamic";
 
 import { IconBox } from "@/components/common/iconBox";
-import { DialogButton } from "@/components/common/dialog/dialogButton";
-import CreateRecipeForm from "@/components/features/recipe/create/createRecipeForm";
 import { RecipeSearchOption } from "@/containers/recipe/recipeSearchOption/recipeSearchOption";
 
 const RecipeList = dynamic(
@@ -18,13 +17,9 @@ const RecipeList = dynamic(
 export default function RecipePage() {
   return (
     <>
-      <DialogButton
-        DialogTitle="레시피 생성"
-        buttonComponent={<IconBox>레시피 생성</IconBox>}
-        style={{width: "80%", height: "80%"}}
-      >
-        <CreateRecipeForm />
-      </DialogButton>
+      <Link href="/recipe/create">
+        <IconBox>레시피 생성</IconBox>
+      </Link>
       <RecipeSearchOption />
       <RecipeList />
     </>

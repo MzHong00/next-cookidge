@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { type CSSProperties, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
@@ -10,13 +10,16 @@ import { twistFade } from "@/lib/framer-motion";
 
 import styles from "./dialog.module.scss";
 
-export function Dialog({
-  title,
-  children,
-}: {
+// 병렬 라우팅 + 인터셉트 라우팅에서 사용하는 모달
+
+interface Props {
   title?: string;
+  style?: CSSProperties;
+  className?: string;
   children: React.ReactNode;
-}) {
+}
+
+export function Dialog({ title, style, className, children }: Props) {
   const router = useRouter();
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -42,7 +45,8 @@ export function Dialog({
         onClick={(e) => {
           if (e.target === e.currentTarget) closeDialog();
         }}
-        className={styles.container}
+        style={style}
+        className={`${styles.container} ${className}`}
       >
         <header>
           <button onClick={closeDialog}>
