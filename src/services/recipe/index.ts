@@ -2,8 +2,7 @@ import axios from "..";
 
 import type { IUser } from "@/types/user";
 import type { PagenationParams } from "@/types";
-import type { IIngredient } from "@/types/ingredient";
-import type { IRecipe, IRecipeInput } from "@/types/recipe";
+import type { IIngredient, IRecipe, IRecipeInput } from "@/types/recipe/recipe";
 
 export class RecipeService {
   static readonly root = "/recipe";

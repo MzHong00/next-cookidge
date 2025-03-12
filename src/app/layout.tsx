@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/header/header";
 import { Navbar } from "@/components/layout/navbar";
 
 import "@/styles/globals.scss";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Cookidge",
@@ -21,6 +22,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Script src="https://unpkg.com/react-scan/dist/auto.global.js"></Script>
+
       <body>
         {auth}
         <Provider>

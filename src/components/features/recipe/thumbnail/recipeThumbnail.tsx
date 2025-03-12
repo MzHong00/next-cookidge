@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image, { type ImageProps } from "next/image";
 
-import type { IRecipe } from "@/types/recipe";
+import type { IRecipe } from "@/types/recipe/recipe";
 import { PIdToURL } from "@/utils/pidToUrl";
 import { IconBox } from "@/components/common/iconBox";
 

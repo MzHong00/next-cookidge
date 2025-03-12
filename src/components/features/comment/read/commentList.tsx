@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import type { IUser } from "@/types/user";
-import type { IRecipe } from "@/types/recipe";
+import type { IRecipe } from "@/types/recipe/recipe";
 import type { IComment } from "@/types/comment";
 import { PIdToURL } from "@/utils/pidToUrl";
 import { CurrentDateGap } from "@/utils/currentDateGap";

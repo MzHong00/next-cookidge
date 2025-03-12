@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import type { IRecipe } from "@/types/recipe";
+import type { IRecipe } from "@/types/recipe/recipe";
 import { IconBox } from "@/components/common/iconBox";
 
 import styles from "./createComment.module.scss";

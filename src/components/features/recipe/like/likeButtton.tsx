@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { RiHeart3Line } from "@react-icons/all-files/ri/RiHeart3Line";
 import { RiHeart3Fill } from "@react-icons/all-files/ri/RiHeart3Fill";
 
-import type { IRecipe } from "@/types/recipe";
+import type { IRecipe } from "@/types/recipe/recipe";
 import { IconBox } from "@/components/common/iconBox";
 import { UserQueries } from "@/services/user/queries/userQueries";
 import {

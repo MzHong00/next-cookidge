@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-query";
 
 import type { IUser } from "@/types/user";
-import type { IRecipe } from "@/types/recipe";
+import type { IRecipe } from "@/types/recipe/recipe";
 import { RecipeService } from "..";
 import { RecipeQueries } from "../queries/recipeQueries";
 import { UserQueries } from "@/services/user/queries/userQueries";

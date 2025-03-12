@@ -1,8 +1,9 @@
-import { IRecipe } from "@/types/recipe";
 import axios from "..";
-import { IComment } from "@/types/comment";
-import { PagenationParams } from "@/types";
-import { IUser } from "@/types/user";
+
+import type { IUser } from "@/types/user";
+import type { PagenationParams } from "@/types";
+import type { IComment } from "@/types/comment";
+import type { IRecipe } from "@/types/recipe/recipe";
 
 export class CommentService {
   static root = "/comment";

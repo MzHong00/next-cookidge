@@ -1,4 +1,4 @@
-import type { IRecipe } from "@/types/recipe";
+import type { IRecipe } from "@/types/recipe/recipe";
 import type { IComment } from "@/types/comment";
 
 interface Props {
