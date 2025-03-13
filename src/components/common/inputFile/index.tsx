@@ -32,3 +32,5 @@ export const InputFile = forwardRef<HTMLInputElement, Props>(
     );
   }
 );
+
+InputFile.displayName = "InputFile";

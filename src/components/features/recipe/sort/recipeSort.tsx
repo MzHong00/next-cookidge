@@ -8,7 +8,7 @@ import { Dropdown } from "@/components/common/dropdown";
 import styles from "./recipeSort.module.scss";
 
 export const RecipeSort = () => {
-  const [_, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   return (
     <Dropdown buttonComponent={<IconBox Icon={BiSort}>정렬</IconBox>}>

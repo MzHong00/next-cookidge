@@ -7,13 +7,12 @@ import styles from './index.module.scss'
 const PROFILE_WIDTH = 40;
 
 export const Profile = ({
-  _id,
   name,
   picture,
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement> &
-  Partial<Pick<IUser, "_id" | "name" | "picture">>) => {
+  Partial<Pick<IUser, "name" | "picture">>) => {
   return (
     <div className={`${styles.container} ${className}`} {...props}>
       {picture && (

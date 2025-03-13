@@ -56,7 +56,7 @@ export const CreateRecipeForm = () => {
 };
 
 interface Props {
-  useForm: UseFormReturn<CreateRecipe, any, undefined>;
+  useForm: UseFormReturn<CreateRecipe, undefined>;
 }
 
 const RecipeInfoFields = ({ useForm }: Props) => {
@@ -309,3 +309,4 @@ export const StepField = memo(
     );
   }
 );
+StepField.displayName = "StepField"

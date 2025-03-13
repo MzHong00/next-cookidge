@@ -33,7 +33,7 @@ export function RecipeDetail({ id }: { id: string }) {
   const { data: recipe } = useSuspenseQuery(RecipeQueries.detailQuery(id));
 
   const { ingredients, cooking_steps, user, ...contents } = recipe;
-  const { _id, name, picture } = user;
+  const { name, picture } = user;
 
   const changeTabHandler = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -52,7 +52,7 @@ export function RecipeDetail({ id }: { id: string }) {
         custom={SLIDE_MOVE_PX}
       >
         <Link href={`/user/${name}`}>
-          <Profile _id={_id} name={name} picture={PIdToURL(picture)} />
+          <Profile name={name} picture={PIdToURL(picture)} />
         </Link>
 
         <TabIndex tab={tab} onClick={changeTabHandler} />
@@ -169,3 +169,4 @@ const TabIndex = memo(
     );
   }
 );
+TabIndex.displayName = "TabIndex"

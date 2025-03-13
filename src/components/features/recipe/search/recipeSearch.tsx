@@ -31,7 +31,7 @@ const useSetTitleQuery = () => {
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [title]);
+  }, [title, searchParams, setSearchParams]);
 
   const setTitleParams = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.currentTarget.value;

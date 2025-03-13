@@ -2,12 +2,11 @@
 
 import { useState } from "react";
 
-import type { IRecipe } from "@/types/recipe/recipe";
 import { IconBox } from "@/components/common/iconBox";
 
 import styles from "./createComment.module.scss";
 
-export const CreateComment = ({ recipeId }: { recipeId: IRecipe["_id"] }) => {
+export const CreateComment = () => {
   const [comment, setComment] = useState<string>("");
 
   const onClickCreateComment = () => {

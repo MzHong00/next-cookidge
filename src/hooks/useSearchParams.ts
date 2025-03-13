@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default () => {
+export default function useCustomSearchParams () {
   const router = useRouter();
   const searchParams = useSearchParams();
 
