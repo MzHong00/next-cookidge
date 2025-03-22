@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
+import { RiAddLine } from "@react-icons/all-files/ri/RiAddLine";
 
 import { IconBox } from "@/components/common/iconBox";
 import { LoadingDots } from "@/components/common/loadingDots";
@@ -7,11 +8,13 @@ import { ClientRender } from "@/components/common/clientRender";
 import { RecipeList } from "@/containers/recipe/recipeList/recipeList";
 import { RecipeSearchOption } from "@/containers/recipe/recipeSearchOption/recipeSearchOption";
 
+import styles from "./page.module.scss";
+
 export default function RecipePage() {
   return (
     <>
-      <Link href="/recipe/create">
-        <IconBox>레시피 생성</IconBox>
+      <Link href="/recipe/create" className={styles.openFormButton}>
+        <IconBox Icon={RiAddLine}>레시피 생성</IconBox>
       </Link>
       <Suspense>
         <RecipeSearchOption />

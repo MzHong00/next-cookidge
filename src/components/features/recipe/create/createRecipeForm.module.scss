@@ -5,9 +5,8 @@
     flex-grow: 1;
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: inherit;
-    
-    & input,
+
+    background-color: rgb(var(--color-dark)) & input,
     & select,
     & textarea {
         width: 100%;
@@ -59,7 +58,7 @@
     width: 100%;
     @include m.flex-layout(row);
 
-    &>:first-child{
+    &>:first-child {
         width: 100%;
         max-width: 300px;
     }

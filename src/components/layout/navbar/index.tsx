@@ -12,6 +12,9 @@ import { DialogButton } from "@/components/common/dialog/dialogButton";
 import { UserQueries } from "@/services/user/queries/userQueries";
 
 import styles from "./index.module.scss";
+import { usePathname } from "next/navigation";
+import { motion } from "motion/react";
+import { fadeSlide } from "@/lib/framer-motion";
 
 interface Props {
   style: CSSProperties;
@@ -19,6 +22,7 @@ interface Props {
 }
 
 export function Navbar({ style, className }: Partial<Props>) {
+  const path = usePathname();
   const { data: user } = useQuery(UserQueries.meQuery());
 
   return (
@@ -39,8 +43,11 @@ export function Navbar({ style, className }: Partial<Props>) {
 
       <nav className={styles.nav}>
         {NAV_TYPES.map(({ Icon, href }) => (
-          <Link key={href} href={href}>
+          <Link key={href} href={href} scroll={false}>
             <Icon />
+            {path.startsWith(href) && (
+              <motion.div layoutId="nav" className={styles.tab} />
+            )}
           </Link>
         ))}
       </nav>
