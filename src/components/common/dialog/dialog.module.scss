@@ -5,7 +5,7 @@
     min-height: 300px;
     padding: 1rem;
     @include m.flex-layout(column, normal, normal, 0.5rem);
-    position: relative;
+    position: fixed;
     border-radius: var(--border-radius);
     background-color: rgb(var(--color-dark));
     color: rgb(var(--foreground));

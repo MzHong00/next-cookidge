@@ -2,6 +2,7 @@ import axios from "..";
 
 import type { IUser } from "@/types/user";
 import type { PagenationParams } from "@/types";
+import type { ICreateRecipeForm } from "@/types/recipe/recipe.contract";
 import type { IIngredient, IRecipe, IRecipeInput } from "@/types/recipe/recipe";
 
 export class RecipeService {
@@ -36,7 +37,7 @@ export class RecipeService {
   }
 
   static async createRecipe(
-    IRecipeInputDTO: IRecipeInput
+    IRecipeInputDTO: ICreateRecipeForm
   ): Promise<{ message: string }> {
     return (
       await axios.post(`${this.root}/create`, IRecipeInputDTO, {

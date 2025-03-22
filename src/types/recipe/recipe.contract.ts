@@ -27,7 +27,7 @@ const IngredientSchema = z.object({
 const CookingStepSchema = z.object({
   picture: z.custom<FileList>(
     (val) => val instanceof FileList && val.length > 0,
-    "파일을 선택하세요."
+    "이미지를 선택하세요."
   ).optional(),
   instruction: z
     .string()
@@ -78,4 +78,4 @@ export const CreateRecipeSchema = z.object({
     .min(1, "요리 과정을 1개 이상 추가해 주세요."),
 });
 
-export type CreateRecipe = z.infer<typeof CreateRecipeSchema>;
+export type ICreateRecipeForm = z.infer<typeof CreateRecipeSchema>;

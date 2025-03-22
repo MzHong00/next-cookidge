@@ -1,0 +1,21 @@
+@use '/src/styles/mixin.scss' as m;
+
+.dialog {
+    width: fit-content;
+    padding-inline: 3rem;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    @include m.flex-layout(column, center, normal);
+    background-color: rgb(var(--color-dark));
+    color: white;
+
+    .header {
+        @include m.flex-layout(column, center, normal, 0.5rem);
+
+        .descriptions {
+            margin-block-start: 1em;
+            font-size: 0.85em;
+            list-style: circle;
+        }
+    }
+}
