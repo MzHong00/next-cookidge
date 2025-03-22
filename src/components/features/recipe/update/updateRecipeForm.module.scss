@@ -1,0 +1,123 @@
+@use '/src/styles/mixin.scss' as m;
+
+.form {
+    padding-inline: 0.5rem;
+    flex-grow: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: inherit;
+    
+    & input,
+    & select,
+    & textarea {
+        width: 100%;
+        height: 100%;
+        min-height: 3rem;
+        padding: 0.5rem;
+        border-radius: var(--border-radius);
+        color: rgb(var(--foreground));
+        background-color: rgb(var(--color-dark-light))
+    }
+}
+
+// 요리 사진 스타일
+.pictureInput {
+    @include m.flex-layout(column);
+
+    &>label {
+        @include m.flex-layout(row, center, normal, 0.25rem);
+    }
+
+    &>ul {
+        @include m.flex-layout(row);
+        flex-wrap: wrap;
+
+        &>li {
+            position: relative;
+            width: 200px;
+            height: 200px;
+
+            &>img {
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+    }
+}
+
+// 요리 과정 스타일
+.stepInput {
+    @include m.flex-layout(column);
+
+    &>li {
+        width: 100%;
+        @include m.flex-layout(row);
+    }
+}
+
+.stepField {
+    width: 100%;
+    @include m.flex-layout(row);
+
+    &>:first-child{
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+// 여러 곳에서 사용
+.appendButton {
+    width: fit-content;
+    transition-duration: 0.3s;
+    background-color: rgb(var(--color-dark-light));
+    border-radius: var(--border-radius);
+}
+
+.removeButton {
+    padding-inline: 0;
+    color: red;
+}
+
+.errorMessage {
+    font-size: 0.75rem;
+    color: red;
+}
+
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+.imagePreview {
+    width: max(20%, 100px);
+    @include m.flex-layout(row, center, center);
+    overflow: hidden;
+    aspect-ratio: 1;
+}
+
+.previewStepImage {
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    border: none;
+
+    &>label {
+        width: 100%;
+        height: 100%;
+        @include m.flex-layout(row, center, center, 0);
+        @include m.main-button();
+        cursor: pointer;
+        aspect-ratio: 1;
+    }
+
+    &>input {
+        display: none;
+    }
+
+    &:hover svg {
+        transform: scale(0.9);
+        transition-duration: 0.3s;
+        transition-timing-function: ease;
+    }
+}
+
+.uploadPlaceholder {
+    @include m.flex-layout(column, center, center, 0.5rem);
+}

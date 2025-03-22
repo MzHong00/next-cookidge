@@ -27,13 +27,13 @@ import { usePreviewImages } from "@/hooks/usePreviewImages";
 import { INGREDIENT_CATEGORIES } from "@/constants/ingredient";
 import { useAlertActions } from "@/lib/zustand/alertStore";
 import { useConfirmDialogActions } from "@/lib/zustand/confirmDialogStore";
-import { compressImage, compressImageToBase64 } from "@/lib/imageCompression";
 import { FOOD_CATEGORIES, INTRODUCE_LIMIT_LENGTH } from "@/constants/recipe";
+
+import styles from "./updateRecipeForm.module.scss";
 import { useCreateRecipeMutation } from "@/services/recipe/mutations/createRecipeMutation";
+import { compressImage, compressImageToBase64 } from "@/lib/imageCompression";
 
-import styles from "./createRecipeForm.module.scss";
-
-export const CreateRecipeForm = () => {
+export const UpdateRecipeForm = () => {
   const { mutateAsync } = useCreateRecipeMutation();
   const { openDialogMessage, setProcessMessage } = useConfirmDialogActions();
   const { alertEnqueue } = useAlertActions();
@@ -60,7 +60,9 @@ export const CreateRecipeForm = () => {
 
           // 요리 사진 압축
           const compressedCookImages = await Promise.all(
-            Array.from(data.pictures).map((file) => compressImageToBase64(file))
+            Array.from(data.pictures).map((file) =>
+              typeof file === "string" ? file : compressImageToBase64(file)
+            )
           );
           console.log(compressedCookImages);
 

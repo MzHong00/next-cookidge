@@ -6,19 +6,19 @@ const defaultOptions = {
   useWebWorker: true,
 };
 
-export const compressImage = (file?: File, options?: Options) => {
-  if (!file) return;
-
+export const compressImage = (file: File, options?: Options) => {
   return imageCompression(file, { ...defaultOptions, ...options });
 };
 
-export const compressImageToBase64 = async (file?: File, options?: Options) => {
-  if (!file) return;
+export const compressImageToBase64 = async (file: File, options?: Options) => {
+  try {
+    const compressedImage = await compressImage(file, options);
+    const compressedBase64Image = await blobToBase64(compressedImage);
 
-  const compressedImage = await compressImage(file, options);
-  const compressedBase64Image = await blobToBase64(compressedImage as Blob);
-
-  return compressedBase64Image;
+    return compressedBase64Image;
+  } catch (error) {
+    throw `압축 에러 발생: ${error}`;
+  }
 };
 
 function blobToBase64(blob: Blob): Promise<string | ArrayBuffer | null> {

@@ -1,4 +1,5 @@
 import type { IUser } from "../user";
+import { ICreateRecipeForm } from "./recipe.contract";
 
 export interface IRecipe {
   _id: string;
@@ -33,10 +34,9 @@ export interface IRecipeQuery {
   sort: "time" | "like";
 }
 
-export interface IRecipeInput
+export interface IRecipeInputDTO
   extends Pick<
-    IRecipe,
-    | "_id"
+    ICreateRecipeForm,
     | "name"
     | "ingredients"
     | "introduction"
@@ -44,9 +44,9 @@ export interface IRecipeInput
     | "category"
     | "cooking_time"
   > {
-  pictures: File[] | string[];
+  pictures: string;
   cooking_steps: {
-    picture?: File | string;
+    picture: string;
     instruction: string;
   }[];
 }

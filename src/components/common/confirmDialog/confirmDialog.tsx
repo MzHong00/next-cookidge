@@ -6,11 +6,11 @@ import { useRouter } from "next/navigation";
 import { Logo } from "../logo";
 import { IconBox } from "../iconBox";
 import { LoadingDots } from "../loadingDots";
+import { twistFade } from "@/lib/framer-motion";
 import { useConfirmDialogStore } from "@/lib/zustand/confirmDialogStore";
 import { useHandleShowingDialog } from "./useHandleShowingDialog";
 
 import styles from "./confirmDialog.module.scss";
-import { twistFade } from "@/lib/framer-motion";
 
 export const ConfirmDialog = () => {
   const router = useRouter();
@@ -23,8 +23,9 @@ export const ConfirmDialog = () => {
 
     try {
       await requestFn();
-      option.backspace && router.back();
+      if(option.backspace) router.back();
     } catch (error) {
+      console.error(error);
     } finally {
       actions.setIsLoading(false);
       actions.closeDialog();
