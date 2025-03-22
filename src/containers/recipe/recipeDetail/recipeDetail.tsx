@@ -29,7 +29,7 @@ const SLIDE_MOVE_PX = 300;
 
 export function RecipeDetail({ id }: { id: string }) {
   const [tab, setTab] = useState<(typeof SECTION)[number]>(SECTION[0]);
-  
+
   const { data: recipe } = useSuspenseQuery(RecipeQueries.detailQuery(id));
 
   const { ingredients, cooking_steps, user, ...contents } = recipe;
@@ -82,7 +82,7 @@ export function RecipeDetail({ id }: { id: string }) {
       </section>
 
       <section>
-        <CommentList recipe_id={id} />
+        <CommentList recipe_id={id} author_id={recipe.author_id} />
       </section>
     </div>
   );
@@ -169,4 +169,4 @@ const TabIndex = memo(
     );
   }
 );
-TabIndex.displayName = "TabIndex"
+TabIndex.displayName = "TabIndex";

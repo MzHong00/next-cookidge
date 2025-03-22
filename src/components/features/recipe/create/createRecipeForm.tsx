@@ -7,6 +7,7 @@ import {
   SubmitHandler,
   useFieldArray,
   type UseFormReturn,
+  type SubmitErrorHandler,
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RiAddLine } from "@react-icons/all-files/ri/RiAddLine";
@@ -19,17 +20,25 @@ import { InputBox } from "@/components/common/inputBox";
 import { InputFile } from "@/components/common/inputFile";
 import { ErrorMessage } from "@/components/common/inputErrorMessage";
 import {
-  type CreateRecipe,
+  type ICreateRecipeForm,
   CreateRecipeSchema,
 } from "@/types/recipe/recipe.contract";
 import { usePreviewImages } from "@/hooks/usePreviewImages";
 import { INGREDIENT_CATEGORIES } from "@/constants/ingredient";
+import { useAlertActions } from "@/lib/zustand/alertStore";
+import { useConfirmDialogActions } from "@/lib/zustand/confirmDialogStore";
 import { FOOD_CATEGORIES, INTRODUCE_LIMIT_LENGTH } from "@/constants/recipe";
 
 import styles from "./createRecipeForm.module.scss";
+import { useCreateRecipeMutation } from "@/services/recipe/mutations/createRecipeMutation";
+import { compressImage } from "@/lib/imageCompression";
 
 export const CreateRecipeForm = () => {
-  const hookForm = useForm<CreateRecipe>({
+  const { mutateAsync } = useCreateRecipeMutation();
+  const { openDialogMessage, setProcessMessage } = useConfirmDialogActions();
+  const { alertEnqueue } = useAlertActions();
+
+  const hookForm = useForm<ICreateRecipeForm>({
     mode: "onBlur",
     resolver: zodResolver(CreateRecipeSchema),
     defaultValues: {
@@ -40,12 +49,55 @@ export const CreateRecipeForm = () => {
 
   const { handleSubmit } = hookForm;
 
-  const onSubmit: SubmitHandler<CreateRecipe> = (data) => {
-    console.log("제출", data);
+  const onSubmit: SubmitHandler<ICreateRecipeForm> = async (data) => {
+    openDialogMessage({
+      message: `${data.name} 레시피를 생성하시겠습니까?`,
+      requestFn: async () => {
+        try {
+          setProcessMessage("이미지 압축 중...");
+          const compressedCookImages = (await Promise.all(
+            Array.from(data.pictures).map((file) =>
+              typeof file === "string" ? file : compressImage(file)
+            )
+          ))
+          console.log(compressedCookImages);
+          
+          // const compressedStepImages = await Promise.all(
+          //   data.cooking_steps.map(async ({ instruction, picture }) => ({
+          //     instruction: instruction,
+          //     picture:
+          //       typeof picture === "string"
+          //         ? picture
+          //         : picture && ((await compressImage(picture?.[0])) as File),
+          //   }))
+          // );
+          
+          // setProcessMessage("서버에 전송 중...");
+          // await mutateAsync({
+          //   ...data,
+          //   pictures: compressedCookImages,
+          //   cooking_steps: compressedStepImages,
+          // });
+        } catch (error) {
+          alertEnqueue({
+            message:
+              "레시피 생성에 실패하였습니다. ※ 모바일 환경에서 원활하지 않을 수 있습니다.",
+            type: "error",
+          });
+        }
+      },
+    });
   };
 
+    const onError: SubmitErrorHandler<ICreateRecipeForm> = () => {
+      alertEnqueue({
+        message: "작성하지 않은 항목이 존재합니다.",
+        type: "error",
+      });
+    };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+    <form onSubmit={handleSubmit(onSubmit, onError)} className={styles.form}>
       <Steps>
         <RecipeInfoFields key="정보" useForm={hookForm} />
         <IngredientFields key="재료" useForm={hookForm} />
@@ -56,7 +108,7 @@ export const CreateRecipeForm = () => {
 };
 
 interface Props {
-  useForm: UseFormReturn<CreateRecipe, undefined>;
+  useForm: UseFormReturn<ICreateRecipeForm, undefined>;
 }
 
 const RecipeInfoFields = ({ useForm }: Props) => {
@@ -153,7 +205,7 @@ const RecipeInfoFields = ({ useForm }: Props) => {
   );
 };
 
-export const IngredientFields = ({ useForm }: Props) => {
+const IngredientFields = ({ useForm }: Props) => {
   const {
     register,
     control,
@@ -224,7 +276,7 @@ export const IngredientFields = ({ useForm }: Props) => {
   );
 };
 
-export const CookingStepFields = ({ useForm }: Props) => {
+const CookingStepFields = ({ useForm }: Props) => {
   const {
     watch,
     control,
@@ -259,10 +311,14 @@ export const CookingStepFields = ({ useForm }: Props) => {
                   e.preventDefault();
                   removeCookingStep(i);
                 }}
+                style={{ height: "fit-content" }}
               >
                 <IconBox Icon={CgRemoveR} className={styles.removeButton} />
               </button>
             </li>
+            {errors.cooking_steps?.[i]?.picture?.message && (
+              <ErrorMessage msg={errors.cooking_steps[i].picture.message} />
+            )}
             {errors.cooking_steps?.[i]?.instruction?.message && (
               <ErrorMessage msg={errors.cooking_steps[i].instruction.message} />
             )}
@@ -282,12 +338,12 @@ export const CookingStepFields = ({ useForm }: Props) => {
   );
 };
 
-export const StepField = memo(
+const StepField = memo(
   ({
     i,
     imageFile,
     register,
-  }: Pick<UseFormReturn<CreateRecipe>, "register"> & {
+  }: Pick<UseFormReturn<ICreateRecipeForm>, "register"> & {
     i: number;
     imageFile?: FileList;
   }) => {
@@ -309,4 +365,4 @@ export const StepField = memo(
     );
   }
 );
-StepField.displayName = "StepField"
+StepField.displayName = "StepField";

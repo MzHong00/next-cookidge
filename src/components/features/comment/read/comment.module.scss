@@ -1,7 +1,10 @@
 @use '/src/styles/mixin.scss' as m;
 
 .commentList {
-    background-color: rgba(var(--color-dark), 0.5)
+    @include m.flex-layout(column);
+    padding: 1rem;;
+    background-color: rgba(var(--color-dark), 0.5);
+    border-radius: var(--border-radius);
 }
 
 .comment {

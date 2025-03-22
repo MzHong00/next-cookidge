@@ -1,3 +1,5 @@
+"use client";
+
 import { BiSort } from "@react-icons/all-files/bi/BiSort";
 
 import { RECIPE_SORT } from "@/constants/recipe";

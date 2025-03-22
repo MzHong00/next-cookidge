@@ -1,11 +1,13 @@
+import Script from "next/script";
 import type { Metadata } from "next";
 
 import Provider from "./provider";
-import { Header } from "@/components/layout/header/header";
 import { Navbar } from "@/components/layout/navbar";
+import { Header } from "@/components/layout/header/header";
+import { AlertList } from "@/components/common/alert/alertList";
+import { ConfirmDialog } from "@/components/common/confirmDialog/confirmDialog";
 
 import "@/styles/globals.scss";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Cookidge",
@@ -22,10 +24,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Script src="https://unpkg.com/react-scan/dist/auto.global.js"></Script>
+      {/* <Script src="https://unpkg.com/react-scan/dist/auto.global.js"></Script> */}
 
       <body>
         {auth}
+        <ConfirmDialog />
+        <AlertList />
         <Provider>
           <Header />
           <main>{children}</main>

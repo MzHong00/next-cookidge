@@ -8,18 +8,17 @@ import { RiGroupLine } from "@react-icons/all-files/ri/RiGroupLine";
 
 import { GoogleOAuthService } from "@/services/oauth";
 import { IconBox } from "@/components/common/iconBox";
-import { FlexColumn, FlexRow } from "@/components/common/flexBox";
 
 import styles from "./loginBox.module.scss";
 
 const LOGIN_TYPES = ["소셜 로그인", "테스트 계정"];
 
-export const LoginBox = () => {
+export const LoginBox = ({ className }: { className?: string }) => {
   const [tab, setTab] = useState(LOGIN_TYPES[1]);
 
   return (
-    <FlexColumn className={styles.container}>
-      <FlexRow>
+    <div className={`${styles.container} ${className}`}>
+      <section className="flex-row">
         {LOGIN_TYPES.map((type) => (
           <button
             key={type}
@@ -29,9 +28,9 @@ export const LoginBox = () => {
             <IconBox>{type}</IconBox>
           </button>
         ))}
-      </FlexRow>
+      </section>
 
-      <FlexRow
+      <section
         className={styles.loginLayout}
         style={{
           ...(tab === LOGIN_TYPES[1] && { flexDirection: "row-reverse" }),
@@ -46,8 +45,8 @@ export const LoginBox = () => {
           {tab}
           <RiGroupLine />
         </section>
-      </FlexRow>
-    </FlexColumn>
+      </section>
+    </div>
   );
 };
 

@@ -11,8 +11,8 @@ import { UserQueries } from "@/services/user/queries/userQueries";
 import {
   useLikeMutation,
   useUnlikeMutation,
-} from "@/services/recipe/mutations/useLikeMutation";
-import { useRouter } from "next/navigation";
+} from "@/services/recipe/mutations/likeMutation";
+import { AuthGuardButton } from "@/components/common/authGuardButton";
 
 const BUTTON_COLOR = "red";
 
@@ -26,7 +26,6 @@ export const LikeButton = ({
   likeMembers = [],
   ...props
 }: Props) => {
-  const router = useRouter();
   const [isLike, setIsLike] = useState(false);
   const { data: me } = useQuery(UserQueries.meQuery());
 
@@ -38,8 +37,6 @@ export const LikeButton = ({
   }, [me?._id, likeMembers]);
 
   const onClickLike = () => {
-    if (!me) return router.push("/login", { scroll: false });
-
     if (isLike) {
       unlikeMutate();
     } else {
@@ -48,7 +45,7 @@ export const LikeButton = ({
   };
 
   return (
-    <button onClick={onClickLike} {...props}>
+    <AuthGuardButton onClick={onClickLike} {...props}>
       <IconBox
         Icon={() =>
           isLike ? (
@@ -60,6 +57,6 @@ export const LikeButton = ({
       >
         {likeMembers.length}
       </IconBox>
-    </button>
+    </AuthGuardButton>
   );
 };

@@ -4,6 +4,7 @@ import {
   HydrationBoundary,
 } from "@tanstack/react-query";
 
+import { ClientRender } from "@/components/common/clientRender";
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import { MainIntroduce } from "@/containers/home/main/mainIntroduce";
 import { IntroduceBackground } from "@/containers/home/background/introduceBackground";
@@ -18,7 +19,9 @@ export default async function HomePage() {
     <div className={styles.container}>
       <MainIntroduce />
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <IntroduceBackground />
+        <ClientRender>
+          <IntroduceBackground />
+        </ClientRender>
       </HydrationBoundary>
     </div>
   );

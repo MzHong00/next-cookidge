@@ -25,13 +25,13 @@ export const RecipeThumbnail = ({ recipe, ...props }: Props) => {
         damping: 20,
       }}
     >
-      <HoverThumbnail {...recipe} />
+      <HoverInfo {...recipe} />
       <Image src={PIdToURL(recipe.pictures[0])} alt="Thumbnail" {...props} />
     </motion.div>
   );
 };
 
-const HoverThumbnail = (props: IRecipe) => {
+const HoverInfo = (props: IRecipe) => {
   const { _id, name, introduction, pictures } = props;
 
   return (

@@ -1,3 +1,5 @@
+"use client"
+
 import Masonry from "react-layout-masonry";
 import { useSearchParams } from "next/navigation";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
