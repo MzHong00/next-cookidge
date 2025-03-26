@@ -1,9 +1,11 @@
 @use '/src/styles/mixin.scss' as m;
 
-.container {
-    @include m.flex-layout(row, stretch, stretch, 0);
+.contentsButton {
+    width: 100%;
+    padding-block: 1rem;
 
-    &>button {
-        padding-inline: 0.25rem;
+    &:hover {
+        filter: none;
+        background-color: rgb(var(--color-dark-light));
     }
 }

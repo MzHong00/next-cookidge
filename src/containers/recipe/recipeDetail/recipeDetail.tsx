@@ -1,21 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { RiGroupLine } from "@react-icons/all-files/ri/RiGroupLine";
 import { RiTimer2Line } from "@react-icons/all-files/ri/RiTimer2Line";
 import { RiCalendarLine } from "@react-icons/all-files/ri/RiCalendarLine";
 
-import type { IRecipe } from "@/types/recipe";
-import type { IIngredient } from "@/types/ingredient";
+import type { IIngredient, IRecipe } from "@/types/recipe/recipe";
+import { PIdToURL } from "@/utils/pidToUrl";
 import { fadeSlide } from "@/lib/framer-motion";
 import { CurrentDateGap } from "@/utils/currentDateGap";
 import { INGREDIENT_CATEGORIES } from "@/constants/ingredient";
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import { IconBox } from "@/components/common/iconBox";
 import { Profile } from "@/components/common/profile";
+import { Underline } from "@/components/common/underline";
 import { PictureSlider } from "@/components/common/pictureSlider";
 import { RecipeStep } from "@/components/features/recipe/step/recipeStep";
 import { LikeButton } from "@/components/features/recipe/like/likeButtton";
@@ -24,17 +25,22 @@ import { CommentList } from "@/components/features/comment/read/commentList";
 import styles from "./recipeDetail.module.scss";
 
 const SECTION = ["요리소개", "조리과정"] as const;
+const SLIDE_MOVE_PX = 300;
 
 export function RecipeDetail({ id }: { id: string }) {
   const [tab, setTab] = useState<(typeof SECTION)[number]>(SECTION[0]);
+
   const { data: recipe } = useSuspenseQuery(RecipeQueries.detailQuery(id));
 
   const { ingredients, cooking_steps, user, ...contents } = recipe;
-  const { _id, name, picture } = user;
+  const { name, picture } = user;
 
-  const changeTabHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setTab(e.currentTarget.innerText as (typeof SECTION)[number]);
-  };
+  const changeTabHandler = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      setTab(e.currentTarget.innerText as (typeof SECTION)[number]);
+    },
+    []
+  );
 
   return (
     <div className="flex-column">
@@ -43,13 +49,14 @@ export function RecipeDetail({ id }: { id: string }) {
         variants={fadeSlide}
         initial="leftSlide"
         animate="visible"
+        custom={SLIDE_MOVE_PX}
       >
         <Link href={`/user/${name}`}>
-          <Profile _id={_id} name={name} picture={picture} />
+          <Profile name={name} picture={PIdToURL(picture)} />
         </Link>
 
         <TabIndex tab={tab} onClick={changeTabHandler} />
-        
+
         {tab === SECTION[0] && (
           <motion.div
             variants={fadeSlide}
@@ -75,7 +82,7 @@ export function RecipeDetail({ id }: { id: string }) {
       </section>
 
       <section>
-        <CommentList recipe_id={id} />
+        <CommentList recipe_id={id} author_id={recipe.author_id} />
       </section>
     </div>
   );
@@ -140,25 +147,26 @@ const Ingredients = ({
   );
 };
 
-const TabIndex = ({
-  tab,
-  onClick,
-}: {
-  tab: (typeof SECTION)[number];
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-}) => {
-  return (
-    <div className={styles.cardTabIndex}>
-      {SECTION.map((v) => (
-        <button key={v} onClick={onClick}>
-          <IconBox>
-            {v}
-            {v === tab && (
-              <motion.div layoutId="underline" className={styles.underline} />
-            )}
-          </IconBox>
-        </button>
-      ))}
-    </div>
-  );
-};
+const TabIndex = memo(
+  ({
+    tab,
+    onClick,
+  }: {
+    tab: (typeof SECTION)[number];
+    onClick: React.MouseEventHandler<HTMLButtonElement>;
+  }) => {
+    return (
+      <div className={styles.cardTabIndex}>
+        {SECTION.map((v) => (
+          <button key={v} onClick={onClick}>
+            <IconBox>
+              {v}
+              {v === tab && <Underline />}
+            </IconBox>
+          </button>
+        ))}
+      </div>
+    );
+  }
+);
+TabIndex.displayName = "TabIndex";

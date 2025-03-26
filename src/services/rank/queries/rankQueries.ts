@@ -13,7 +13,7 @@ export class RankQueries {
     const { limit = 10 } = option || {};
 
     return infiniteQueryOptions({
-      queryKey: [this.keys.follower],
+      queryKey: [...this.keys.follower],
       queryFn: ({ pageParam, signal }) =>
         RankServices.followerRank({
           signal,
@@ -35,7 +35,7 @@ export class RankQueries {
     const { limit = 10 } = option || {};
 
     return infiniteQueryOptions({
-      queryKey: [this.keys.maker],
+      queryKey: [...this.keys.maker],
       queryFn: ({ pageParam, signal }) =>
         RankServices.recipeMakerRank({
           signal,

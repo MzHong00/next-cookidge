@@ -5,6 +5,9 @@ export const useHover = () => {
   const [isHover, setIsHover] = useState<boolean>(false);
 
   useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
     const handleMouseOver = () => {
       setIsHover(true);
     };
@@ -12,12 +15,12 @@ export const useHover = () => {
       setIsHover(false);
     };
 
-    ref.current?.addEventListener("mouseenter", handleMouseOver);
-    ref.current?.addEventListener("mouseleave", handleMouseOut);
+    element.addEventListener("mouseenter", handleMouseOver);
+    element.addEventListener("mouseleave", handleMouseOut);
 
     return () => {
-      ref.current?.removeEventListener("mouseenter", handleMouseOver);
-      ref.current?.removeEventListener("mouseleave", handleMouseOut);
+      element.removeEventListener("mouseenter", handleMouseOver);
+      element.removeEventListener("mouseleave", handleMouseOut);
     };
   }, []);
 

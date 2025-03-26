@@ -1,0 +1,36 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    @include m.flex-layout(column, center, normal, 8px);
+}
+
+.loadingDots {
+    width: 64px;
+    height: 16px;
+    position: relative;
+    @include m.flex-layout(row, stretch, center, 0);
+
+    &>span {
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        border-radius: 100%;
+        background-color: white;
+    }
+
+    &>:first-child {
+        left: 0;
+    }
+
+    &>:nth-child(2) {
+        left: 0;
+    }
+
+    &>:nth-child(3) {
+        left: 24px;
+    }
+    
+    &>:last-child {
+        left: 48px;
+    }
+}

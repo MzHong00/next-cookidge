@@ -1,0 +1,36 @@
+@use '/src/styles/mixin.scss' as m;
+
+.tooltipWrapper {
+    margin-right: auto;
+    position: relative;
+    @include m.flex-layout(row,stretch, stretch, 0);
+
+    &>svg {
+        font-size: 1.25em;
+        color: rgb(var(--color-grey-medium));
+        cursor: pointer;
+    }
+
+    &>span {
+        width: 300px;
+        padding: 10px;
+        padding-block: 10px;
+        position: absolute;
+        top: 125%;
+        left: 50%;
+        transform: translateX(-10%);
+        border-radius: var(--border-radius);
+        box-shadow: 0px 0px 4px 0px rgb(var(--color-grey-light));
+        background-color: rgb(var(--background));
+        color: rgb(var(--foreground));
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    &:hover span {
+        visibility: visible;
+        opacity: 1;
+        z-index: 100;
+    }
+}

@@ -2,18 +2,18 @@
 
 import Image from "next/image";
 
-import type { ICookingStep } from "@/types/recipe";
+import type { ICookingStep } from "@/types/recipe/recipe";
 import { PIdToURL } from "@/utils/pidToUrl";
 import { useSlide } from "@/hooks/useSlide";
 import { IconBox } from "@/components/common/iconBox";
 
 import styles from "./recipeStep.module.scss";
 
-interface Props {
+export const RecipeStep = ({
+  recipeSteps,
+}: {
   recipeSteps: ICookingStep[];
-}
-
-export const RecipeStep = ({ recipeSteps }: Props) => {
+}) => {
   const {
     ref,
     index,

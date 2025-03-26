@@ -20,17 +20,15 @@ export function Background({ id, pidSrc }: Props) {
       layoutId={`thumbnail${id}`}
       className={styles.background}
       animate={{
-        filter: "blur(50px)",
-        scaleX: 1.2,
+        filter: "blur(10px)",
         transition: { duration: ANIMATE_DURATION },
       }}
     >
       <Image
         src={PIdToURL(pidSrc || "")}
         alt="background"
-        width={300}
-        height={300}
-        quality={50}
+        fill
+        quality={1}
       />
     </motion.div>
   );

@@ -1,17 +1,18 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { RiHeart3Line } from "@react-icons/all-files/ri/RiHeart3Line";
 import { RiHeart3Fill } from "@react-icons/all-files/ri/RiHeart3Fill";
 
-import type { IRecipe } from "@/types/recipe";
+import type { IRecipe } from "@/types/recipe/recipe";
 import { IconBox } from "@/components/common/iconBox";
 import { UserQueries } from "@/services/user/queries/userQueries";
 import {
   useLikeMutation,
   useUnlikeMutation,
-} from "@/services/recipe/mutations/useLikeMutation";
+} from "@/services/recipe/mutations/likeMutation";
+import { AuthGuardButton } from "@/components/common/authGuardButton";
 
 const BUTTON_COLOR = "red";
 
@@ -25,23 +26,26 @@ export const LikeButton = ({
   likeMembers = [],
   ...props
 }: Props) => {
+  const [isLike, setIsLike] = useState(false);
   const { data: me } = useQuery(UserQueries.meQuery());
 
   const { mutate: likeMutate } = useLikeMutation(recipe_id);
   const { mutate: unlikeMutate } = useUnlikeMutation(recipe_id);
 
+  useEffect(() => {
+    setIsLike(!!me?._id && likeMembers.includes(me._id));
+  }, [me?._id, likeMembers]);
+
   const onClickLike = () => {
-    if (!me) return;
-    isLike ? likeMutate() : unlikeMutate();
+    if (isLike) {
+      unlikeMutate();
+    } else {
+      likeMutate();
+    }
   };
 
-  const isLike = useMemo(
-    () => me?._id && likeMembers.includes(me?._id),
-    [me?._id, likeMembers]
-  );
-
   return (
-    <button onClick={onClickLike} style={{ width: "fit-content" }} {...props}>
+    <AuthGuardButton onClick={onClickLike} {...props}>
       <IconBox
         Icon={() =>
           isLike ? (
@@ -53,6 +57,6 @@ export const LikeButton = ({
       >
         {likeMembers.length}
       </IconBox>
-    </button>
+    </AuthGuardButton>
   );
 };

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 
 import Provider from "./provider";
-import { Header } from "@/components/layout/header/header";
 import { Navbar } from "@/components/layout/navbar";
+import { Header } from "@/components/layout/header/header";
+import { AlertList } from "@/components/common/alert/alertList";
+import { ConfirmDialog } from "@/components/common/confirmDialog/confirmDialog";
 
 import "@/styles/globals.scss";
-import styles from './styles.module.scss';
 
 export const metadata: Metadata = {
   title: "Cookidge",
@@ -14,17 +15,24 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
+  auth,
   children,
 }: Readonly<{
+  auth: React.ReactNode;
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
+      {/* <Script src="https://unpkg.com/react-scan/dist/auto.global.js"></Script> */}
+
       <body>
+        {auth}
+        <ConfirmDialog />
+        <AlertList />
         <Provider>
-          <Header className={styles.header}/>
+          <Header />
           <main>{children}</main>
-          <Navbar className={styles.navbar}/>
+          <Navbar />
         </Provider>
       </body>
     </html>

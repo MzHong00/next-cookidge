@@ -1,0 +1,22 @@
+@use '/src/styles/mixin.scss' as m;
+
+.openFormButton {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 100;
+    background-color: rgba(var(--color-dark), 0.5);
+    border-radius: var(--border-radius);
+    transition-duration: 0.3s;
+
+    &:hover {
+        background-color: rgb(var(--color-dark));
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .openFormButton {
+        @include m.abs-center-x(fixed);
+        bottom: 80px;
+    }
+}

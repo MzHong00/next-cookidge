@@ -1,38 +1,56 @@
 @use '/src/styles/mixin.scss' as m;
 
 .container {
-    width: fit-content;
-    padding: 0.25rem;
-    @include m.flex-layout(row, normal, space-evenly, 0);
+    padding: 0.5rem;
+    @include m.abs-center-x(fixed);
+    bottom: 10px;
+    @include m.flex-layout(row, normal, space-evenly);
     border: 2px solid;
     border-radius: var(--border-radius);
     z-index: 10;
     background-color: rgb(var(--color-dark));
-}
 
-.profile {
-    width: 40px;
-    @include m.flex-layout(row, center, center, 0);
-    border-radius: 100%;
-    aspect-ratio: 1;
-}
+    .profile {
+        width: 40px;
+        height: 40px;
+        @include m.flex-layout(row, center, center, 0);
+        border-radius: 100%;
+        background-color: rgba(silver, 0.2);
+        overflow: hidden;
 
-.nav {
-    @include m.flex-layout(row, normal, normal, 0);
-
-    background-color: rgb(var(--foreground));
-    border-radius: var(--border-radius);
-    overflow: hidden;
-
-    &>a {
-        width: 2.5rem;
-        height: 2.5rem;
-        @include m.flex-layout(row, center, center, 0.5rem);
-        color: rgb(var(--color-grey-medium));
+        &>a,
+        &>button {
+            width: 100%;
+            height: 100%;
+            @include m.flex-layout(row, center, center, 0);
+        }
     }
-}
 
-.extendActive {
-    border-top: none;
-    border-radius: 0 0 10px 10px;
+    .nav {
+        @include m.flex-layout(row, normal, normal, 0);
+        background-color: rgb(var(--foreground));
+        border-radius: var(--border-radius);
+        overflow: hidden;
+
+        &>a {
+            width: 40px;
+            height: 40px;
+            position: relative;
+            @include m.flex-layout(row, center, center, 0.5rem);
+            color: rgb(var(--background));
+
+            &>svg {
+                z-index: 1;
+            }
+        }
+
+        .tab {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background-color: rgba(var(--color-main), 0.6);
+            box-shadow: 0px 0px 0px 1px rgba(var(--color-main), 0.6);
+            border-radius: 10px;
+        }
+    }
 }

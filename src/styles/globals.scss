@@ -10,11 +10,12 @@
   --foreground: 237, 237, 237;
   --background: 10, 10, 10;
   --color-main: 96, 159, 255;
+  --color-dark-light: 67, 73, 87;
   --color-dark: 37, 40, 48;
   --color-grey-light: 227, 227, 227;
   --color-grey-medium: 121, 121, 121;
   --icon-size-medium: 1.25em;
-  --base-box-shadow: 0px 1px 2px 1px silver;
+  --base-box-shadow: 0px 0px 2px 1px silver;
   --border-radius: 10px;
 }
 
@@ -28,8 +29,7 @@
 html,
 body {
   max-width: 100vw;
-  height: 100vh;
-  overflow-x: hidden;
+  min-height: 100vh;
 }
 
 body {
@@ -55,6 +55,9 @@ a {
 }
 
 button,
+select,
+textarea,
+input,
 input[type="button"],
 input[type="submit"],
 input[type="date"],
@@ -74,6 +77,10 @@ input[type="button"],
 input[type="submit"],
 input[type="date"] {
   cursor: pointer;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
 }
 
 dialog {
@@ -102,10 +109,34 @@ textarea {
   resize: none;
 }
 
-select {
+select, label {
   cursor: pointer;
 }
 
+/* width */
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: rgba(var(--color-grey-medium), 0.8);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--color-grey-medium));
+}
 
 // mixin className으로 즉시 사용 (Tailwind 처럼)
 .flex-column {
@@ -132,16 +163,16 @@ select {
   @include m.flex-layout(row, center, space-between);
 }
 
-.pos-abs-center {
-  @include m.pos-center();
+.abs-center {
+  @include m.abs-center();
 }
 
-.pos-abs-centerX {
-  @include m.pos-center-x();
+.abs-centerX {
+  @include m.abs-center-x();
 }
 
-.pos-abs-centerY {
-  @include m.pos-center-y();
+.abs-centerY {
+  @include m.abs-center-y();
 }
 
 .main-button {

@@ -9,11 +9,13 @@
 
 .menu {
     min-width: 300px;
-    @include m.flex-layout(column, center, center);
+    @include m.flex-layout(column, center, center, 0);
     position: absolute;
     top: calc(100% + 10px);
     right: 0;
     border-radius: var(--border-radius);
     background-color: inherit;
+    transform-origin: top;
     z-index: 10;
+    overflow: hidden;
 }

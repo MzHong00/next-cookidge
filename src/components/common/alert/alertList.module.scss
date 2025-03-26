@@ -1,0 +1,25 @@
+@use '/src/styles/mixin.scss' as m;
+
+.alertList {
+    width: 100%;
+    @include m.flex-layout(column, center);
+    position: fixed;
+    top: 1rem;
+    left: 0;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.alert {
+    width: fit-content;
+    max-width: 800px;
+    padding-inline: 2rem;
+    padding-block: 1rem;
+    @include m.flex-layout(row, center, center);
+    border-radius: 5px;
+    color: white;
+
+    &>svg {
+        font-size: 1.2rem;
+    }
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 import styles from "./index.module.scss";
 

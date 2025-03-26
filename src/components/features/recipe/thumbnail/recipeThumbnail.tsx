@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image, { type ImageProps } from "next/image";
 
-import type { IRecipe } from "@/types/recipe";
+import type { IRecipe } from "@/types/recipe/recipe";
 import { PIdToURL } from "@/utils/pidToUrl";
 import { IconBox } from "@/components/common/iconBox";
 
@@ -25,13 +25,13 @@ export const RecipeThumbnail = ({ recipe, ...props }: Props) => {
         damping: 20,
       }}
     >
-      <HoverThumbnail {...recipe} />
+      <HoverInfo {...recipe} />
       <Image src={PIdToURL(recipe.pictures[0])} alt="Thumbnail" {...props} />
     </motion.div>
   );
 };
 
-const HoverThumbnail = (props: IRecipe) => {
+const HoverInfo = (props: IRecipe) => {
   const { _id, name, introduction, pictures } = props;
 
   return (
