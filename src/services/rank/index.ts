@@ -11,7 +11,9 @@ export class RankServices {
     params: PagenationParams;
     signal: AbortSignal;
   }): Promise<
-    (Pick<IUser, "_id" | "picture" | "name"> & { follower_count: number })[]
+    (Pick<IUser, "_id" | "picture" | "name"> & {
+      follower_count: number;
+    })[]
   > {
     return (await axios.get(`${this.root}/rank-follower`, option)).data;
   }
