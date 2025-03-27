@@ -3,9 +3,13 @@
 .container {
     @include m.flex-layout(row, center);
 
-    &>img {
+    .profileImage {
         border-radius: 100%;
         object-position: center;
         object-fit: cover;
+    }
+
+    .name {
+        @include m.text-ellipsis();
     }
 }
