@@ -3,6 +3,7 @@
 .container {
     padding: 1rem;
     @include m.flex-layout(column);
+    flex-shrink: 1;
     background-color: rgb(var(--color-dark));
     border-radius: var(--border-radius);
     

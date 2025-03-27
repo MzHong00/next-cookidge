@@ -9,6 +9,7 @@ import styles from "./userCard.module.scss";
 interface Props extends Partial<IUser> {
   style?: CSSProperties;
   className?: string;
+  children?: React.ReactNode;
 }
 
 export const Usercard = ({
@@ -17,17 +18,13 @@ export const Usercard = ({
   introduce,
   style,
   className,
+  children,
 }: Props) => {
   return (
     <div style={style} className={`${className} ${styles.container}`}>
-      <section>
-        <Profile name={name} picture={PIdToURL(picture)} />
-      </section>
-      {introduce && (
-        <section>
-          <p className={styles.introduce}>{introduce}</p>
-        </section>
-      )}
+      <Profile name={name} picture={PIdToURL(picture)} />
+      {introduce && <p className={styles.introduce}>{introduce}</p>}
+      {children}
     </div>
   );
 };

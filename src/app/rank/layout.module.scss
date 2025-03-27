@@ -17,15 +17,27 @@
                 width: 100%;
                 @include m.grid-template(column, auto-fit, 200px);
 
-            }
+                .rankItem {
+                    position: relative;
 
-            .rankNav {
-                width: 100%;
-                @include m.flex-layout(row, normal, space-between, 0);
+                    .rankTag {
+                        width: 24px;
+                        height: 24px;
+                        position: absolute;
+                        bottom: 8px;
+                        left: 8px;
+                        @include m.flex-layout(column, center, center);
+                        background-color: rgba(black, 0.8);
+                        border-radius: 100%;
+                    }
 
-                &>button {
-                    width: fit-content;
-                    font-size: var(--icon-size-medium);
+                    .rankUserCard {
+                        @include m.flex-layout(row, center, space-between);
+
+                        .rankValue {
+                            padding-inline: 0;
+                        }
+                    }
                 }
             }
         }

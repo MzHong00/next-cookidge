@@ -2,6 +2,8 @@
 
 .container {
     @include m.flex-layout(row, center);
+    flex-shrink: 1;
+    @include m.text-ellipsis();
 
     .profileImage {
         border-radius: 100%;
