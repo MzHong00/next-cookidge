@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { memo, useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -51,9 +50,7 @@ export function RecipeDetail({ id }: { id: string }) {
         animate="visible"
         custom={SLIDE_MOVE_PX}
       >
-        <Link href={`/user/${name}`}>
-          <Profile name={name} picture={PIdToURL(picture)} />
-        </Link>
+        <Profile name={name} picture={PIdToURL(picture)} />
 
         <TabIndex tab={tab} onClick={changeTabHandler} />
 

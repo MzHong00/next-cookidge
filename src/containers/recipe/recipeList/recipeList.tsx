@@ -9,8 +9,6 @@ import { useViewportDivision } from "@/hooks/useViewportDivision";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { RecipeThumbnail } from "@/components/features/recipe/thumbnail/recipeThumbnail";
 
-import styles from "./recipeList.module.scss";
-
 const THUMBNAIL_MAX_WIDTH = 400;
 const THUMBNAIL_MAX_DIVISION = 4;
 const LIST_GAP = 10;
@@ -27,7 +25,7 @@ export const RecipeList = () => {
   });
 
   return (
-    <article className={styles.container}>
+    <article>
       <Masonry columns={column} gap={LIST_GAP}>
         {data.pages.map((page) =>
           page.map((recipe) => (
