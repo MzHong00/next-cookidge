@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
@@ -74,11 +73,9 @@ const Comment = ({
 
   return (
     <div className={styles.comment}>
-      <Link href={`/user/${user[0].name}`}>
-        <IconBox className={styles.profileButton}>
-          <Profile picture={PIdToURL(user[0].picture)} />
-        </IconBox>
-      </Link>
+      <IconBox className={styles.profileButton}>
+        <Profile name={user[0].name} picture={PIdToURL(user[0].picture)} />
+      </IconBox>
       <div>
         <header className={styles.nameBar}>
           <h4>{user[0].name}</h4>

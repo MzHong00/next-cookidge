@@ -1,0 +1,33 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    padding-bottom: 10vh;
+    @include m.flex-layout(column, normal, normal, 3rem);
+
+    .contents {
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
+        @include m.flex-layout(column, normal, normal, 3rem);
+
+        &>section {
+            @include m.flex-layout(column, center);
+
+            .rankList {
+                width: 100%;
+                @include m.grid-template(column, auto-fit, 200px);
+
+            }
+
+            .rankNav {
+                width: 100%;
+                @include m.flex-layout(row, normal, space-between, 0);
+
+                &>button {
+                    width: fit-content;
+                    font-size: var(--icon-size-medium);
+                }
+            }
+        }
+    }
+}

@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "motion/react";
 import { type CSSProperties } from "react";
+import { usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { RiUserLine } from "@react-icons/all-files/ri/RiUserLine";
 
@@ -12,9 +14,6 @@ import { DialogButton } from "@/components/common/dialog/dialogButton";
 import { UserQueries } from "@/services/user/queries/userQueries";
 
 import styles from "./index.module.scss";
-import { usePathname } from "next/navigation";
-import { motion } from "motion/react";
-import { fadeSlide } from "@/lib/framer-motion";
 
 interface Props {
   style: CSSProperties;
@@ -42,14 +41,24 @@ export function Navbar({ style, className }: Partial<Props>) {
       </div>
 
       <nav className={styles.nav}>
-        {NAV_TYPES.map(({ Icon, href }) => (
-          <Link key={href} href={href} scroll={false}>
-            <Icon />
-            {path.startsWith(href) && (
-              <motion.div layoutId="nav" className={styles.tab} />
-            )}
-          </Link>
-        ))}
+        {NAV_TYPES.map(({ Icon, href }) => {
+          const isActiveTab = path.startsWith(href);
+          return (
+            <Link key={href} href={href} scroll={false}>
+              <Icon
+                style={{
+                  ...(isActiveTab && {
+                    color: "white",
+                    transitionDelay: "0.2s",
+                  }),
+                }}
+              />
+              {isActiveTab && (
+                <motion.div layoutId="nav" className={styles.tab} />
+              )}
+            </Link>
+          );
+        })}
       </nav>
     </nav>
   );

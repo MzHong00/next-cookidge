@@ -1,0 +1,12 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    padding: 1rem;
+    @include m.flex-layout(column);
+    background-color: rgb(var(--color-dark));
+    border-radius: var(--border-radius);
+    
+    .introduce{
+        font-size: 0.85rem;
+    }
+}
