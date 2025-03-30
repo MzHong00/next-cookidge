@@ -28,21 +28,19 @@ export class UserQueries {
   }
 
   static InfiniteSearchQuery(
-    option: Partial<
-      PagenationParams & {
-        user_name: IUser["name"];
-      }
-    >
+    option: Partial<PagenationParams> & {
+      query: IUser["name"];
+    }
   ) {
-    const { user_name = "", limit = 10 } = option || {};
+    const { query = "", limit = 10 } = option || {};
 
     return infiniteQueryOptions({
-      queryKey: [...this.keys.infinite, user_name],
+      queryKey: [...this.keys.infinite, query],
       queryFn: ({ pageParam, signal }) =>
         UserService.searchUser({
           signal,
           params: {
-            user_name: user_name,
+            user_name: query,
             limit: limit,
             offset: pageParam * Number(limit),
           },
@@ -53,7 +51,7 @@ export class UserQueries {
 
         return lastPageParam + 1;
       },
-      enabled: !!user_name,
+      enabled: !!query,
     });
   }
 }
