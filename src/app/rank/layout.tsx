@@ -11,17 +11,24 @@ import styles from "./layout.module.scss";
 const USER_SKELETON_COUNT = 10;
 
 export default function RankLayout({
+  search,
   follow,
   maker,
 }: {
+  search: React.ReactNode;
   follow: React.ReactNode;
   maker: React.ReactNode;
 }) {
   return (
     <div className={styles.container}>
-      <h2>랭킹</h2>
+      <h2>사용자 탐색</h2>
 
       <div className={styles.contents}>
+        <section>
+          <h3>사용자 검색</h3>
+          {search}
+        </section>
+
         <section>
           <h3>
             <IconBox Icon={RiTrophyLine}>인기킹</IconBox>
@@ -40,6 +47,7 @@ export default function RankLayout({
             {follow}
           </Suspense>
         </section>
+        
         <section>
           <h3>
             <IconBox Icon={RiTrophyLine}>적극 참여킹</IconBox>
