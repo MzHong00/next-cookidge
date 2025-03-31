@@ -23,10 +23,12 @@ react-layout-masonry 라이브러리 사용법이 굉장히 간단해서 좋았�
 👉 **document is not defined 에러**
 
 [원인]
+
 NextJS는 SSR이기 때문에 `document`, `window`객체에 접근할 수 없다. 두 객체는 `client` 브라우저 측에서 사용할 수 있기 때문이다.
 
-✔ 해결1: dynamic api 사용
-`dynamic`은 `lazy` + `suspense`를 기본 제공한다. `ssr: false`를 통해 CSR로 동작하게 할 수 있고, `loading: () => <Component />`로 로딩 상태를 처리할 수 있다. `<Suspense>`로 감싸면 해당 서스펜스의 `fallback`이 안보일 것이다. `loading` 속성을 사용해야 한다.
+✔ [해결1]
+
+`dynamic api` 사용하였다. `dynamic`은 `lazy` + `suspense`를 기본 제공한다. `ssr: false`를 통해 CSR로 동작하게 할 수 있고, `loading: () => <Component />`로 로딩 상태를 처리할 수 있다. `<Suspense>`로 감싸면 해당 서스펜스의 `fallback`이 안보일 것이다. `loading` 속성을 사용해야 한다.
 
 ```
 const RecipeList = dynamic(
@@ -38,7 +40,8 @@ const RecipeList = dynamic(
 );
 ```
 
-✔ 해결2: 상태 관리
+✔ [해결2]
+
 `useState`와 `useEffect`를 사용하여 초기 렌더링에서 해당 컴포넌트를 조건부로 `null`을 반환하고 마운트 된 후에 컴포넌트를 반환할 수 있도록 구현한다.
 
 ```
@@ -52,58 +55,72 @@ useEffect(() => {
 return mounted ? <Component /> : null
 ```
 
-</hr>
+👉 **Dialog 태그 `initial` 애니메이션 적용 불가**
 
-> **`<Dialog />`태그 `initial` 애니메이션 적용 불가**
+[원인]
 
-원인: `framer motion`은 컴포넌트가 마운트 될 때 `initial` 애니메이션을 발생 시키는데, `<dialog>` 태그는 `open`하면 컴포넌트가 새로 생기는게 아니라 기존에 있던게 CSS적으로 보여지고 안보여지게 작동하기 때문에 애니메이션이 발생하지 않음
+`framer motion`은 컴포넌트가 마운트 될 때 `initial` 애니메이션을 발생 시키는데, `<dialog>` 태그는 `open`하면 컴포넌트가 새로 생기는게 아니라 기존에 있던게 CSS적으로 보여지고 안보여지게 작동하기 때문에 애니메이션이 발생하지 않음
 
-✔ 직접 만들기
+✔ [해결]
+
 `portal`을 사용하여 재사용 가능한 모달 컴포넌트를 만들었다. 특징으로는 선언적으로 구현하였으며, 모달 버튼 컴포넌트로 만들고 `children`으로 모달창의 내용을 받도록 구현
 
-</hr>
+👉 **Skipping auto-scroll**
 
-> **Skipping auto-scroll**
+[원인]
 
-원인: `<Link>`태그로 페이지 이동 시, 스크롤 위치를 유지하기 때문에 `position`속성의 `sticky`, `fixed`에 대한 위치값 계산에서 충돌이 생기는 것이다.
+`<Link>`태그로 페이지 이동 시, 스크롤 위치를 유지하기 때문에 `position`속성의 `sticky`, `fixed`에 대한 위치값 계산에서 충돌이 생기는 것이다.
 
-✔ Link 태그 scroll 속성 비활성화
-`<Link scroll={false}>`를 사용하여 페이지 전환시 스크롤 위치를 최상단에 위치하게 한다.
+✔ [해결]
 
-</hr>
+Link 태그 scroll 속성 비활성화하였다. `<Link scroll={false}>`를 사용하여 페이지 전환시 스크롤 위치를 최상단에 위치하게 한다.
 
-</hr>
 
-> **낙관적 업데이트 중 onMutate 안에서 setQueryData가 안되는 현상**
+👉 **낙관적 업데이트 중 onMutate 안에서 setQueryData가 안되는 현상**
 
-원인 및 결과: getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 나와서 me._id를 출력할 때, 에러가 안나오고 setQueryData가 작동을 안함 (에러가 출력하지 않았다는 것이 포인트)
+[원인]
 
-</hr>
+getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 나와서 me._id를 출력할 때, 에러가 안나오고 setQueryData가 작동을 안함 (에러가 출력하지 않았다는 것이 포인트)
 
-> **좋아요 버튼 isLike hydrate missmatch 에러**
+✔ [해결]
 
-원인: 클라이언트 컴포넌트를 서버에서 렌더링한 값과 클라이언트에서 렌더링한 값이 달라 에러 발생
+쿼리 키를 올바르게 설정하여 단순하게 해결
 
-✔ Effect
+👉 **좋아요 버튼 isLike hydrate missmatch 에러**
+
+[원인]
+
+클라이언트 컴포넌트를 서버에서 렌더링한 값과 클라이언트에서 렌더링한 값이 달라 에러 발생
+
+✔ [해결]
+
 기존의 `useMemo`로 서버에서 렌더링할 때, me 데이터가 undefiend로 isLike가 서버측에서는 무조건 false로 됨. 따라서 `useEffect`를 사용하여 클라이언트 측의 isLike의 첫 값을 false로 시켜 서버에서 렌더링 했을 때의 값과 일치시킨다.
 
-</hr>
+👉 **NextJS zod FileList is not defined 에러**
 
-> **NextJS zod FileList is not defined 에러**
+[원인]
 
-원인: `pictures: z.instanceof(FileList)` 검증 코드에서 FileList는 브라우저가 제공하는 API이기 떄문에 서버측에서 코드를 실행할 때, FileList를 모른다.
+`pictures: z.instanceof(FileList)` 검증 코드에서 FileList는 브라우저가 제공하는 API이기 떄문에 서버측에서 코드를 실행할 때, FileList를 모른다.
 
-✔ 해결: 구글링을 통해 `z.custom<FileList>((val) => val instanceof FileList && val.length > 0` 커스텀하여 해결
+✔ [해결] 
 
->**인터셉터 라우팅 적용 안됨 및 initialTree is not iterable 에러**
+구글링을 통해 `z.custom<FileList>((val) => val instanceof FileList && val.length > 0` 커스텀하여 해결
 
-✔ `.next`폴더 제거 후, 개발 서버 재실행
+👉 **인터셉터 라우팅 적용 안됨 및 initialTree is not iterable 에러**
 
->**커스텀 useSearchParams로 인한 불필요한 리렌더링 발생**
+✔ [해결] 
 
-상황: 커스텀 훅스의 setSearchParams를 사이드 이펙트의 종속성 배열에 삽입하고 사용할 경우 searchParams가 바뀔 때, setSearchParams도 재할당 되어버려서 불필요한 리렌더링이 한번 더 발생한다.
+`.next`폴더 제거 후, 개발 서버 재실행
 
-해결:  `const paramsRef = useRef(new URLSearchParams(searchParams.toString()));`
+👉 **커스텀 useSearchParams로 인한 불필요한 리렌더링 발생**
+
+[상황] 
+
+커스텀 훅스의 setSearchParams를 사이드 이펙트의 종속성 배열에 삽입하고 사용할 경우 searchParams가 바뀔 때, setSearchParams도 재할당 되어버려서 불필요한 리렌더링이 한번 더 발생한다. `const params = new URLSearchParams(searchParams.toString());` 에서 params가 매 번 재할당 되어 setSearchParams도 재할당 되게 된다.
+
+✔ [해결]
+
+`const paramsRef = useRef(new URLSearchParams(searchParams.toString()));` useRef를 사용하여 컴포넌트가 재실행 되더라도 params의 값이 유지되도록 하여 setSearchParams 함수로 인해 사이드 이펙트를 재실행 하는 것을 방지했다.
 
 ### 🤔 궁금증 및 생각
 
