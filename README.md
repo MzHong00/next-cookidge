@@ -1,7 +1,7 @@
 
-### 🔥 트러블 슈팅
+## 🔥 트러블 슈팅
 
-👉 **Masonry Layout 구현**
+### 👉 Masonry Layout 구현
 
 ❌ [시행착오1] 
 
@@ -20,7 +20,7 @@ react-layout-masonry 라이브러리 사용법이 굉장히 간단해서 좋았�
 
 추가 에러로 document is not defined 에러가 발생했다.
 
-👉 **document is not defined 에러**
+### 👉 **document is not defined 에러**
 
 [원인]
 
@@ -55,7 +55,7 @@ useEffect(() => {
 return mounted ? <Component /> : null
 ```
 
-👉 **Dialog 태그 `initial` 애니메이션 적용 불가**
+### 👉 **Dialog 태그 `initial` 애니메이션 적용 불가**
 
 [원인]
 
@@ -65,7 +65,7 @@ return mounted ? <Component /> : null
 
 `portal`을 사용하여 재사용 가능한 모달 컴포넌트를 만들었다. 특징으로는 선언적으로 구현하였으며, 모달 버튼 컴포넌트로 만들고 `children`으로 모달창의 내용을 받도록 구현
 
-👉 **Skipping auto-scroll**
+### 👉 **Skipping auto-scroll**
 
 [원인]
 
@@ -76,7 +76,7 @@ return mounted ? <Component /> : null
 Link 태그 scroll 속성 비활성화하였다. `<Link scroll={false}>`를 사용하여 페이지 전환시 스크롤 위치를 최상단에 위치하게 한다.
 
 
-👉 **낙관적 업데이트 중 onMutate 안에서 setQueryData가 안되는 현상**
+### 👉 **낙관적 업데이트 중 onMutate 안에서 setQueryData가 안되는 현상**
 
 [원인]
 
@@ -86,7 +86,7 @@ getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 �
 
 쿼리 키를 올바르게 설정하여 단순하게 해결
 
-👉 **좋아요 버튼 isLike hydrate missmatch 에러**
+### 👉 **좋아요 버튼 isLike hydrate missmatch 에러**
 
 [원인]
 
@@ -96,7 +96,7 @@ getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 �
 
 기존의 `useMemo`로 서버에서 렌더링할 때, me 데이터가 undefiend로 isLike가 서버측에서는 무조건 false로 됨. 따라서 `useEffect`를 사용하여 클라이언트 측의 isLike의 첫 값을 false로 시켜 서버에서 렌더링 했을 때의 값과 일치시킨다.
 
-👉 **NextJS zod FileList is not defined 에러**
+### 👉 **NextJS zod FileList is not defined 에러**
 
 [원인]
 
@@ -106,13 +106,13 @@ getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 �
 
 구글링을 통해 `z.custom<FileList>((val) => val instanceof FileList && val.length > 0` 커스텀하여 해결
 
-👉 **인터셉터 라우팅 적용 안됨 및 initialTree is not iterable 에러**
+### 👉 **인터셉터 라우팅 적용 안됨 및 initialTree is not iterable 에러**
 
 ✔ [해결] 
 
 `.next`폴더 제거 후, 개발 서버 재실행
 
-👉 **커스텀 useSearchParams로 인한 불필요한 리렌더링 발생**
+### 👉 **커스텀 useSearchParams로 인한 불필요한 리렌더링 발생**
 
 [상황] 
 
@@ -122,14 +122,14 @@ getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 �
 
 `const paramsRef = useRef(new URLSearchParams(searchParams.toString()));` useRef를 사용하여 컴포넌트가 재실행 되더라도 params의 값이 유지되도록 하여 setSearchParams 함수로 인해 사이드 이펙트를 재실행 하는 것을 방지했다.
 
-### 🤔 궁금증 및 생각
+## 🤔 궁금증 및 생각
 
 > 모달을 구현할 때, Portal 대신 position: fixed로 해도 되지 않을까?
 
 실제로 모달을 `position: fixed`로 바꿔봤다. CSS의 자식 선택자를 사용하는 중(ex: div>*), 모달 태그까지 CSS가 적용되는 문제가 발생했다. 이것은 모달이 최상단에 위치하지 않고 일반 컴포넌트들 사이사이에 들어가기 때문에 발생하는 것을 인지했다. 따라서 예기치 못한 CSS 선택자에 걸리지 않도록 관리하기 위해 Portal을 사용하여 최상단에 위치하도록 하는 것이 좋다.
 
 
-### 🛠 DX 경험 상승
+## 🛠 DX 경험 상승
 
 > **로그인 모달 창 모든 페이지 경로에서 `useRouter` 또는 `Link`사용 만으로 로그인 모달창 띄우기 가능**
 
