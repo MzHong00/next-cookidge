@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Suspense } from "react";
 import { RiAddLine } from "@react-icons/all-files/ri/RiAddLine";
@@ -5,7 +7,7 @@ import { RiAddLine } from "@react-icons/all-files/ri/RiAddLine";
 import { IconBox } from "@/components/common/iconBox";
 import { LoadingDots } from "@/components/common/loadingDots";
 import { ClientRender } from "@/components/common/clientRender";
-import { RecipeList } from "@/containers/recipe/recipeList/recipeList";
+import { RecipeList } from "@/components/features/recipe/read/recipeList";
 import { RecipeSearchOption } from "@/containers/recipe/recipeSearchOption/recipeSearchOption";
 
 import styles from "./page.module.scss";

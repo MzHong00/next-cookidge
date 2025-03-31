@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { memo, useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -9,7 +8,6 @@ import { RiTimer2Line } from "@react-icons/all-files/ri/RiTimer2Line";
 import { RiCalendarLine } from "@react-icons/all-files/ri/RiCalendarLine";
 
 import type { IIngredient, IRecipe } from "@/types/recipe/recipe";
-import { PIdToURL } from "@/utils/pidToUrl";
 import { fadeSlide } from "@/lib/framer-motion";
 import { CurrentDateGap } from "@/utils/currentDateGap";
 import { INGREDIENT_CATEGORIES } from "@/constants/ingredient";
@@ -51,9 +49,7 @@ export function RecipeDetail({ id }: { id: string }) {
         animate="visible"
         custom={SLIDE_MOVE_PX}
       >
-        <Link href={`/user/${name}`}>
-          <Profile name={name} picture={PIdToURL(picture)} />
-        </Link>
+        <Profile name={name} picture={picture} />
 
         <TabIndex tab={tab} onClick={changeTabHandler} />
 

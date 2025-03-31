@@ -31,7 +31,7 @@ export default function RootLayout({
         <AlertList />
         <Provider>
           <Header />
-          <main>{children}</main>
+          <main style={{ padding: "1rem" }}>{children}</main>
           <Navbar />
         </Provider>
       </body>

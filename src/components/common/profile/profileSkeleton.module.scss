@@ -1,0 +1,21 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    @include m.flex-layout(row, center);
+
+    .picture {
+        min-width: 40px;
+        min-height: 40px;
+        max-width: 200px;
+        max-height: 200px;
+        border-radius: 100%;
+        aspect-ratio: 1;
+        @include m.skeleton-shimmer();
+    }
+
+    .name {
+        width: 5rem;
+        height: 1rem;
+        @include m.skeleton-shimmer();
+    }
+}

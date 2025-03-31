@@ -7,5 +7,5 @@
     @include m.flex-layout(row, center, space-between);
     background-color: inherit;
     border-bottom: 1px solid rgb(var(--color-grey-medium));
-    z-index: 10;
+    z-index: 100;
 }

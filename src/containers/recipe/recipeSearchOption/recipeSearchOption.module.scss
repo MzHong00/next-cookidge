@@ -1,7 +1,7 @@
 @use '/src/styles/mixin.scss' as m;
 
 .header {
-    padding: 0.5rem;
+    margin-bottom: var(--base-padding);
     @include m.flex-layout(row, center, normal);
     flex-wrap: wrap;
     position: sticky;

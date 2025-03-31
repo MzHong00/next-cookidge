@@ -1,14 +1,13 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function useCustomSearchParams () {
+export default function useCustomSearchParams() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const params = useMemo(
-    () => new URLSearchParams(searchParams.toString()),
-    [searchParams]
-  );
+  // params의 변화를 감지하지 않도록 useRef 사용
+  const paramsRef = useRef(new URLSearchParams(searchParams.toString()));
+  const params = paramsRef.current;
 
   const routing = useCallback(
     (updatedParams: URLSearchParams) => {
@@ -28,18 +27,17 @@ export default function useCustomSearchParams () {
   const appendParam = useCallback(
     (name: string, value: string) => {
       const targetParamValues = params.getAll(name);
-      const isDulicated = targetParamValues.find((param) => value === param);
+      const isDuplicated = targetParamValues.includes(value);
 
-      // 중복 값일때, 해당 값 제거
-      if (isDulicated) {
+      if (isDuplicated) {
         params.delete(name);
-
-        const nonDulicatedParam = targetParamValues.filter((v) => v !== value);
-        nonDulicatedParam.forEach((v) => params.append(name, v));
+        targetParamValues
+          .filter((v) => v !== value)
+          .forEach((v) => params.append(name, v));
       } else {
         params.append(name, value);
       }
-      
+
       routing(params);
     },
     [params, routing]
@@ -53,8 +51,15 @@ export default function useCustomSearchParams () {
     [params, routing]
   );
 
-  return [
-    searchParams,
-    { set: setParam, append: appendParam, delete: deleteParam },
-  ] as const;
-};
+  // setSearchParams 객체의 레퍼런스를 변경하지 않도록 useMemo 사용
+  const setSearchParams = useMemo(
+    () => ({
+      set: setParam,
+      append: appendParam,
+      delete: deleteParam,
+    }),
+    [setParam, appendParam, deleteParam]
+  );
+
+  return [searchParams, setSearchParams] as const;
+}

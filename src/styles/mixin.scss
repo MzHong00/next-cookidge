@@ -6,6 +6,19 @@
     gap: $gap;
 }
 
+@mixin grid-template($flow: column, $repeat-count: auto-fit, $min: 100px, $max: auto, $gap: 1rem) {
+    display: grid;
+    gap: $gap;
+
+    @if $flow == "row" {
+        grid-template-rows: repeat($repeat-count, minmax($min, $max));
+    } @else if $flow == "column" {
+        grid-template-columns: repeat($repeat-count, minmax($min, $max));
+    } @else {
+        @error "Invalid value for $flow. Use 'row' or 'column'.";
+    }
+}
+
 @mixin text-ellipsis {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -46,7 +59,7 @@
 }
 
 @mixin skeleton-shimmer {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background: linear-gradient(90deg, silver 25%, rgb(var(--color-grey-medium)) 50%, silver 75%);
     background-size: 200% 100%;
     animation: shimmer 3s infinite;
 }
