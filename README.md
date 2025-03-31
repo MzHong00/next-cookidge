@@ -22,7 +22,7 @@ react-layout-masonry 라이브러리 사용법이 굉장히 간단해서 좋았�
 
 ### 👉 **document is not defined 에러**
 
-[원인]
+❓ [원인]
 
 NextJS는 SSR이기 때문에 `document`, `window`객체에 접근할 수 없다. 두 객체는 `client` 브라우저 측에서 사용할 수 있기 때문이다.
 
@@ -57,7 +57,7 @@ return mounted ? <Component /> : null
 
 ### 👉 **Dialog 태그 `initial` 애니메이션 적용 불가**
 
-[원인]
+❓ [원인]
 
 `framer motion`은 컴포넌트가 마운트 될 때 `initial` 애니메이션을 발생 시키는데, `<dialog>` 태그는 `open`하면 컴포넌트가 새로 생기는게 아니라 기존에 있던게 CSS적으로 보여지고 안보여지게 작동하기 때문에 애니메이션이 발생하지 않음
 
@@ -67,7 +67,7 @@ return mounted ? <Component /> : null
 
 ### 👉 **Skipping auto-scroll**
 
-[원인]
+❓ [원인]
 
 `<Link>`태그로 페이지 이동 시, 스크롤 위치를 유지하기 때문에 `position`속성의 `sticky`, `fixed`에 대한 위치값 계산에서 충돌이 생기는 것이다.
 
@@ -78,7 +78,7 @@ Link 태그 scroll 속성 비활성화하였다. `<Link scroll={false}>`를 사�
 
 ### 👉 **낙관적 업데이트 중 onMutate 안에서 setQueryData가 안되는 현상**
 
-[원인]
+❓ [원인]
 
 getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 나와서 me._id를 출력할 때, 에러가 안나오고 setQueryData가 작동을 안함 (에러가 출력하지 않았다는 것이 포인트)
 
@@ -88,7 +88,7 @@ getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 �
 
 ### 👉 **좋아요 버튼 isLike hydrate missmatch 에러**
 
-[원인]
+❓ [원인]
 
 클라이언트 컴포넌트를 서버에서 렌더링한 값과 클라이언트에서 렌더링한 값이 달라 에러 발생
 
@@ -98,7 +98,7 @@ getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 �
 
 ### 👉 **NextJS zod FileList is not defined 에러**
 
-[원인]
+❓ [원인]
 
 `pictures: z.instanceof(FileList)` 검증 코드에서 FileList는 브라우저가 제공하는 API이기 떄문에 서버측에서 코드를 실행할 때, FileList를 모른다.
 
@@ -114,7 +114,7 @@ getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 �
 
 ### 👉 **커스텀 useSearchParams로 인한 불필요한 리렌더링 발생**
 
-[상황] 
+❓ [원인] 
 
 커스텀 훅스의 setSearchParams를 사이드 이펙트의 종속성 배열에 삽입하고 사용할 경우 searchParams가 바뀔 때, setSearchParams도 재할당 되어버려서 불필요한 리렌더링이 한번 더 발생한다. `const params = new URLSearchParams(searchParams.toString());` 에서 params가 매 번 재할당 되어 setSearchParams도 재할당 되게 된다.
 
