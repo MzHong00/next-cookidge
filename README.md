@@ -1,26 +1,26 @@
 
 ### 🔥 트러블 슈팅
 
-👉 [ **Masonry Layout 구현** ]
+👉 **Masonry Layout 구현**
 
-❌ 에러1: CSS Flex
-`flex-wrap: wrap`으로 비슷하게 가로 방향으로라도 구현하려고 했지만 여백으로 인해 내가 원하는 것이 아니다.
+❌ [시행착오1] 
+CSS Flex를 사용하였다. `flex-wrap: wrap`으로 비슷하게 가로 방향으로라도 구현하려고 했지만 여백으로 인해 내가 원하는 것이 아니다.
 
-❌ 에러2: CSS Grid
-`grid-auto-rows: 1px`, `grid-rows-end: span 400`을 사용해서 구현했다.. 사진의 `height`를 얻어온 후 `grid-rows-end: span 값`을 `useRef`와 `useEffect`를 통해 `span 값`을 할당 해줬다. 기능 구현에는 성공했지만, 몇 가지 안좋은점이 생겼다.
+❌ [시행착오2]
+CSS Grid의 `grid-auto-rows: 1px`, `grid-rows-end: span 400`을 사용해서 구현했다. 사진의 `height`를 얻어온 후 `grid-rows-end: span 값`을 `useRef`와 `useEffect`를 통해 `span 값`을 할당 해줬다. 기능 구현에는 성공했지만, 몇 가지 안좋은점이 생겼다.
 
 - 성능이 굉장히 저하 된다 (스타일을 계산하고 이펙트로 리렌더링 하면서 재배치까지 해야하기 때문)
 - 반응형을 위한 추가적인 코드 작업이 들어가야 한다 (안좋은 성능으로 또 리렌더링 시켜야 함)
 
-✔ 해결: react-layout-masonry 라이브러리
-사용법이 굉장히 간단해서 좋았다. 그러나 `display: flex`로 자체적인 계산을 하기 때문에 `grid-template-column`을 사용할 수 없었다. `column`을 직접 인자로 전달해 줘야 하는데 `useViewportDivision`커스텀 제작 후, 반응형으로 제작 완료했다. 최종적으로 반응형 masonry layout 제작 완료
+✔ [해결]
+react-layout-masonry 라이브러리 사용법이 굉장히 간단해서 좋았다. 그러나 `display: flex`로 자체적인 계산을 하기 때문에 `grid-template-column`을 사용할 수 없었다. `column`을 직접 인자로 전달해 줘야 하는데 `useViewportDivision`커스텀 제작 후, 반응형으로 제작 완료했다. 최종적으로 반응형 masonry layout 제작 완료
 
 추가 에러로 document is not defined 에러가 발생했다.
 
+👉 **document is not defined 에러**
 
-👉 [ **document is not defined 에러** ]
-
-원인: NextJS는 SSR이기 때문에 `document`, `window`객체에 접근할 수 없다. 두 객체는 `client` 브라우저 측에서 사용할 수 있기 때문이다.
+[원인]
+NextJS는 SSR이기 때문에 `document`, `window`객체에 접근할 수 없다. 두 객체는 `client` 브라우저 측에서 사용할 수 있기 때문이다.
 
 ✔ 해결1: dynamic api 사용
 `dynamic`은 `lazy` + `suspense`를 기본 제공한다. `ssr: false`를 통해 CSR로 동작하게 할 수 있고, `loading: () => <Component />`로 로딩 상태를 처리할 수 있다. `<Suspense>`로 감싸면 해당 서스펜스의 `fallback`이 안보일 것이다. `loading` 속성을 사용해야 한다.
