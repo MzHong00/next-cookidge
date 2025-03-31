@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { RiUserLine } from "@react-icons/all-files/ri/RiUserLine";
 
-import { PIdToURL } from "@/utils/pidToUrl";
 import { NAV_TYPES } from "@/constants/nav";
 import { Profile } from "@/components/common/profile";
 import { DialogButton } from "@/components/common/dialog/dialogButton";
@@ -15,12 +14,13 @@ import { UserQueries } from "@/services/user/queries/userQueries";
 
 import styles from "./index.module.scss";
 
-interface Props {
-  style: CSSProperties;
-  className: string;
-}
-
-export function Navbar({ style, className }: Partial<Props>) {
+export function Navbar({
+  style,
+  className,
+}: {
+  style?: CSSProperties;
+  className?: string;
+}) {
   const path = usePathname();
   const { data: user } = useQuery(UserQueries.meQuery());
 
@@ -28,9 +28,7 @@ export function Navbar({ style, className }: Partial<Props>) {
     <nav style={style} className={`${styles.container} ${className}`}>
       <div className={styles.profile}>
         {user ? (
-          <DialogButton
-            buttonComponent={<Profile picture={PIdToURL(user.picture)} />}
-          >
+          <DialogButton buttonComponent={<Profile picture={user.picture} />}>
             <Link href="/user">내 정보</Link>
           </DialogButton>
         ) : (
