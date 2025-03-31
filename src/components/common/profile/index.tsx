@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { IUser } from "@/types/user";
 
 import styles from "./index.module.scss";
+import { PIdToURL } from "@/utils/pidToUrl";
 
 const PROFILE_WIDTH = 40;
 
@@ -19,7 +20,7 @@ export const Profile = ({
       <Link href={`/user/${name}`} style={{ display: "flex" }}>
         {picture && (
           <Image
-            src={picture}
+            src={PIdToURL(picture)}
             alt={name || "프로필"}
             width={PROFILE_WIDTH}
             height={PROFILE_WIDTH}
