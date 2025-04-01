@@ -19,11 +19,10 @@ export class UserQueries {
     });
   }
 
-  static userQuery(name?: IUser["name"]) {
+  static userQuery(name: IUser["name"]) {
     return queryOptions({
       queryKey: [...this.keys.user, name],
-      queryFn: () => (name ? UserService.fetchUser(name) : null),
-      enabled: !!name,
+      queryFn: () => UserService.fetchUser(name),
     });
   }
 
