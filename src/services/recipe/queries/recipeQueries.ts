@@ -8,6 +8,8 @@ const LIMIT = 10;
 export class RecipeQueries {
   static readonly keys = {
     root: ["recipe"],
+    mine: ["recipe", "users"],
+    like: ["recipe", "users", "like"],
     list: ["recipe-infinite"],
   };
 
@@ -37,6 +39,21 @@ export class RecipeQueries {
 
         return lastPageParam + 1;
       },
+    });
+  }
+
+  static listQueryByUserName(name: string) {
+    return queryOptions({
+      queryKey: [...this.keys.mine, name],
+      queryFn: ({ signal }) =>
+        RecipeService.readRecipeListByUserName({ signal, userName: name }),
+    });
+  }
+
+  static listQueryByUserLike() {
+    return queryOptions({
+      queryKey: [...this.keys.like],
+      queryFn: ({ signal }) => RecipeService.readMyLikeRecieps({ signal }),
     });
   }
 }
