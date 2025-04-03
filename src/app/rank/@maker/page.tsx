@@ -4,7 +4,7 @@ import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { RiBook2Line } from "@react-icons/all-files/ri/RiBook2Line";
 
 import { IconBox } from "@/components/common/iconBox";
-import { Usercard } from "@/containers/user/userCard/userCard";
+import { UserCard } from "@/containers/user/userCard/userCard";
 import { RankQueries } from "@/services/rank/queries/rankQueries";
 
 import styles from "../layout.module.scss";
@@ -31,11 +31,11 @@ export default function MakerRankParallelPage() {
             >
               {rank}
             </div>
-            <Usercard {...author} className={styles.rankUserCard}>
+            <UserCard {...author} className={styles.rankUserCard}>
               <IconBox Icon={RiBook2Line} className={styles.rankValue}>
                 {recipe_count}
               </IconBox>
-            </Usercard>
+            </UserCard>
           </li>
         );
       })}

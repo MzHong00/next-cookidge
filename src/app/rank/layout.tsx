@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { RiTrophyLine } from "@react-icons/all-files/ri/RiTrophyLine";
 
 import { IconBox } from "@/components/common/iconBox";
-import { UsercardSkeleton } from "@/containers/user/userCard/userCardSkeleton";
+import { UserCardSkeleton } from "@/containers/user/userCard/userCardSkeleton";
 
 import styles from "./layout.module.scss";
 
@@ -37,7 +37,7 @@ export default function RankLayout({
           <Suspense
             fallback={
               <div className={styles.rankList}>
-                <UsercardSkeleton
+                <UserCardSkeleton
                   count={USER_SKELETON_COUNT}
                   introduce={false}
                 />
@@ -56,7 +56,7 @@ export default function RankLayout({
           <Suspense
             fallback={
               <div className={styles.rankList}>
-                <UsercardSkeleton
+                <UserCardSkeleton
                   count={USER_SKELETON_COUNT}
                   introduce={false}
                 />

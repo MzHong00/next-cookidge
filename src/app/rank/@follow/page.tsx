@@ -1,13 +1,13 @@
 "use client";
 
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import { RiGroupLine } from "@react-icons/all-files/ri/RiGroupLine";
 
-import { Usercard } from "@/containers/user/userCard/userCard";
+import { IconBox } from "@/components/common/iconBox";
+import { UserCard } from "@/containers/user/userCard/userCard";
 import { RankQueries } from "@/services/rank/queries/rankQueries";
 
 import styles from "../layout.module.scss";
-import { IconBox } from "@/components/common/iconBox";
-import { RiGroupLine } from "@react-icons/all-files/ri/RiGroupLine";
 
 export default function FollowRankPage() {
   const { data: userInfinite } = useSuspenseInfiniteQuery(
@@ -31,11 +31,11 @@ export default function FollowRankPage() {
             >
               {rank}
             </div>
-            <Usercard {...user} className={styles.rankUserCard}>
+            <UserCard {...user} className={styles.rankUserCard}>
               <IconBox Icon={RiGroupLine} className={styles.rankValue}>
                 {user.follower_count}
               </IconBox>
-            </Usercard>
+            </UserCard>
           </li>
         );
       })}

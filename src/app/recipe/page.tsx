@@ -6,7 +6,6 @@ import { RiAddLine } from "@react-icons/all-files/ri/RiAddLine";
 
 import { IconBox } from "@/components/common/iconBox";
 import { LoadingDots } from "@/components/common/loadingDots";
-import { ClientRender } from "@/components/common/clientRender";
 import { RecipeList } from "@/components/features/recipe/read/recipeList";
 import { RecipeSearchOption } from "@/containers/recipe/recipeSearchOption/recipeSearchOption";
 
@@ -22,9 +21,7 @@ export default function RecipePage() {
         <RecipeSearchOption />
       </Suspense>
       <Suspense fallback={<LoadingDots msg="레시피 목록 가져오는 중..." />}>
-        <ClientRender>
-          <RecipeList />
-        </ClientRender>
+        <RecipeList />
       </Suspense>
     </>
   );
