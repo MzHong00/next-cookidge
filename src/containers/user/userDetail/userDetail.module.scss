@@ -1,0 +1,11 @@
+@use '/src/styles/mixin.scss' as m;
+
+.followSection {
+    @include m.flex-layout(row);
+
+    &>div {
+        padding: var(--base-padding);
+        @include m.flex-layout(column, center, center);
+        flex-grow: 1;
+    }
+}

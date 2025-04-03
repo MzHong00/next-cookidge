@@ -8,7 +8,7 @@ interface Props {
   introduce: boolean;
 }
 
-export const UsercardSkeleton = ({
+export const UserCardSkeleton = ({
   count = 1,
   name = true,
   introduce = true,
