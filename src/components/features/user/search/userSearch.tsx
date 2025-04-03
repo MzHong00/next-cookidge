@@ -26,9 +26,14 @@ export const UserSearch = () => {
   // 검색 결과 UI 출력 여부
   const { ref, isFocus } = useSearchInputFocus();
   const hasSearchResult = users?.pages[0] && users?.pages[0].length !== 0;
-  
+
   return (
-    <SearchBox ref={ref} className={styles.container} queryStringKey="name">
+    <SearchBox
+      ref={ref}
+      queryStringKey="name"
+      placeholder="사용자 이름을 입력하세요."
+      className={styles.container}
+    >
       {hasSearchResult && isFocus && (
         <ul className="flex-column">
           {users?.pages.map((page) =>

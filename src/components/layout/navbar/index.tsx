@@ -1,8 +1,8 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { type CSSProperties } from "react";
 import { usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { RiUserLine } from "@react-icons/all-files/ri/RiUserLine";
@@ -28,8 +28,10 @@ export function Navbar({
     <nav style={style} className={`${styles.container} ${className}`}>
       <div className={styles.profile}>
         {user ? (
-          <DialogButton buttonComponent={<Profile picture={user.picture} />}>
-            <Link href="/user">내 정보</Link>
+          <DialogButton
+            buttonComponent={<Profile picture={user.picture} disabled />}
+          >
+            <Link href={`/user/${user.name}`}>내 정보</Link>
           </DialogButton>
         ) : (
           <Link href="/login" scroll={false}>
