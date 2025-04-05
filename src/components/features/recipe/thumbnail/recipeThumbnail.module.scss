@@ -11,6 +11,7 @@
         width: 100%;
         height: auto;
         object-fit: cover;
+        border-radius: inherit;
     }
 }
 
@@ -22,7 +23,6 @@
     position: absolute;
     top: 0;
     box-shadow: inset 0px 0px 95px 100px rgba(var(--color-dark), 0.8);
-    opacity: 0;
 }
 
 .recipeLinkButton {

@@ -1,0 +1,7 @@
+@use '/src/styles/mixin.scss' as m;
+
+.button {
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    @include m.main-button-dark();
+}
