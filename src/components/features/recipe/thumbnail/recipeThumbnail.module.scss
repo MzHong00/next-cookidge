@@ -6,6 +6,7 @@
     position: relative;
     border-radius: var(--border-radius);
     overflow: hidden;
+    cursor: pointer;
 
     &>img {
         width: 100%;
@@ -23,8 +24,8 @@
     position: absolute;
     top: 0;
     box-shadow: inset 0px 0px 95px 100px rgba(var(--color-dark), 0.8);
-}
 
-.recipeLinkButton {
-    @include m.main-button();
+    .recipeLinkButton {
+        @include m.main-button();
+    }
 }

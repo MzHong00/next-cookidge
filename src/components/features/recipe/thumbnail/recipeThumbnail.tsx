@@ -10,6 +10,7 @@ import { PIdToURL } from "@/utils/pidToUrl";
 import { IconBox } from "@/components/common/iconBox";
 
 import styles from "./recipeThumbnail.module.scss";
+import { fadeSlide } from "@/lib/framer-motion";
 
 interface Props extends Partial<ImageProps> {
   recipe: IRecipe;
@@ -26,12 +27,12 @@ export const RecipeThumbnail = ({ recipe, ...props }: Props) => {
     <motion.div
       layoutId={`thumbnail${recipe._id}`}
       className={styles.thumbnail}
+      onClick={InfoToggleHandler}
       transition={{
         type: "spring",
         stiffness: 100,
         damping: 20,
       }}
-      onClick={InfoToggleHandler}
     >
       {isOpen && <Info {...recipe} />}
       <Image src={PIdToURL(recipe.pictures[0])} alt="Thumbnail" {...props} />
@@ -43,7 +44,12 @@ const Info = (props: IRecipe) => {
   const { _id, name, introduction, pictures } = props;
 
   return (
-    <div className={styles.hoverRecipe}>
+    <motion.div
+      className={styles.hoverRecipe}
+      variants={fadeSlide}
+      initial="hidden"
+      animate="visible"
+    >
       <h4>{name}</h4>
       <p>{introduction}</p>
       <Link
@@ -56,6 +62,6 @@ const Info = (props: IRecipe) => {
       >
         <IconBox className={styles.recipeLinkButton}>자세히</IconBox>
       </Link>
-    </div>
+    </motion.div>
   );
 };
