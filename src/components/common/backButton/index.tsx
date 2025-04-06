@@ -1,6 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { RiArrowLeftSLine } from "@react-icons/all-files/ri/RiArrowLeftSLine";
+
+import { IconBox } from "../iconBox";
 
 import styles from "./index.module.scss";
 
@@ -12,8 +15,14 @@ export const BackButton = () => {
   };
 
   return (
-    <button onClick={goBackHandler} className={styles.button}>
-      뒤로가기
+    <button>
+      <IconBox
+        Icon={RiArrowLeftSLine}
+        onClick={goBackHandler}
+        className={styles.button}
+      >
+        뒤로가기
+      </IconBox>
     </button>
   );
 };
