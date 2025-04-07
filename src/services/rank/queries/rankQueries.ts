@@ -5,8 +5,8 @@ import { RankServices } from "..";
 
 export class RankQueries {
   static readonly keys = {
-    follower: ["rank", "follower", "infinite"],
-    maker: ["rank", "recipe-maker", "infinite"],
+    follower: ["rank", "infinite", "follower"],
+    maker: ["rank", "infinite", "recipe-maker"],
   };
 
   static InfiniteFollowerRankQuery(option?: PagenationParams) {

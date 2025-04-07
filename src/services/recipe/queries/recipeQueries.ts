@@ -8,9 +8,9 @@ const LIMIT = 10;
 export class RecipeQueries {
   static readonly keys = {
     root: ["recipe"],
-    mine: ["recipe", "users"],
-    like: ["recipe", "users", "like"],
-    list: ["recipe-infinite"],
+    list: ["recipe", "infinite"],
+    like: ["recipe", "by-users-like"],
+    users: ["recipe", "by-users-name"],
   };
 
   static detailQuery(recipeId: IRecipe["_id"]) {
@@ -44,7 +44,7 @@ export class RecipeQueries {
 
   static listQueryByUserName(name: string) {
     return queryOptions({
-      queryKey: [...this.keys.mine, name],
+      queryKey: [...this.keys.users, name],
       queryFn: ({ signal }) =>
         RecipeService.readRecipeListByUserName({ signal, userName: name }),
     });

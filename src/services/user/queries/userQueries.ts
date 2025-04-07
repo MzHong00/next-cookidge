@@ -8,7 +8,7 @@ export class UserQueries {
   static readonly keys = {
     me: ["me"],
     user: ["user"],
-    infinite: ["user", "inifinite"],
+    search: ["user", "inifinite", "search"],
     follower: ["user", "inifinite", "follower"],
     following: ["user", "inifinite", "following"],
   };
@@ -72,7 +72,7 @@ export class UserQueries {
     });
   }
 
-  static InfiniteSearchQuery(
+  static infiniteSearchQuery(
     option: PagenationParams & {
       query: IUser["name"];
     }
@@ -80,7 +80,7 @@ export class UserQueries {
     const { query = "", limit = 10 } = option || {};
 
     return infiniteQueryOptions({
-      queryKey: [...this.keys.infinite, query],
+      queryKey: [...this.keys.search, query],
       queryFn: ({ pageParam, signal }) =>
         UserService.searchUser({
           signal,

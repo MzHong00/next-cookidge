@@ -19,7 +19,7 @@ export const UserSearch = () => {
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery(
-    UserQueries.InfiniteSearchQuery({ query: searchParams.get("name") || "" })
+    UserQueries.infiniteSearchQuery({ query: searchParams.get("name") || "" })
   );
   const observerRef = useIntersectionObserver({ hasNextPage, fetchNextPage });
 
