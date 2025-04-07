@@ -11,6 +11,8 @@ import { IconBox } from "@/components/common/iconBox";
 
 import styles from "./recipeThumbnail.module.scss";
 import { fadeSlide } from "@/lib/framer-motion";
+import { CurrentDateGap } from "@/utils/currentDateGap";
+import { LikeButton } from "../like/likeButtton";
 
 interface Props extends Partial<ImageProps> {
   recipe: IRecipe;
@@ -41,27 +43,33 @@ export const RecipeThumbnail = ({ recipe, ...props }: Props) => {
 };
 
 const Info = (props: IRecipe) => {
-  const { _id, name, introduction, pictures } = props;
+  const { _id, name, introduction, pictures, created_at, like_members } = props;
 
   return (
     <motion.div
-      className={styles.hoverRecipe}
+      className={styles.recipeInfo}
       variants={fadeSlide}
       initial="hidden"
       animate="visible"
     >
-      <h4>{name}</h4>
+      <header>
+        <h4>{name}</h4>
+        <span>{CurrentDateGap(created_at)}전</span>
+      </header>
       <p>{introduction}</p>
-      <Link
-        href={{
-          pathname: `/recipe/${_id}`,
-          query: {
-            p: pictures[0],
-          },
-        }}
-      >
-        <IconBox className={styles.recipeLinkButton}>자세히</IconBox>
-      </Link>
+      <footer onClick={(e) => e.stopPropagation()}>
+        <LikeButton recipe_id={_id} likeMembers={like_members} />
+        <Link
+          href={{
+            pathname: `/recipe/${_id}`,
+            query: {
+              p: pictures[0],
+            },
+          }}
+        >
+          <IconBox className={styles.recipeLinkButton}>자세히</IconBox>
+        </Link>
+      </footer>
     </motion.div>
   );
 };

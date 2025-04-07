@@ -5,7 +5,7 @@
     height: 100%;
     position: relative;
     border-radius: var(--border-radius);
-    overflow: hidden;
+    overflow: auto;
     cursor: pointer;
 
     &>img {
@@ -16,7 +16,7 @@
     }
 }
 
-.hoverRecipe {
+.recipeInfo {
     width: 100%;
     height: 100%;
     padding: 1rem;
@@ -24,6 +24,23 @@
     position: absolute;
     top: 0;
     box-shadow: inset 0px 0px 95px 100px rgba(var(--color-dark), 0.8);
+
+    &>header {
+        @include m.flex-layout(row, flex-end, normal, 0.5rem);
+
+        &>h4 {
+            @include m.text-ellipsis();
+        }
+
+        &>span {
+            flex-shrink: 0;
+            font-size: var(--base-font-size-small);
+        }
+    }
+
+    &> footer {
+        @include m.flex-layout(row, normal, space-between, 0.5rem);
+    }
 
     .recipeLinkButton {
         @include m.main-button();
