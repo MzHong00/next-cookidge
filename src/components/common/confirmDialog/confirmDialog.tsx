@@ -46,7 +46,7 @@ export const ConfirmDialog = () => {
             ))}
           </ol>
         </header>
-        {isLoading && <LoadingDots msg={processMessage} />}
+        {isLoading && <LoadingDots msg={processMessage} className={styles.processMessage}/>}
         {!isLoading && (
           <main className="flex-row">
             <button>
