@@ -1,11 +1,11 @@
 "use client";
 
 import {
-  ForwardedRef,
-  forwardRef,
+  type ForwardedRef,
   type InputHTMLAttributes,
-  useEffect,
   useState,
+  useEffect,
+  forwardRef,
 } from "react";
 import { RiSearchLine } from "@react-icons/all-files/ri/RiSearchLine";
 
