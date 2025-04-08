@@ -1,4 +1,9 @@
-import { QueryClient } from "@tanstack/react-query";
+import {
+  dehydrate,
+  QueryClient,
+  HydrationBoundary,
+} from "@tanstack/react-query";
+
 import { UserQueries } from "@/services/user/queries/userQueries";
 import { FollowingList } from "@/components/features/user/read/followingList";
 
@@ -15,5 +20,9 @@ export default async function UserFollowingPage({
     UserQueries.followingInfiniteQuery({ name: decodedName })
   );
 
-  return <FollowingList name={decodedName} />;
+  return (
+    <HydrationBoundary state={dehydrate(queryCleint)}>
+      <FollowingList name={decodedName} />
+    </HydrationBoundary>
+  );
 }

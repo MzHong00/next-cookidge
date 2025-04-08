@@ -1,4 +1,8 @@
-import { QueryClient } from "@tanstack/react-query";
+import {
+  dehydrate,
+  QueryClient,
+  HydrationBoundary,
+} from "@tanstack/react-query";
 
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import { UserRecipeList } from "@/components/features/recipe/read/userRecipeList";
@@ -12,7 +16,13 @@ export default async function UserRecipePage({
   const decodedName = decodeURIComponent(name);
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(RecipeQueries.listQueryByUserName(decodedName));
+  await queryClient.prefetchQuery(
+    RecipeQueries.listQueryByUserName(decodedName)
+  );
 
-  return <UserRecipeList name={decodedName} />;
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <UserRecipeList name={decodedName} />
+    </HydrationBoundary>
+  );
 }

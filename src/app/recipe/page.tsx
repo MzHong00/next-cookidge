@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { Suspense } from "react";
 import { RiAddLine } from "@react-icons/all-files/ri/RiAddLine";
@@ -17,9 +15,7 @@ export default function RecipePage() {
       <Link href="/recipe/create" className={styles.openFormButton}>
         <IconBox Icon={RiAddLine}>레시피 생성</IconBox>
       </Link>
-      <Suspense>
-        <RecipeSearchOption />
-      </Suspense>
+      <RecipeSearchOption />
       <Suspense fallback={<LoadingDots msg="레시피 목록 가져오는 중..." />}>
         <RecipeList />
       </Suspense>
