@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { RiUserLine } from "@react-icons/all-files/ri/RiUserLine";
 
 import { NAV_TYPES } from "@/constants/nav";
+import { Menu } from "@/containers/home/menu/menu";
 import { Profile } from "@/components/common/profile";
 import { DialogButton } from "@/components/common/dialog/dialogButton";
 import { UserQueries } from "@/services/user/queries/userQueries";
@@ -22,16 +23,16 @@ export function Navbar({
   className?: string;
 }) {
   const path = usePathname();
-  const { data: user } = useQuery(UserQueries.meQuery());
+  const { data: me } = useQuery(UserQueries.meQuery());
 
   return (
     <nav style={style} className={`${styles.container} ${className}`}>
       <div className={styles.profile}>
-        {user ? (
+        {me ? (
           <DialogButton
-            buttonComponent={<Profile picture={user.picture} disabled />}
+            buttonComponent={<Profile picture={me.picture} disabled />}
           >
-            <Link href={`/user/${user.name}`}>내 정보</Link>
+            <Menu me={me}/>
           </DialogButton>
         ) : (
           <Link href="/login" scroll={false}>

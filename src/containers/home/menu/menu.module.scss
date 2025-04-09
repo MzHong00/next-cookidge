@@ -1,0 +1,9 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    @include m.grid-template(column, 3);
+
+    .icon {
+        @include m.flex-layout(column);
+    }
+}
