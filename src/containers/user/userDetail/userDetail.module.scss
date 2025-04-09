@@ -1,11 +1,23 @@
 @use '/src/styles/mixin.scss' as m;
 
-.followSection {
-    @include m.flex-layout(row);
+.container {
+    @include m.flex-layout(column);
 
-    &>div {
-        padding: var(--base-padding);
-        @include m.flex-layout(column, center, center);
-        flex-grow: 1;
+    .actionSection {
+        @include m.flex-layout(row);
+
+        &>*{
+           font-size: var(--base-font-size-small); 
+        }
+    }
+
+    .followSection {
+        @include m.flex-layout(row);
+
+        &>div {
+            padding: var(--base-padding);
+            @include m.flex-layout(column, center, center);
+            flex-grow: 1;
+        }
     }
 }

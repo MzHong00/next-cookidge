@@ -1,20 +1,36 @@
 "use client";
 
 import Link from "next/link";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQueries } from "@tanstack/react-query";
+import { RiUserSettingsLine } from "@react-icons/all-files/ri/RiUserSettingsLine";
 
 import { UserCard } from "../userCard/userCard";
+import { IconBox } from "@/components/common/iconBox";
+import { ClientRender } from "@/components/common/clientRender";
 import { UserQueries } from "@/services/user/queries/userQueries";
+import { FollowButton } from "@/components/features/user/follow/followButton";
 
 import styles from "./userDetail.module.scss";
 
 export const UserDetail = ({ name }: { name: string }) => {
-  const { data: user } = useSuspenseQuery(UserQueries.userQuery(name));
+  const [userQuery, meQuery] = useSuspenseQueries({
+    queries: [UserQueries.userQuery(name), UserQueries.meQuery()],
+  });
+
+  const me = meQuery.data;
+  const user = userQuery.data;
 
   return (
-    <div>
+    <div className={styles.container}>
       <section>
         <UserCard {...user} disabled />
+      </section>
+
+      <section className={styles.actionSection}>
+        <ClientRender>
+          <FollowButton meId={me?._id} user={user} />
+          {me?._id === user._id && <ProfileUpdateLink />}
+        </ClientRender>
       </section>
 
       <section className={styles.followSection}>
@@ -32,5 +48,13 @@ export const UserDetail = ({ name }: { name: string }) => {
         </div>
       </section>
     </div>
+  );
+};
+
+const ProfileUpdateLink = () => {
+  return (
+    <Link href={`/me/update`} className="main-button">
+      <IconBox Icon={RiUserSettingsLine}>프로필 편집</IconBox>
+    </Link>
   );
 };

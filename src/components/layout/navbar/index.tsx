@@ -30,6 +30,7 @@ export function Navbar({
       <div className={styles.profile}>
         {me ? (
           <DialogButton
+          DialogTitle="메뉴"
             buttonComponent={<Profile picture={me.picture} disabled />}
           >
             <Menu me={me}/>
