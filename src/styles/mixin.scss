@@ -6,15 +6,19 @@
     gap: $gap;
 }
 
-@mixin grid-template($flow: column, $repeat-count: auto-fit, $min: 100px, $max: auto, $gap: 1rem) {
+@mixin grid-template($flow: column, $value, $gap: 1rem) {
     display: grid;
     gap: $gap;
 
-    @if $flow == "row" {
-        grid-template-rows: repeat($repeat-count, minmax($min, $max));
-    } @else if $flow == "column" {
-        grid-template-columns: repeat($repeat-count, minmax($min, $max));
-    } @else {
+    @if $flow =="row" {
+        grid-template-rows: $value;
+    }
+
+    @else if $flow =="column" {
+        grid-template-columns: $value;
+    }
+
+    @else {
         @error "Invalid value for $flow. Use 'row' or 'column'.";
     }
 }

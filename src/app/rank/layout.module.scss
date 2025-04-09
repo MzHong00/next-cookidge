@@ -15,7 +15,7 @@
 
             .rankList {
                 width: 100%;
-                @include m.grid-template(column, auto-fit, 200px);
+                @include m.grid-template(column, repeat(auto-fit, minmax(200px, 1fr)));
 
                 .rankItem {
                     position: relative;
