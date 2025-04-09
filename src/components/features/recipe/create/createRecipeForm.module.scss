@@ -1,12 +1,14 @@
 @use '/src/styles/mixin.scss' as m;
 
 .form {
-    padding-inline: 0.5rem;
+    padding: var(--base-padding);
     flex-grow: 1;
+    border-radius: var(--border-radius);
     overflow-x: hidden;
     overflow-y: auto;
+    background-color: rgb(var(--color-dark));
 
-    background-color: rgb(var(--color-dark)) & input,
+    & input,
     & select,
     & textarea {
         width: 100%;
