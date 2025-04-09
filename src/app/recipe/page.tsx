@@ -12,7 +12,11 @@ import styles from "./page.module.scss";
 export default function RecipePage() {
   return (
     <>
-      <Link href="/recipe/create" className={styles.openFormButton}>
+      <Link
+        href="/recipe/create"
+        className={styles.openFormButton}
+        scroll={false}
+      >
         <IconBox Icon={RiAddLine}>레시피 생성</IconBox>
       </Link>
       <RecipeSearchOption />

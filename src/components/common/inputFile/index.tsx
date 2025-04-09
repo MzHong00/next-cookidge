@@ -12,13 +12,14 @@ export const InputFile = forwardRef<HTMLInputElement, Props>(
   ({ previewUrl, id, style, className, ...props }, ref) => {
     return (
       <div className={`${className} ${styles.container}`} style={style}>
-        <label htmlFor={id} style={{position: "relative"}}>
+        <label htmlFor={id}>
           {previewUrl ? (
             <Image
               src={previewUrl}
               alt="미리보기"
-              fill
               className={styles.image}
+              fill
+              sizes="200px"
             />
           ) : (
             <div className={styles.uploadPlaceholder}>
