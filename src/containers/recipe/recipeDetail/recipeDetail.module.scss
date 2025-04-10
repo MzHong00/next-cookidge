@@ -1,10 +1,5 @@
 @use '/src/styles/mixin.scss' as m;
 
-.pictureSlider {
-    height: 500px;
-    border-radius: var(--border-radius);
-}
-
 .card {
     padding: 1rem;
     @include m.flex-layout(column);
@@ -12,30 +7,44 @@
     background-color: rgba(var(--color-dark), 0.4);
     border-radius: var(--border-radius);
     box-shadow: 0px 0px 8px -2px;
+
+    .cardHeader {
+        @include m.flex-layout(row, center, space-between, 0);
+
+        .recipeAction {
+            @include m.flex-layout(row);
+        }
+    }
 }
 
 .contentContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
-}
 
-.contents {
-    padding: 1rem;
-    @include m.flex-layout(column);
-    color: rgb(var(--foreground));
-    background-color: rgba(var(--color-dark), 0.55);
-    border-radius: var(--border-radius);
+    .contents {
+        padding: 1rem;
+        @include m.flex-layout(column);
+        color: rgb(var(--foreground));
+        background-color: rgba(var(--color-dark), 0.55);
+        border-radius: var(--border-radius);
 
-    &>section:first-of-type {
-        @include m.flex-layout(row);
-        flex-wrap: wrap;
+        &>section:first-of-type {
+            @include m.flex-layout(row);
+            flex-wrap: wrap;
 
-        &>* {
-            background-color: rgba(var(--color-dark), 0.8);
+            &>* {
+                background-color: rgba(var(--color-dark), 0.8);
+            }
         }
     }
+
+    .pictureSlider {
+        height: 500px;
+        border-radius: var(--border-radius);
+    }
 }
+
 
 .ingredients {
     @include m.flex-layout(row);

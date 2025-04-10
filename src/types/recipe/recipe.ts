@@ -25,7 +25,7 @@ export interface IIngredient {
 }
 
 export interface ICookingStep {
-  picture?: string;
+  picture: string;
   instruction: string;
 }
 
@@ -34,19 +34,8 @@ export interface IRecipeQuery {
   sort: "time" | "like";
 }
 
-export interface IRecipeInputDTO
-  extends Pick<
-    ICreateRecipeForm,
-    | "name"
-    | "ingredients"
-    | "introduction"
-    | "servings"
-    | "category"
-    | "cooking_time"
-  > {
-  pictures: string;
-  cooking_steps: {
-    picture: string;
-    instruction: string;
-  }[];
+export interface IRecipeCreateDTO
+  extends Omit<ICreateRecipeForm, "pictures" | "cooking_steps"> {
+  pictures: string[];
+  cooking_steps: ICookingStep[];
 }

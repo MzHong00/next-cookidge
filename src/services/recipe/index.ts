@@ -2,11 +2,10 @@ import axios from "..";
 
 import type { IUser } from "@/types/user";
 import type { PagenationParams } from "@/types";
-import type { ICreateRecipeForm } from "@/types/recipe/recipe.contract";
 import type {
-  IIngredient,
   IRecipe,
-  IRecipeInputDTO,
+  IIngredient,
+  IRecipeCreateDTO,
 } from "@/types/recipe/recipe";
 
 export class RecipeService {
@@ -43,26 +42,17 @@ export class RecipeService {
   }
 
   static async createRecipe(
-    IRecipeInputDTO: ICreateRecipeForm
+    IRecipeInputDTO: IRecipeCreateDTO
   ): Promise<{ message: string }> {
-    return (
-      await axios.post(`${this.root}/create`, IRecipeInputDTO, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-    ).data;
+    return (await axios.post(`${this.root}/create`, IRecipeInputDTO)).data;
   }
 
   static async updateRecipe(
     recipeId: IRecipe["_id"],
-    recipe: IRecipeInputDTO
+    recipe: IRecipeCreateDTO
   ): Promise<{ message: string }> {
     return (
       await axios.put(`${this.root}/update`, recipe, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
         params: { _id: recipeId },
       })
     ).data;

@@ -17,7 +17,7 @@
   --icon-size-medium: 1.25em;
   --base-font-size-small: 0.85rem;
   --base-padding: 1rem;
-  --base-box-shadow: 0px 0px 2px 1px silver;
+  --base-box-shadow: 0px 0px 2px 1px;
   --border-radius: 10px;
 }
 
@@ -74,6 +74,7 @@ input[type="search"] {
   border: none;
 }
 
+a,
 button,
 input[type="button"],
 input[type="submit"],

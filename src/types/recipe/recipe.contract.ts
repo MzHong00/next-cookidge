@@ -28,7 +28,7 @@ const CookingStepSchema = z.object({
   picture: z.custom<FileList>(
     (val) => val instanceof FileList && val.length > 0,
     "이미지를 선택하세요."
-  ).optional(),
+  ),
   instruction: z
     .string()
     .min(1, "조리 과정을 입력해 주세요.")

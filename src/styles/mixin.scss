@@ -33,14 +33,14 @@
     color: rgb(var(--foreground));
     background-color: rgb(var(--color-main)) !important;
     border-radius: var(--border-radius);
-    border: none !important;
+    border: none;
 }
 
 @mixin main-button-dark {
     color: rgb(var(--foreground));
     background-color: rgb(var(--color-dark)) !important;
     border-radius: var(--border-radius);
-    border: none !important;
+    border: none;
 }
 
 @mixin abs-center-x($position: absolute) {
