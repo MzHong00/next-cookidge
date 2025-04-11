@@ -5,7 +5,7 @@ import type { PagenationParams } from "@/types";
 import type {
   IRecipe,
   IIngredient,
-  IRecipeCreateDTO,
+  IRecipeInputDTO,
 } from "@/types/recipe/recipe";
 
 export class RecipeService {
@@ -42,14 +42,14 @@ export class RecipeService {
   }
 
   static async createRecipe(
-    IRecipeInputDTO: IRecipeCreateDTO
+    IRecipeInputDTO: IRecipeInputDTO
   ): Promise<{ message: string }> {
     return (await axios.post(`${this.root}/create`, IRecipeInputDTO)).data;
   }
 
   static async updateRecipe(
     recipeId: IRecipe["_id"],
-    recipe: IRecipeCreateDTO
+    recipe: IRecipeInputDTO
   ): Promise<{ message: string }> {
     return (
       await axios.put(`${this.root}/update`, recipe, {

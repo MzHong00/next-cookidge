@@ -34,7 +34,7 @@ export interface IRecipeQuery {
   sort: "time" | "like";
 }
 
-export interface IRecipeCreateDTO
+export interface IRecipeInputDTO
   extends Omit<ICreateRecipeForm, "pictures" | "cooking_steps"> {
   pictures: string[];
   cooking_steps: ICookingStep[];

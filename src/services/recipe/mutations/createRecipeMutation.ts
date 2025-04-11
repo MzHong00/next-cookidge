@@ -1,7 +1,7 @@
 import type { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import type { IRecipeCreateDTO } from "@/types/recipe/recipe";
+import type { IRecipeInputDTO } from "@/types/recipe/recipe";
 import { RecipeService } from "..";
 import { RecipeQueries } from "../queries/recipeQueries";
 import { useAlertActions } from "@/lib/zustand/alertStore";
@@ -11,7 +11,7 @@ export const useCreateRecipeMutation = () => {
   const { alertEnqueue } = useAlertActions();
 
   return useMutation({
-    mutationFn: (recipeInputDto: IRecipeCreateDTO) =>
+    mutationFn: (recipeInputDto: IRecipeInputDTO) =>
       RecipeService.createRecipe(recipeInputDto),
     onSuccess: async (data) => {
       const { list } = RecipeQueries.keys;

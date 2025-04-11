@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { IUser } from "@/types/user";
-import type { IRecipe, IRecipeCreateDTO } from "@/types/recipe/recipe";
+import type { IRecipe, IRecipeInputDTO } from "@/types/recipe/recipe";
 import { RecipeService } from "..";
 import { RecipeQueries } from "../queries/recipeQueries";
 import { useAlertActions } from "@/lib/zustand/alertStore";
@@ -14,7 +14,7 @@ export const useUpdateRecipeMutation = (recipeId: IRecipe["_id"]) => {
   const me = queryClient.getQueryData<IUser>([UserQueries.keys.me]);
 
   return useMutation({
-    mutationFn: (recipeInputDto: IRecipeCreateDTO) =>
+    mutationFn: (recipeInputDto: IRecipeInputDTO) =>
       RecipeService.updateRecipe(recipeId, recipeInputDto),
     onSuccess: async (data) => {
       const { root, list } = RecipeQueries.keys;

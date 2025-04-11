@@ -15,7 +15,7 @@ import { useUpdateUserMutation } from "@/services/user/mutation/updateUserMutati
 import styles from "./userUpdateForm.module.scss";
 
 interface UserEditInputs extends Omit<IUser, "picture"> {
-  picture: File[];
+  picture: FileList;
 }
 
 export const UserUpdateForm = ({ user }: { user: IUser }) => {

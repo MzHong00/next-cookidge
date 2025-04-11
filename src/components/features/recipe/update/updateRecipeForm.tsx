@@ -13,58 +13,58 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RiAddLine } from "@react-icons/all-files/ri/RiAddLine";
 import { CgRemoveR } from "@react-icons/all-files/cg/CgRemoveR";
 
+import type { IRecipe } from "@/types/recipe/recipe";
+import {
+  IUpdateRecipeForm,
+  UpdateRecipeSchema,
+} from "@/types/recipe/recipe.contract";
 import { Steps } from "@/components/common/steps";
 import { IconBox } from "@/components/common/iconBox";
 import { Tooltip } from "@/components/common/toolTip";
 import { InputBox } from "@/components/common/inputBox";
 import { InputFile } from "@/components/common/inputFile";
 import { ErrorMessage } from "@/components/common/inputErrorMessage";
-import {
-  type ICreateRecipeForm,
-  CreateRecipeSchema,
-} from "@/types/recipe/recipe.contract";
 import { usePreviewImages } from "@/hooks/usePreviewImages";
-import { INGREDIENT_CATEGORIES } from "@/constants/ingredient";
 import { useAlertActions } from "@/lib/zustand/alertStore";
+import { compressImageToBase64 } from "@/lib/imageCompression";
 import { useConfirmDialogActions } from "@/lib/zustand/confirmDialogStore";
-import { compressImage, compressImageToBase64 } from "@/lib/imageCompression";
+import { INGREDIENT_CATEGORIES } from "@/constants/ingredient";
 import { FOOD_CATEGORIES, INTRODUCE_LIMIT_LENGTH } from "@/constants/recipe";
-import { useCreateRecipeMutation } from "@/services/recipe/mutations/createRecipeMutation";
+import { useUpdateRecipeMutation } from "@/services/recipe/mutations/updateRecipeMutation";
 
 import styles from "./updateRecipeForm.module.scss";
 
-export const UpdateRecipeForm = () => {
-  const { mutateAsync } = useCreateRecipeMutation();
-  const { openDialogMessage, setProcessMessage } = useConfirmDialogActions();
+export const UpdateRecipeForm = ({ recipe }: { recipe: IRecipe }) => {
   const { alertEnqueue } = useAlertActions();
+  const { mutateAsync } = useUpdateRecipeMutation(recipe._id);
+  const { openDialogMessage, setProcessMessage } = useConfirmDialogActions();
 
-  const hookForm = useForm<ICreateRecipeForm>({
+  const hookForm = useForm<IUpdateRecipeForm>({
     mode: "onBlur",
-    resolver: zodResolver(CreateRecipeSchema),
-    defaultValues: {
-      ingredients: [{ name: "a", quantity: "a", category: "고기" }],
-      cooking_steps: [{ picture: undefined, instruction: "a" }],
-    },
+    resolver: zodResolver(UpdateRecipeSchema),
+    defaultValues: recipe,
   });
 
   const { handleSubmit } = hookForm;
 
-  const onSubmit: SubmitHandler<ICreateRecipeForm> = async (data) => {
+  const onSubmit: SubmitHandler<IUpdateRecipeForm> = async (data) => {
     openDialogMessage({
       message: `${data.name} 레시피를 생성하시겠습니까?`,
       requestFn: async () => {
         try {
           // 이미지 압축 로딩 메시지 출력
           setProcessMessage("이미지 압축 중...");
-          console.log(data);
 
-          // 요리 사진 압축
-          const compressedCookImages = await Promise.all(
-            Array.from(data.pictures).map((file) =>
-              typeof file === "string" ? file : compressImageToBase64(file)
-            )
-          );
-          console.log(compressedCookImages);
+          // 요리 사진이 FileList(유사 객체)라면 압축
+          const compressedCookImages = Array.isArray(data.pictures)
+            ? data.pictures
+            : await Promise.all(
+                Array.from(data.pictures).map(async (file) =>
+                  typeof file === "string"
+                    ? file
+                    : ((await compressImageToBase64(file)) as string)
+                )
+              );
 
           // 요리 과정 사진 압축
           const compressedStepImages = await Promise.all(
@@ -73,7 +73,7 @@ export const UpdateRecipeForm = () => {
               picture:
                 typeof picture === "string"
                   ? picture
-                  : await compressImage(picture[0]),
+                  : ((await compressImageToBase64(picture[0])) as string),
             }))
           );
           console.log(compressedStepImages);
@@ -82,11 +82,11 @@ export const UpdateRecipeForm = () => {
           setProcessMessage("서버에 전송 중...");
 
           // 서버 요청
-          // await mutateAsync({
-          //   ...data,
-          //   pictures: compressedCookImages,
-          //   cooking_steps: compressedStepImages,
-          // });
+          await mutateAsync({
+            ...data,
+            pictures: compressedCookImages,
+            cooking_steps: compressedStepImages,
+          });
         } catch (error) {
           console.error(error);
           alertEnqueue({
@@ -99,7 +99,7 @@ export const UpdateRecipeForm = () => {
     });
   };
 
-  const onError: SubmitErrorHandler<ICreateRecipeForm> = () => {
+  const onError: SubmitErrorHandler<IUpdateRecipeForm> = () => {
     alertEnqueue({
       message: "작성하지 않은 항목이 존재합니다.",
       type: "error",
@@ -118,7 +118,7 @@ export const UpdateRecipeForm = () => {
 };
 
 interface Props {
-  useForm: UseFormReturn<ICreateRecipeForm, undefined>;
+  useForm: UseFormReturn<IUpdateRecipeForm, undefined>;
 }
 
 const RecipeInfoFields = ({ useForm }: Props) => {
@@ -313,7 +313,7 @@ const CookingStepFields = ({ useForm }: Props) => {
               <h2>{i + 1}</h2>
               <StepField
                 i={i}
-                imageFile={watch("cooking_steps")[i].picture}
+                picture={watch("cooking_steps")[i].picture}
                 register={register}
               />
               <button
@@ -340,7 +340,7 @@ const CookingStepFields = ({ useForm }: Props) => {
         onClick={(e) => {
           e.preventDefault();
           appendCookingStep({
-            picture: undefined as unknown as FileList,
+            picture: undefined as unknown as string,
             instruction: "",
           });
         }}
@@ -354,13 +354,14 @@ const CookingStepFields = ({ useForm }: Props) => {
 const StepField = memo(
   ({
     i,
-    imageFile,
+    picture,
     register,
-  }: Pick<UseFormReturn<ICreateRecipeForm>, "register"> & {
+  }: Pick<UseFormReturn<IUpdateRecipeForm>, "register"> & {
     i: number;
-    imageFile: ICreateRecipeForm["cooking_steps"][number]["picture"];
+    picture: IUpdateRecipeForm["cooking_steps"][number]["picture"];
   }) => {
-    const previewImages = usePreviewImages(imageFile)[0];
+    const image = typeof picture === "string" ? [picture] : picture;
+    const previewImages = usePreviewImages(image)[0];
 
     return (
       <div className={styles.stepField}>
