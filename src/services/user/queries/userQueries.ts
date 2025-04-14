@@ -1,7 +1,7 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 
-import type { IUser } from "@/types/user";
-import type { PagenationParams } from "@/types";
+import type { IUser } from "@/types/user/user";
+import type { PagenationParams } from "@/types/common";
 import { UserService } from "..";
 
 export class UserQueries {

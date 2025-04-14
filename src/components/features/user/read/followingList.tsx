@@ -2,7 +2,7 @@
 
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
-import type { IUser } from "@/types/user";
+import type { IUser } from "@/types/user/user";
 import { Profile } from "@/components/common/profile";
 import { UserQueries } from "@/services/user/queries/userQueries";
 

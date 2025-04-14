@@ -1,4 +1,4 @@
-import type { IUser } from "../user";
+import type { IUser } from "../user/user";
 import { ICreateRecipeForm } from "./recipe.contract";
 
 export interface IRecipe {

@@ -4,7 +4,7 @@ export const usePreviewImages = (imageFiles: FileList | string[]) => {
   const [previewImage, setPreviewImage] = useState<string[]>([]);
 
   useEffect(() => {
-    if (!imageFiles.length) return;
+    if (!imageFiles?.length) return;
 
     const previewUrls = Array.isArray(imageFiles)
       ? imageFiles

@@ -25,10 +25,7 @@ const IngredientSchema = z.object({
 });
 
 const CreateCookingStepSchema = z.object({
-  picture: z.custom<FileList>(
-    (val) => val instanceof FileList && val.length > 0,
-    "이미지를 선택하세요."
-  ),
+  picture: z.instanceof(FileList, { message: "파일을 선택하세요." }),
   instruction: z
     .string()
     .min(1, "조리 과정을 입력해 주세요.")
@@ -52,10 +49,7 @@ export const CreateRecipeSchema = z.object({
       NAME_LIMIT_LENGTH,
       `요리 이름을 ${NAME_LIMIT_LENGTH}자 내외로 입력해 주세요.`
     ),
-  pictures: z.custom<FileList>(
-    (val) => val instanceof FileList && val.length > 0,
-    "파일을 선택하세요."
-  ),
+  pictures: z.instanceof(FileList, { message: "파일을 선택하세요." }),
   ingredients: z
     .array(IngredientSchema)
     .min(1, "재료를 1개 이상 추가해 주세요."),
@@ -66,12 +60,12 @@ export const CreateRecipeSchema = z.object({
       INTRODUCE_LIMIT_LENGTH,
       `요리 소개를 ${INTRODUCE_LIMIT_LENGTH}자 내외로 입력해 주세요.`
     ),
-  servings: z
+  servings: z.coerce
     .number()
     .min(1, "올바르지 않은 인분 설정입니다.")
     .max(300, "올바르지 않은 인분 설정입니다."),
   category: z.string().min(1, "카테고리를 선택해 주세요."),
-  cooking_time: z
+  cooking_time: z.coerce
     .number()
     .min(1, "올바르지 않은 요리 시간입니다.")
     .max(2400, "올바르지 않은 요리 시간입니다."),

@@ -1,7 +1,7 @@
 import axios from "..";
 
-import type { IUser } from "@/types/user";
-import type { PagenationParams } from "@/types";
+import type { IUser } from "@/types/user/user";
+import type { PagenationParams } from "@/types/common";
 import type {
   IRecipe,
   IIngredient,

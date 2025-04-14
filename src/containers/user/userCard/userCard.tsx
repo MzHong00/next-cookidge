@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 
-import type { IUser } from "@/types/user";
+import type { IUser } from "@/types/user/user";
 import { Profile } from "@/components/common/profile";
 
 import styles from "./userCard.module.scss";

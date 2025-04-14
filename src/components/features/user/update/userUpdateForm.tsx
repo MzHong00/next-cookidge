@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import type { IUser } from "@/types/user";
+import type { IUser } from "@/types/user/user";
 import { PIdToURL } from "@/utils/pidToUrl";
 import { InputBox } from "@/components/common/inputBox";
 import { InputFile } from "@/components/common/inputFile";

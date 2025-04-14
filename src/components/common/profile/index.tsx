@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import type { IUser } from "@/types/user";
+import type { IUser } from "@/types/user/user";
 import { PIdToURL } from "@/utils/pidToUrl";
 
 import styles from "./index.module.scss";

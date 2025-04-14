@@ -1,6 +1,6 @@
 import { infiniteQueryOptions } from "@tanstack/react-query";
 
-import type { PagenationParams } from "@/types";
+import type { PagenationParams } from "@/types/common";
 import { RankServices } from "..";
 
 export class RankQueries {

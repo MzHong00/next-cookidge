@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { RiUserLine } from "@react-icons/all-files/ri/RiUserLine";
 
-import { IUser } from "@/types/user";
+import { IUser } from "@/types/user/user";
 import { IconBox } from "@/components/common/iconBox";
 import { LogoutButton } from "@/components/features/user/logout/logoutButton";
 

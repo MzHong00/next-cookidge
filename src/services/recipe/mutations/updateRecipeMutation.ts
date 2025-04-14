@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import type { IUser } from "@/types/user";
+import type { IUser } from "@/types/user/user";
 import type { IRecipe, IRecipeInputDTO } from "@/types/recipe/recipe";
 import { RecipeService } from "..";
 import { RecipeQueries } from "../queries/recipeQueries";

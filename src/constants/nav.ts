@@ -2,7 +2,7 @@ import { RiBook2Line } from "@react-icons/all-files/ri/RiBook2Line";
 import { RiFridgeLine } from "@react-icons/all-files/ri/RiFridgeLine";
 import { RiTrophyLine } from "@react-icons/all-files/ri/RiTrophyLine";
 
-import type { NavTypes } from "@/types";
+import type { NavTypes } from "@/types/common";
 
 export const NAV_TYPES: NavTypes[] = [
   {

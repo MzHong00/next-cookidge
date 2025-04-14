@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import type { IUser } from "@/types/user";
+import type { IUser } from "@/types/user/user";
 import type { IRecipe } from "@/types/recipe/recipe";
 import { RecipeService } from "..";
 import { RecipeQueries } from "../queries/recipeQueries";
@@ -19,7 +19,7 @@ export const useDeleteRecipeMutation = (recipeId: IRecipe["_id"]) => {
       const { root, list } = RecipeQueries.keys;
 
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: [...root, recipeId] }),
+        queryClient.removeQueries({ queryKey: [...root, recipeId] }),
         queryClient.invalidateQueries({
           queryKey: list,
         }),

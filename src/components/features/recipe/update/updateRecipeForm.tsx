@@ -18,6 +18,7 @@ import {
   IUpdateRecipeForm,
   UpdateRecipeSchema,
 } from "@/types/recipe/recipe.contract";
+import { PIdToURL } from "@/utils/pidToUrl";
 import { Steps } from "@/components/common/steps";
 import { IconBox } from "@/components/common/iconBox";
 import { Tooltip } from "@/components/common/toolTip";
@@ -33,7 +34,6 @@ import { FOOD_CATEGORIES, INTRODUCE_LIMIT_LENGTH } from "@/constants/recipe";
 import { useUpdateRecipeMutation } from "@/services/recipe/mutations/updateRecipeMutation";
 
 import styles from "./updateRecipeForm.module.scss";
-import { PIdToURL } from "@/utils/pidToUrl";
 
 export const UpdateRecipeForm = ({ recipe }: { recipe: IRecipe }) => {
   const { alertEnqueue } = useAlertActions();

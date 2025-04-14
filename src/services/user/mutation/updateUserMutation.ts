@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import type { IUser } from "@/types/user";
+import type { IUser } from "@/types/user/user";
 import { UserService } from "..";
 import { UserQueries } from "../queries/userQueries";
 import { useAlertActions } from "@/lib/zustand/alertStore";

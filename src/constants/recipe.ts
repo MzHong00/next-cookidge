@@ -1,4 +1,4 @@
-import type { EmojiCatgories } from "@/types";
+import type { EmojiCatgories } from "@/types/common";
 
 export const NAME_LIMIT_LENGTH = 20;
 export const INTRODUCE_LIMIT_LENGTH = 100;

@@ -4,7 +4,7 @@ import { HTMLAttributes, useMemo } from "react";
 import { RiUserReceived2Line } from "@react-icons/all-files/ri/RiUserReceived2Line";
 import { RiUserUnfollowLine } from "@react-icons/all-files/ri/RiUserUnfollowLine";
 
-import type { IUser } from "@/types/user";
+import type { IUser } from "@/types/user/user";
 import { IconBox } from "@/components/common/iconBox";
 import { AuthGuardButton } from "@/components/common/authGuardButton";
 import { useFollowMutation, useUnfollowMutation } from "@/services/user/mutation/followMutation";
