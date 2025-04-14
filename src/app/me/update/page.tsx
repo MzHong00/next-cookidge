@@ -3,6 +3,10 @@ import { Suspense } from "react";
 import { LoadingDots } from "@/components/common/loadingDots";
 import { UserUpdate } from "@/containers/user/userUpdate/userUpdate";
 
+export const metadata = {
+  title: "프로필 편집"
+}
+
 export default async function MeUpdatePage() {
   return (
     <Suspense

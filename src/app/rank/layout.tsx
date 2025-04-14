@@ -1,5 +1,3 @@
-"use client";
-
 import { Suspense } from "react";
 import { RiTrophyLine } from "@react-icons/all-files/ri/RiTrophyLine";
 
@@ -9,6 +7,10 @@ import { UserCardSkeleton } from "@/containers/user/userCard/userCardSkeleton";
 import styles from "./layout.module.scss";
 
 const USER_SKELETON_COUNT = 10;
+
+export const metadata = {
+  title: "랭킹"
+}
 
 export default function RankLayout({
   search,

@@ -6,8 +6,9 @@ import {
 import { Metadata } from "next";
 import { Suspense } from "react";
 
-import type { IUser } from "@/types/user";
 import type { IRecipe } from "@/types/recipe/recipe";
+import type { IUser } from "@/types/user/user";
+import { APP_NAME } from "@/constants/common";
 import { RecipeDetail } from "@/containers/recipe/recipeDetail/recipeDetail";
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import { LoadingSpinner } from "@/components/common/loadingSpinner";
@@ -31,7 +32,7 @@ export async function generateMetadata({
   };
 
   return {
-    title: `${recipe.user.name} - ${recipe.name}`,
+    title: `${recipe.name} | ${APP_NAME}`,
     description: recipe.introduction,
     openGraph: {
       title: recipe.name,

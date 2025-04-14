@@ -1,15 +1,12 @@
 import { Suspense } from "react";
-import { Metadata, ResolvingMetadata } from "next";
 
 import { LoadingDots } from "@/components/common/loadingDots";
 import { RecipeUpdate } from "@/containers/recipe/recipeUpdate/recipeUpdate";
+import { ClientRender } from "@/components/common/clientRender";
 
-export async function generateMetadata(
-  { params }: { params: { id: string } },
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  return {};
-}
+export const metadata = {
+  title: "레시피 수정",
+};
 
 export default async function RecipeUpdatePage({
   params,
@@ -20,7 +17,9 @@ export default async function RecipeUpdatePage({
 
   return (
     <Suspense fallback={<LoadingDots msg="레시피 데이터 가져오는 중..." />}>
-      <RecipeUpdate recipe_id={id} />
+      <ClientRender>
+        <RecipeUpdate recipe_id={id} />
+      </ClientRender>
     </Suspense>
   );
 }

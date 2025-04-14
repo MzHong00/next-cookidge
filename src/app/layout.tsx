@@ -10,7 +10,10 @@ import "@/styles/globals.scss";
 
 export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_CLIENT}`),
-  title: "Cookidge",
+  title: {
+    default: "Cookidge",
+    template: '%s | Cookidge'
+  },
   description:
     "Cookidge 서비스는 요리 관련 SNS와 냉장고를 관리하는 앱을 동시에 제공하는 서비스입니다.",
 };

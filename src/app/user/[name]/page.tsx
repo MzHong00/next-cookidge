@@ -5,9 +5,10 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
-import type { IUser } from "@/types/user";
-import { UserDetail } from "@/containers/user/userDetail/userDetail";
+import type { IUser } from "@/types/user/user";
+import { PIdToURL } from "@/utils/pidToUrl";
 import { UserQueries } from "@/services/user/queries/userQueries";
+import { UserDetail } from "@/containers/user/userDetail/userDetail";
 
 export async function generateMetadata({
   params,
@@ -16,7 +17,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { name } = await params;
   const decodedName = decodeURIComponent(name);
-  
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/find?user_name=${decodedName}`,
     {
@@ -30,7 +31,7 @@ export async function generateMetadata({
     description: user.introduce,
     openGraph: {
       title: user.name,
-      images: [user.picture],
+      images: [PIdToURL(user.picture)],
     },
   };
 }
@@ -42,7 +43,7 @@ export default async function UserDetailPage({
 }) {
   const { name } = await params;
   const decodedName = decodeURIComponent(name);
-  
+
   const queryclient = new QueryClient();
   await queryclient.prefetchQuery(UserQueries.userQuery(decodedName));
 

@@ -14,7 +14,7 @@ export class RecipeService {
   static async readRecipe(
     id?: IRecipe["_id"]
   ): Promise<IRecipe & { user: IUser }> {
-    return (await axios.get(`${this.root}/read/detail/${id}`)).data[0];
+    return (await axios.get(`${this.root}/read/detail/${id}`)).data;
   }
 
   static async readRecipeList(config: {
