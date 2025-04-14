@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Fragment, memo } from "react";
+import { Fragment, memo, useMemo } from "react";
 import {
   type UseFormReturn,
   type SubmitErrorHandler,
@@ -33,6 +33,7 @@ import { FOOD_CATEGORIES, INTRODUCE_LIMIT_LENGTH } from "@/constants/recipe";
 import { useUpdateRecipeMutation } from "@/services/recipe/mutations/updateRecipeMutation";
 
 import styles from "./updateRecipeForm.module.scss";
+import { PIdToURL } from "@/utils/pidToUrl";
 
 export const UpdateRecipeForm = ({ recipe }: { recipe: IRecipe }) => {
   const { alertEnqueue } = useAlertActions();
@@ -76,7 +77,6 @@ export const UpdateRecipeForm = ({ recipe }: { recipe: IRecipe }) => {
                   : ((await compressImageToBase64(picture[0])) as string),
             }))
           );
-          console.log(compressedStepImages);
 
           // 서버 전송 로딩 메시지 출력
           setProcessMessage("서버에 전송 중...");
@@ -144,11 +144,15 @@ const RecipeInfoFields = ({ useForm }: Props) => {
           multiple
         />
         <ul>
-          {previewImages.map((image) => (
-            <li key={image}>
-              <Image src={image} alt="미리보기" fill />
-            </li>
-          ))}
+          {previewImages.map((image) => {
+            const imageUrl = image.startsWith("blob") ? image : PIdToURL(image);
+
+            return (
+              <li key={image}>
+                <Image src={imageUrl} alt="미리보기" width={200} height={200} />
+              </li>
+            );
+          })}
         </ul>
       </div>
       {errors.pictures && (
@@ -303,6 +307,8 @@ const CookingStepFields = ({ useForm }: Props) => {
     control,
   });
 
+  const cooking_steps = watch("cooking_steps");
+
   return (
     <div key="cookingSteps" className="flex-column">
       <label>요리 과정</label>
@@ -313,7 +319,7 @@ const CookingStepFields = ({ useForm }: Props) => {
               <h2>{i + 1}</h2>
               <StepField
                 i={i}
-                picture={watch("cooking_steps")[i].picture}
+                picture={cooking_steps[i].picture}
                 register={register}
               />
               <button
@@ -340,7 +346,7 @@ const CookingStepFields = ({ useForm }: Props) => {
         onClick={(e) => {
           e.preventDefault();
           appendCookingStep({
-            picture: undefined as unknown as string,
+            picture: "",
             instruction: "",
           });
         }}
@@ -360,14 +366,23 @@ const StepField = memo(
     i: number;
     picture: IUpdateRecipeForm["cooking_steps"][number]["picture"];
   }) => {
-    const image = typeof picture === "string" ? [picture] : picture;
+    const image = useMemo(
+      () => (typeof picture === "string" ? [picture] : picture),
+      [picture]
+    );
+
     const previewImages = usePreviewImages(image)[0];
+    const previewUrl = !previewImages
+      ? undefined
+      : previewImages.startsWith("blob")
+      ? previewImages
+      : PIdToURL(previewImages);
 
     return (
       <div className={styles.stepField}>
         <InputFile
           id={`cooking_steps.${i}.picture`}
-          previewUrl={previewImages}
+          previewUrl={previewUrl}
           {...register(`cooking_steps.${i}.picture`)}
         />
         <textarea
