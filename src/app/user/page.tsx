@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import { UserSearch } from "@/components/features/user/search/userSearch";
+
+export const metadata: Metadata = {
+  title: "사용자 검색",
+};
 
 export default function UserSearchPage() {
   return (

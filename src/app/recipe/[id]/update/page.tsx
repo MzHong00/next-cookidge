@@ -1,7 +1,15 @@
 import { Suspense } from "react";
+import { Metadata, ResolvingMetadata } from "next";
 
 import { LoadingDots } from "@/components/common/loadingDots";
 import { RecipeUpdate } from "@/containers/recipe/recipeUpdate/recipeUpdate";
+
+export async function generateMetadata(
+  { params }: { params: { id: string } },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  return {};
+}
 
 export default async function RecipeUpdatePage({
   params,
