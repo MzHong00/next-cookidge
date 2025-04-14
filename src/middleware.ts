@@ -22,5 +22,5 @@ export async function middleware(request: NextRequest) {
 
 // 아래 "Matching Paths"를 참조하여 자세히 알아보세요
 export const config = {
-  matcher: ["/recipe/create", "/me/update"],
+  matcher: ["/recipe/create", "/recipe/:id/update", "/me/update"],
 };
