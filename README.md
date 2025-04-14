@@ -151,6 +151,11 @@ getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 �
 - 'all': refetch 조건자와 일치하는 모든 쿼리는 활성 또는 비활성 상태에 관계없이 백그라운드에서 다시 페치됩니다.
 - 'none': 쿼리를 다시 가져오지 않습니다. refetch 조건과 일치하는 쿼리는 무효로 표시됩니다.
 
+### 👉 **Zod + React Hook Form에서 input type="number"를 사용할 때, 폼에서 문자열로 받아와져 검증 에러가 발생**
+
+✔ [해결]
+`z.coerce.number()`를 사용하여 문자열로 값을 받아와지는 `input type="number"`의 값을 숫자로 취급할 수 있다.
+
 ## 🤔 궁금증 및 생각
 
 > 모달을 구현할 때, Portal 대신 position: fixed로 해도 되지 않을까?
