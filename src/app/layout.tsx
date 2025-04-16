@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_CLIENT}`),
   title: {
     default: "Cookidge",
-    template: '%s | Cookidge'
+    template: "%s | Cookidge",
   },
   description:
     "Cookidge 서비스는 요리 관련 SNS와 냉장고를 관리하는 앱을 동시에 제공하는 서비스입니다.",
@@ -30,10 +30,10 @@ export default function RootLayout({
       {/* <Script src="https://unpkg.com/react-scan/dist/auto.global.js"></Script> */}
 
       <body>
-        {auth}
         <ConfirmDialog />
         <AlertList />
         <Provider>
+          {auth}
           <Header />
           <main style={{ padding: "1rem" }}>{children}</main>
           <Navbar />
