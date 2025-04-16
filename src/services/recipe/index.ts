@@ -5,6 +5,7 @@ import type { PagenationParams } from "@/types/common";
 import type {
   IRecipe,
   IIngredient,
+  IRecipeQuery,
   IRecipeInputDTO,
 } from "@/types/recipe/recipe";
 
@@ -18,13 +19,10 @@ export class RecipeService {
   }
 
   static async readRecipeList(config: {
-    slug?: string;
-    params?: Partial<PagenationParams>;
+    params: Partial<PagenationParams> & Partial<IRecipeQuery>;
     signal?: AbortSignal;
   }): Promise<IRecipe[]> {
-    const { slug = "", ...props } = config;
-
-    return (await axios.get(`${this.root}/read-list?${slug}`, props)).data;
+    return (await axios.get(`${this.root}/read-list`, config)).data;
   }
 
   static async readMyLikeRecieps(config?: {

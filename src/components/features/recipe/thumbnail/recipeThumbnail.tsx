@@ -7,12 +7,12 @@ import Image, { type ImageProps } from "next/image";
 
 import type { IRecipe } from "@/types/recipe/recipe";
 import { PIdToURL } from "@/utils/pidToUrl";
+import { CurrentDateGap } from "@/utils/currentDateGap";
+import { fadeSlide } from "@/lib/framer-motion";
 import { IconBox } from "@/components/common/iconBox";
+import { LikeButton } from "../like/likeButtton";
 
 import styles from "./recipeThumbnail.module.scss";
-import { fadeSlide } from "@/lib/framer-motion";
-import { CurrentDateGap } from "@/utils/currentDateGap";
-import { LikeButton } from "../like/likeButtton";
 
 interface Props extends Partial<ImageProps> {
   recipe: IRecipe;

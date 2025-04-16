@@ -25,7 +25,10 @@ const IngredientSchema = z.object({
 });
 
 const CreateCookingStepSchema = z.object({
-  picture: z.instanceof(FileList, { message: "파일을 선택하세요." }),
+  picture: z.custom<FileList>(
+    (val) => val instanceof FileList && val.length > 0,
+    "파일을 선택해 주세요."
+  ),
   instruction: z
     .string()
     .min(1, "조리 과정을 입력해 주세요.")
@@ -38,7 +41,13 @@ const CreateCookingStepSchema = z.object({
 const UpdateCookingStepSchema = CreateCookingStepSchema.omit({
   picture: true,
 }).extend({
-  picture: z.union([z.string(), z.instanceof(FileList)]),
+  picture: z.union([
+    z.string(),
+    z.custom<FileList>(
+      (val) => val instanceof FileList && val.length > 0,
+      "파일을 선택해 주세요."
+    ),
+  ]),
 });
 
 export const CreateRecipeSchema = z.object({
@@ -49,7 +58,10 @@ export const CreateRecipeSchema = z.object({
       NAME_LIMIT_LENGTH,
       `요리 이름을 ${NAME_LIMIT_LENGTH}자 내외로 입력해 주세요.`
     ),
-  pictures: z.instanceof(FileList, { message: "파일을 선택하세요." }),
+  pictures: z.custom<FileList>(
+    (val) => val instanceof FileList && val.length > 0,
+    "파일을 선택해 주세요."
+  ),
   ingredients: z
     .array(IngredientSchema)
     .min(1, "재료를 1개 이상 추가해 주세요."),
@@ -78,7 +90,14 @@ export const UpdateRecipeSchema = CreateRecipeSchema.omit({
   pictures: true,
   cooking_steps: true,
 }).extend({
-  pictures: z.array(z.string()).or(z.instanceof(FileList)),
+  pictures: z
+    .array(z.string())
+    .or(
+      z.custom<FileList>(
+        (val) => val instanceof FileList && val.length > 0,
+        "파일을 선택해 주세요."
+      )
+    ),
   cooking_steps: z
     .array(UpdateCookingStepSchema)
     .min(1, "요리 과정을 1개 이상 추가해 주세요."),

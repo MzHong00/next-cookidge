@@ -1,5 +1,3 @@
-import { Suspense } from "react";
-
 import { BackButton } from "@/components/common/backButton";
 
 import styles from "./styles.module.scss";
@@ -20,7 +18,7 @@ export default function Layout({
       <nav>
         <BackButton />
       </nav>
-      <Suspense>{children}</Suspense>
+      {children}
     </div>
   );
 }

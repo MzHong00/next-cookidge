@@ -4,14 +4,12 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { Metadata } from "next";
-import { Suspense } from "react";
 
 import type { IRecipe } from "@/types/recipe/recipe";
 import type { IUser } from "@/types/user/user";
 import { APP_NAME } from "@/constants/common";
 import { RecipeDetail } from "@/containers/recipe/recipeDetail/recipeDetail";
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
-import { LoadingSpinner } from "@/components/common/loadingSpinner";
 import { CommentQueries } from "@/services/comment/queries/commentQueries";
 
 export async function generateMetadata({
@@ -20,7 +18,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/recipe/read/detail/${id}`,
     {
@@ -28,7 +26,7 @@ export async function generateMetadata({
     }
   );
   const recipe = (await res.json()) as IRecipe & {
-    user: IUser
+    user: IUser;
   };
 
   return {
@@ -56,9 +54,7 @@ export default async function RecipeDetailPage({
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<LoadingSpinner msg="레시피 가져오는 중..." />}>
-        <RecipeDetail id={id} />
-      </Suspense>
+      <RecipeDetail id={id} />
     </HydrationBoundary>
   );
 }

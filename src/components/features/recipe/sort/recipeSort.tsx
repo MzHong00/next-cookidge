@@ -10,21 +10,27 @@ import { Dropdown } from "@/components/common/dropdown";
 import styles from "./recipeSort.module.scss";
 
 export const RecipeSort = () => {
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <Dropdown buttonComponent={<IconBox Icon={BiSort}>정렬</IconBox>}>
-      {RECIPE_SORT.map(({ query, text }) => (
-        <button
-          key={query}
-          className={styles.contentsButton}
-          onClick={() => {
-            setSearchParams.set("sort", query);
-          }}
-        >
-          {text}
-        </button>
-      ))}
+      {RECIPE_SORT.map(({ query, text }) => {
+        const isActive = searchParams.get("sort") === query;
+
+        return (
+          <button
+            key={query}
+            className={`${isActive && styles.activeButton} ${
+              styles.contentsButton
+            }`}
+            onClick={() => {
+              setSearchParams.set("sort", query);
+            }}
+          >
+            {text}
+          </button>
+        );
+      })}
     </Dropdown>
   );
 };

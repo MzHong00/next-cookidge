@@ -104,23 +104,13 @@ getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 �
 
 ✔ [해결] 
 
-구글링을 통해 `z.custom<FileList>((val) => val instanceof FileList && val.length > 0` 커스텀하여 해결
+구글링을 통해 `z.custom<FileList>((val) => val instanceof FileList && val.length > 0)` 커스텀하여 해결
 
 ### 👉 **인터셉터 라우팅 적용 안됨 및 initialTree is not iterable 에러**
 
 ✔ [해결] 
 
 `.next`폴더 제거 후, 개발 서버 재실행
-
-### 👉 **커스텀 useSearchParams로 인한 불필요한 리렌더링 발생**
-
-❓ [원인] 
-
-커스텀 훅스의 setSearchParams를 사이드 이펙트의 종속성 배열에 삽입하고 사용할 경우 searchParams가 바뀔 때, setSearchParams도 재할당 되어버려서 불필요한 리렌더링이 한번 더 발생한다. `const params = new URLSearchParams(searchParams.toString());` 에서 params가 매 번 재할당 되어 setSearchParams도 재할당 되게 된다.
-
-✔ [해결]
-
-`const paramsRef = useRef(new URLSearchParams(searchParams.toString()));` useRef를 사용하여 컴포넌트가 재실행 되더라도 params의 값이 유지되도록 하여 setSearchParams 함수로 인해 사이드 이펙트를 재실행 하는 것을 방지했다.
 
 ### 👉 **병렬 라우팅에서 하위 경로로 들어갔을 때 404에러 발생**
 

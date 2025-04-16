@@ -1,26 +1,25 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
+import type { IRecipeQuery } from "@/types/recipe/recipe";
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
+import { ClientRender } from "@/components/common/clientRender";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { ResponsiveMasonry } from "@/components/common/responsiveMasonry";
 import { RecipeThumbnail } from "@/components/features/recipe/thumbnail/recipeThumbnail";
-import { ClientRender } from "@/components/common/clientRender";
+import { RecipeThumbnailSkeleton } from "../thumbnail/recipeThumbnailSkeleton";
 
 const THUMBNAIL_WIDTH = 400;
+const TUHMBNAIL_SKELETON_COUNT = 4;
 
-export const RecipeList = () => {
-  const searchParams = useSearchParams();
-
-  const { data, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery(
-    RecipeQueries.listQuery(searchParams.toString())
-  );
+export const RecipeList = ({ recipeQuery }: { recipeQuery: IRecipeQuery }) => {
+  const { data, isFetching, hasNextPage, fetchNextPage } =
+    useSuspenseInfiniteQuery(RecipeQueries.listQuery(recipeQuery));
   const target = useIntersectionObserver({ hasNextPage, fetchNextPage });
 
   return (
-    <article>
+    <div>
       <ClientRender>
         <ResponsiveMasonry item_width={THUMBNAIL_WIDTH}>
           {data.pages.map((page) =>
@@ -35,9 +34,13 @@ export const RecipeList = () => {
               </article>
             ))
           )}
+          {isFetching &&
+            Array.from({ length: TUHMBNAIL_SKELETON_COUNT }).map((_, i) => (
+              <RecipeThumbnailSkeleton key={i} />
+            ))}
         </ResponsiveMasonry>
       </ClientRender>
       <div ref={target} />
-    </article>
+    </div>
   );
 };

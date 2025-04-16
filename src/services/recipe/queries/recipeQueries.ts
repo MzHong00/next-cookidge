@@ -1,6 +1,6 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 
-import type { IRecipe } from "@/types/recipe/recipe";
+import type { IRecipe, IRecipeQuery } from "@/types/recipe/recipe";
 import { RecipeService } from "..";
 
 const LIMIT = 10;
@@ -21,13 +21,13 @@ export class RecipeQueries {
     });
   }
 
-  static listQuery(slug: string = "") {
+  static listQuery(queryParams?: Partial<IRecipeQuery>) {
     return infiniteQueryOptions({
-      queryKey: [...this.keys.list, slug],
+      queryKey: [...this.keys.list, queryParams],
       queryFn: ({ pageParam, signal }) =>
         RecipeService.readRecipeList({
-          slug: slug,
           params: {
+            ...queryParams,
             limit: LIMIT,
             offset: pageParam * LIMIT,
           },

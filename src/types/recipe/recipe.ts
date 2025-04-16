@@ -30,6 +30,7 @@ export interface ICookingStep {
 }
 
 export interface IRecipeQuery {
+  title: string;
   categories: IRecipe["category"][];
   sort: "time" | "like";
 }
