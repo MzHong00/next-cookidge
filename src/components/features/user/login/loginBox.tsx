@@ -2,18 +2,18 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
 import { RiUser5Line } from "@react-icons/all-files/ri/RiUser5Line";
 import { RiGroupLine } from "@react-icons/all-files/ri/RiGroupLine";
 
 import { GoogleOAuthService } from "@/services/oauth";
+import { AuthService } from "@/services/auth";
+import { UserQueries } from "@/services/user/queries/userQueries";
 import { IconBox } from "@/components/common/iconBox";
 
 import styles from "./loginBox.module.scss";
-import { AuthService } from "@/services/auth";
-import { UserQueries } from "@/services/user/queries/userQueries";
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 
 const LOGIN_TYPES = ["소셜 로그인", "테스트 계정"];
 
