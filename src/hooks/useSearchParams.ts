@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function useCustomSearchParams() {
@@ -6,8 +6,10 @@ export default function useCustomSearchParams() {
   const searchParams = useSearchParams();
 
   // params의 변화를 감지하지 않도록 useRef 사용
-  const paramsRef = useRef(new URLSearchParams(searchParams.toString()));
-  const params = paramsRef.current;
+  const params = useMemo(
+    () => new URLSearchParams(searchParams.toString()),
+    [searchParams]
+  );
 
   const routing = useCallback(
     (updatedParams: URLSearchParams) => {

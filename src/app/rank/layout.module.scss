@@ -11,35 +11,20 @@
         @include m.flex-layout(column, normal, normal, 3rem);
 
         &>section {
-            @include m.flex-layout(column, center);
+            @include m.flex-layout(column);
 
-            .rankList {
-                width: 100%;
-                @include m.grid-template(column, auto-fit, 200px);
-
-                .rankItem {
-                    position: relative;
-
-                    .rankTag {
-                        width: 24px;
-                        height: 24px;
-                        position: absolute;
-                        bottom: 8px;
-                        left: 8px;
-                        @include m.flex-layout(column, center, center);
-                        background-color: rgba(black, 0.8);
-                        border-radius: 100%;
-                    }
-
-                    .rankUserCard {
-                        @include m.flex-layout(row, center, space-between);
-
-                        .rankValue {
-                            padding-inline: 0;
-                        }
-                    }
-                }
+            .rankTitle {
+                @include m.flex-layout(column, center, normal, 0);
             }
         }
+    }
+}
+
+.skeletonRankList {
+    width: 100%;
+    @include m.grid-template(column, repeat(auto-fit, minmax(200px, 1fr)));
+
+    &>* {
+        padding: var(--base-padding);
     }
 }

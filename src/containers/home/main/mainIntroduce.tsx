@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import type { NavTypes } from "@/types";
+import type { NavTypes } from "@/types/common";
 import { NAV_TYPES } from "@/constants/nav";
 import { fadeSlide } from "@/lib/framer-motion";
 import { GradualSpacing } from "@/components/common/textAnimation/gradulaSpacing";

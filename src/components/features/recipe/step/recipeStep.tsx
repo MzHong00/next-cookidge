@@ -45,14 +45,12 @@ export const RecipeStep = ({
         {recipeSteps.map(({ picture, instruction }, idx) => (
           <li key={`${instruction}${idx}`}>
             <div>
-              {picture && (
-                <Image
-                  src={PIdToURL(picture)}
-                  alt={""}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              )}
+              <Image
+                src={PIdToURL(picture)}
+                alt={""}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
             </div>
             <div>
               <b>{idx + 1}</b>

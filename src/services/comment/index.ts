@@ -1,8 +1,8 @@
 import axios from "..";
 
-import type { IUser } from "@/types/user";
-import type { PagenationParams } from "@/types";
-import type { IComment } from "@/types/comment";
+import type { IUser } from "@/types/user/user";
+import type { PagenationParams } from "@/types/common";
+import type { IComment } from "@/types/comment/comment";
 import type { IRecipe } from "@/types/recipe/recipe";
 
 export class CommentService {

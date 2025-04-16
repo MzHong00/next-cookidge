@@ -3,9 +3,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
-import type { IUser } from "@/types/user";
+import type { IUser } from "@/types/user/user";
 import type { IRecipe } from "@/types/recipe/recipe";
-import type { IComment } from "@/types/comment";
+import type { IComment } from "@/types/comment/comment";
 import { CurrentDateGap } from "@/utils/currentDateGap";
 import { UserQueries } from "@/services/user/queries/userQueries";
 import { CommentQueries } from "@/services/comment/queries/commentQueries";

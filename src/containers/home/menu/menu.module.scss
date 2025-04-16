@@ -1,0 +1,21 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    @include m.grid-template(column, repeat(3, 1fr));
+
+    &>li>* {
+        width: 100%;
+
+        .icon {
+            width: 100%;
+            padding-inline: 0;
+            @include m.flex-layout(column, center, center, 0.5rem);
+            box-shadow: var(--base-box-shadow);
+            font-size: var(--base-font-size-small);
+
+            &>svg {
+                font-size: 1.5rem;
+            }
+        }
+    }
+}

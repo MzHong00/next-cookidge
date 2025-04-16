@@ -1,9 +1,13 @@
 import axios from "..";
 
-import type { IUser } from "@/types/user";
-import type { PagenationParams } from "@/types";
-import type { ICreateRecipeForm } from "@/types/recipe/recipe.contract";
-import type { IIngredient, IRecipe, IRecipeInput } from "@/types/recipe/recipe";
+import type { IUser } from "@/types/user/user";
+import type { PagenationParams } from "@/types/common";
+import type {
+  IRecipe,
+  IIngredient,
+  IRecipeQuery,
+  IRecipeInputDTO,
+} from "@/types/recipe/recipe";
 
 export class RecipeService {
   static readonly root = "/recipe";
@@ -11,52 +15,42 @@ export class RecipeService {
   static async readRecipe(
     id?: IRecipe["_id"]
   ): Promise<IRecipe & { user: IUser }> {
-    return (await axios.get(`${this.root}/read/detail/${id}`)).data[0];
+    return (await axios.get(`${this.root}/read/detail/${id}`)).data;
   }
 
   static async readRecipeList(config: {
-    slug?: string;
-    params?: Partial<PagenationParams>;
+    params: Partial<PagenationParams> & Partial<IRecipeQuery>;
     signal?: AbortSignal;
   }): Promise<IRecipe[]> {
-    const { slug = "", ...props } = config;
-
-    return (await axios.get(`${this.root}/read-list?${slug}`, props)).data;
+    return (await axios.get(`${this.root}/read-list`, config)).data;
   }
 
-  static async readMyRecipe(config: {
+  static async readMyLikeRecieps(config?: {
     signal: AbortSignal;
   }): Promise<Pick<IRecipe, "_id" | "pictures">[]> {
-    return (await axios.get(`${this.root}/read-list/me`, config)).data;
+    return (await axios.get(`${this.root}/read-list/like`, config)).data;
   }
 
-  static async readRecipeListByUser(
-    userName: IUser["name"]
-  ): Promise<Pick<IRecipe, "_id" | "pictures">[]> {
-    return (await axios.get(`${this.root}/read/user/${userName}`)).data;
+  static async readRecipeListByUserName(config: {
+    signal?: AbortSignal;
+    userName: IUser["name"];
+  }): Promise<IRecipe[]> {
+    const { userName, ...props } = config;
+    return (await axios.get(`${this.root}/read/user/${userName}`, props)).data;
   }
 
   static async createRecipe(
-    IRecipeInputDTO: ICreateRecipeForm
+    IRecipeInputDTO: IRecipeInputDTO
   ): Promise<{ message: string }> {
-    return (
-      await axios.post(`${this.root}/create`, IRecipeInputDTO, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-    ).data;
+    return (await axios.post(`${this.root}/create`, IRecipeInputDTO)).data;
   }
 
   static async updateRecipe(
     recipeId: IRecipe["_id"],
-    recipe: IRecipeInput
+    recipe: IRecipeInputDTO
   ): Promise<{ message: string }> {
     return (
       await axios.put(`${this.root}/update`, recipe, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
         params: { _id: recipeId },
       })
     ).data;
@@ -96,12 +90,6 @@ export class RecipeService {
     if (config.params.my_ingredients?.length === 0) return [];
 
     return (await axios.get(`${this.root}/recommend`, config)).data;
-  }
-
-  static async readMyLikeRecieps(config: {
-    signal: AbortSignal;
-  }): Promise<Pick<IRecipe, "_id" | "pictures">[]> {
-    return (await axios.get(`${this.root}/read-list/like`, config)).data;
   }
 
   static async likeRecipe(recipeId: IRecipe["_id"]) {

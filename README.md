@@ -104,7 +104,7 @@ getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 �
 
 ✔ [해결] 
 
-구글링을 통해 `z.custom<FileList>((val) => val instanceof FileList && val.length > 0` 커스텀하여 해결
+구글링을 통해 `z.custom<FileList>((val) => val instanceof FileList && val.length > 0)` 커스텀하여 해결
 
 ### 👉 **인터셉터 라우팅 적용 안됨 및 initialTree is not iterable 에러**
 
@@ -112,15 +112,39 @@ getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 �
 
 `.next`폴더 제거 후, 개발 서버 재실행
 
-### 👉 **커스텀 useSearchParams로 인한 불필요한 리렌더링 발생**
+### 👉 **병렬 라우팅에서 하위 경로로 들어갔을 때 404에러 발생**
 
 ❓ [원인] 
 
-커스텀 훅스의 setSearchParams를 사이드 이펙트의 종속성 배열에 삽입하고 사용할 경우 searchParams가 바뀔 때, setSearchParams도 재할당 되어버려서 불필요한 리렌더링이 한번 더 발생한다. `const params = new URLSearchParams(searchParams.toString());` 에서 params가 매 번 재할당 되어 setSearchParams도 재할당 되게 된다.
+특정 하위 경로로 이동했을 떄, 일치하지 않은 슬룻의 렌더링을 처리해줘야 했다.
 
 ✔ [해결]
 
-`const paramsRef = useRef(new URLSearchParams(searchParams.toString()));` useRef를 사용하여 컴포넌트가 재실행 되더라도 params의 값이 유지되도록 하여 setSearchParams 함수로 인해 사이드 이펙트를 재실행 하는 것을 방지했다.
+`/user/[name]`의 경로에서 recipe 병렬 루트가 문제였으며 `default.tsx`를 삽입하여 해결하였다.
+
+### 👉 **inActive 상태의 데이터에 queryClient.invalidateQueries를 걸었을 때, refetch가 안되는 현상**
+
+❓ [원인] 
+
+페이지 이동을 뒤로가기 또는 앞으로가기를 했을 때, stale 데이터를 refetch하지 않는다. 프로필 업데이트를 했을 때 `router.back()`을 사용하였기 때문에 refetch를 안하는 현상이 발생하였다.
+
+✔ [해결1]
+
+기존에 프로필 업데이트를 했을 때, 성공 시 `router.push()`으로 변경하여 해결 
+
+✔ [해결2]
+
+`queryClient.invalidateQueries(queryKey, { refetchType: inactive })`에서 refetchType 속성을 통해 inActive 상태의 데이터를 백그라운드에서 페치할 수 있따.
+
+- 'active': refetch 조건과 일치하고 useQuery유사한 후크를 통해 적극적으로 렌더링되는 쿼리만 백그라운드에서 다시 페치됩니다. 이는 기본 동작입니다.
+- 'inactive': refetch 조건자와 일치하고 현재 렌더링되지 않는 쿼리만 백그라운드에서 다시 페치됩니다.
+- 'all': refetch 조건자와 일치하는 모든 쿼리는 활성 또는 비활성 상태에 관계없이 백그라운드에서 다시 페치됩니다.
+- 'none': 쿼리를 다시 가져오지 않습니다. refetch 조건과 일치하는 쿼리는 무효로 표시됩니다.
+
+### 👉 **Zod + React Hook Form에서 input type="number"를 사용할 때, 폼에서 문자열로 받아와져 검증 에러가 발생**
+
+✔ [해결]
+`z.coerce.number()`를 사용하여 문자열로 값을 받아와지는 `input type="number"`의 값을 숫자로 취급할 수 있다.
 
 ## 🤔 궁금증 및 생각
 

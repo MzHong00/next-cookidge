@@ -3,31 +3,31 @@
 import Image from "next/image";
 import { Fragment, memo } from "react";
 import {
+  type UseFormReturn,
+  type SubmitErrorHandler,
   useForm,
   SubmitHandler,
   useFieldArray,
-  type UseFormReturn,
-  type SubmitErrorHandler,
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RiAddLine } from "@react-icons/all-files/ri/RiAddLine";
 import { CgRemoveR } from "@react-icons/all-files/cg/CgRemoveR";
 
+import {
+  type ICreateRecipeForm,
+  CreateRecipeSchema,
+} from "@/types/recipe/recipe.contract";
 import { Steps } from "@/components/common/steps";
 import { IconBox } from "@/components/common/iconBox";
 import { Tooltip } from "@/components/common/toolTip";
 import { InputBox } from "@/components/common/inputBox";
 import { InputFile } from "@/components/common/inputFile";
 import { ErrorMessage } from "@/components/common/inputErrorMessage";
-import {
-  type ICreateRecipeForm,
-  CreateRecipeSchema,
-} from "@/types/recipe/recipe.contract";
-import { usePreviewImages } from "@/hooks/usePreviewImages";
-import { INGREDIENT_CATEGORIES } from "@/constants/ingredient";
 import { useAlertActions } from "@/lib/zustand/alertStore";
+import { usePreviewImages } from "@/hooks/usePreviewImages";
+import { compressImageToBase64 } from "@/lib/imageCompression";
+import { INGREDIENT_CATEGORIES } from "@/constants/ingredient";
 import { useConfirmDialogActions } from "@/lib/zustand/confirmDialogStore";
-import { compressImage, compressImageToBase64 } from "@/lib/imageCompression";
 import { FOOD_CATEGORIES, INTRODUCE_LIMIT_LENGTH } from "@/constants/recipe";
 import { useCreateRecipeMutation } from "@/services/recipe/mutations/createRecipeMutation";
 
@@ -42,8 +42,10 @@ export const CreateRecipeForm = () => {
     mode: "onBlur",
     resolver: zodResolver(CreateRecipeSchema),
     defaultValues: {
-      ingredients: [{ name: "a", quantity: "a", category: "고기" }],
-      cooking_steps: [{ picture: undefined, instruction: "a" }],
+      ingredients: [
+        { name: undefined, quantity: undefined, category: undefined },
+      ],
+      cooking_steps: [{ picture: undefined, instruction: undefined }],
     },
   });
 
@@ -56,35 +58,28 @@ export const CreateRecipeForm = () => {
         try {
           // 이미지 압축 로딩 메시지 출력
           setProcessMessage("이미지 압축 중...");
-          console.log(data);
 
           // 요리 사진 압축
-          const compressedCookImages = await Promise.all(
+          const compressedCookImages = (await Promise.all(
             Array.from(data.pictures).map((file) => compressImageToBase64(file))
-          );
-          console.log(compressedCookImages);
+          )) as string[];
 
           // 요리 과정 사진 압축
           const compressedStepImages = await Promise.all(
             data.cooking_steps.map(async ({ instruction, picture }) => ({
               instruction: instruction,
-              picture:
-                typeof picture === "string"
-                  ? picture
-                  : picture && ((await compressImage(picture?.[0])) as File),
+              picture: (await compressImageToBase64(picture[0])) as string,
             }))
           );
-          console.log(compressedStepImages);
-
           // 서버 전송 로딩 메시지 출력
           setProcessMessage("서버에 전송 중...");
 
           // 서버 요청
-          // await mutateAsync({
-          //   ...data,
-          //   pictures: compressedCookImages,
-          //   cooking_steps: compressedStepImages,
-          // });
+          await mutateAsync({
+            ...data,
+            pictures: compressedCookImages,
+            cooking_steps: compressedStepImages,
+          });
         } catch (error) {
           console.error(error);
           alertEnqueue({
@@ -337,7 +332,10 @@ const CookingStepFields = ({ useForm }: Props) => {
         className={styles.appendButton}
         onClick={(e) => {
           e.preventDefault();
-          appendCookingStep({ picture: undefined, instruction: "" });
+          appendCookingStep({
+            picture: undefined as unknown as FileList,
+            instruction: "",
+          });
         }}
       >
         <IconBox Icon={RiAddLine}>추가</IconBox>
@@ -353,7 +351,7 @@ const StepField = memo(
     register,
   }: Pick<UseFormReturn<ICreateRecipeForm>, "register"> & {
     i: number;
-    imageFile: ICreateRecipeForm['cooking_steps'][number]['picture'];
+    imageFile: ICreateRecipeForm["cooking_steps"][number]["picture"];
   }) => {
     const previewImages = usePreviewImages(imageFile)[0];
 

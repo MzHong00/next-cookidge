@@ -1,12 +1,12 @@
 import { infiniteQueryOptions } from "@tanstack/react-query";
 
-import type { PagenationParams } from "@/types";
+import type { PagenationParams } from "@/types/common";
 import { RankServices } from "..";
 
 export class RankQueries {
   static readonly keys = {
-    follower: ["rank", "follower", "infinite"],
-    maker: ["rank", "recipe-maker", "infinite"],
+    follower: ["rank", "infinite", "follower"],
+    maker: ["rank", "infinite", "recipe-maker"],
   };
 
   static InfiniteFollowerRankQuery(option?: PagenationParams) {

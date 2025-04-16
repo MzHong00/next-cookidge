@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 import {
-  INTRODUCE_LIMIT_LENGTH,
   NAME_LIMIT_LENGTH,
   QUANTITY_LIMIT_LENGTH,
+  INTRODUCE_LIMIT_LENGTH,
 } from "@/constants/recipe";
 
 const IngredientSchema = z.object({
@@ -24,11 +24,11 @@ const IngredientSchema = z.object({
     ),
 });
 
-const CookingStepSchema = z.object({
+const CreateCookingStepSchema = z.object({
   picture: z.custom<FileList>(
     (val) => val instanceof FileList && val.length > 0,
-    "이미지를 선택하세요."
-  ).optional(),
+    "파일을 선택해 주세요."
+  ),
   instruction: z
     .string()
     .min(1, "조리 과정을 입력해 주세요.")
@@ -36,6 +36,18 @@ const CookingStepSchema = z.object({
       INTRODUCE_LIMIT_LENGTH,
       `조리 과정을 ${INTRODUCE_LIMIT_LENGTH}자 내외로 입력해 주세요.`
     ),
+});
+
+const UpdateCookingStepSchema = CreateCookingStepSchema.omit({
+  picture: true,
+}).extend({
+  picture: z.union([
+    z.string(),
+    z.custom<FileList>(
+      (val) => val instanceof FileList && val.length > 0,
+      "파일을 선택해 주세요."
+    ),
+  ]),
 });
 
 export const CreateRecipeSchema = z.object({
@@ -48,7 +60,7 @@ export const CreateRecipeSchema = z.object({
     ),
   pictures: z.custom<FileList>(
     (val) => val instanceof FileList && val.length > 0,
-    "파일을 선택하세요."
+    "파일을 선택해 주세요."
   ),
   ingredients: z
     .array(IngredientSchema)
@@ -60,22 +72,36 @@ export const CreateRecipeSchema = z.object({
       INTRODUCE_LIMIT_LENGTH,
       `요리 소개를 ${INTRODUCE_LIMIT_LENGTH}자 내외로 입력해 주세요.`
     ),
-  servings: z
-    .string()
-    .refine(
-      (val) => !isNaN(Number(val)) && Number(val) >= 1 && Number(val) <= 300,
-      "올바르지 않은 인분 설정입니다."
-    ),
+  servings: z.coerce
+    .number()
+    .min(1, "올바르지 않은 인분 설정입니다.")
+    .max(300, "올바르지 않은 인분 설정입니다."),
   category: z.string().min(1, "카테고리를 선택해 주세요."),
-  cooking_time: z
-    .string()
-    .refine(
-      (val) => !isNaN(Number(val)) && Number(val) >= 1 && Number(val) <= 2400,
-      "올바르지 않은 조리 시간입니다."
+  cooking_time: z.coerce
+    .number()
+    .min(1, "올바르지 않은 요리 시간입니다.")
+    .max(2400, "올바르지 않은 요리 시간입니다."),
+  cooking_steps: z
+    .array(CreateCookingStepSchema)
+    .min(1, "요리 과정을 1개 이상 추가해 주세요."),
+});
+
+export const UpdateRecipeSchema = CreateRecipeSchema.omit({
+  pictures: true,
+  cooking_steps: true,
+}).extend({
+  pictures: z
+    .array(z.string())
+    .or(
+      z.custom<FileList>(
+        (val) => val instanceof FileList && val.length > 0,
+        "파일을 선택해 주세요."
+      )
     ),
   cooking_steps: z
-    .array(CookingStepSchema)
+    .array(UpdateCookingStepSchema)
     .min(1, "요리 과정을 1개 이상 추가해 주세요."),
 });
 
 export type ICreateRecipeForm = z.infer<typeof CreateRecipeSchema>;
+export type IUpdateRecipeForm = z.infer<typeof UpdateRecipeSchema>;

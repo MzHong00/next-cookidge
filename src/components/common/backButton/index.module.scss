@@ -1,0 +1,5 @@
+@use '/src/styles/mixin.scss' as m;
+
+.button {
+    @include m.main-button-dark();
+}

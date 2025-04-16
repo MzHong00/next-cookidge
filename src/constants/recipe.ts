@@ -1,4 +1,4 @@
-import type { EmojiCatgories } from "@/types";
+import type { EmojiCatgories } from "@/types/common";
 
 export const NAME_LIMIT_LENGTH = 20;
 export const INTRODUCE_LIMIT_LENGTH = 100;
@@ -27,6 +27,6 @@ export const FOOD_CATEGORIES: EmojiCatgories[] = [
 ];
 
 export const RECIPE_SORT = [
-  { query: "time", text: "시간순" },
+  { query: "latest", text: "최신순" },
   { query: "like", text: "좋아요순" },
 ];

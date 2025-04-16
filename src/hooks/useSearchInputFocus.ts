@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export const useInputFocus = () => {
+export const useSearchInputFocus = () => {
   const ref = useRef<HTMLInputElement>(null);
   const [isFocus, setIsFocus] = useState<boolean>(false);
 
@@ -12,7 +12,9 @@ export const useInputFocus = () => {
     };
 
     const focusOutHandler = () => {
-      setIsFocus(false);
+      setTimeout(() => {
+        setIsFocus(false);
+      }, 100);
     };
 
     input?.addEventListener("focusin", focusInHandler);

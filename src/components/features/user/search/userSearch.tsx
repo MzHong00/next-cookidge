@@ -3,10 +3,10 @@
 import { useSearchParams } from "next/navigation";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { useInputFocus } from "@/hooks/useInputFocus";
 import { Profile } from "@/components/common/profile";
 import { SearchBox } from "@/components/common/search";
 import { UserQueries } from "@/services/user/queries/userQueries";
+import { useSearchInputFocus } from "@/hooks/useSearchInputFocus";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 import styles from "./userSearch.module.scss";
@@ -19,16 +19,21 @@ export const UserSearch = () => {
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery(
-    UserQueries.InfiniteSearchQuery({ query: searchParams.get("name") || "" })
+    UserQueries.infiniteSearchQuery({ query: searchParams.get("name") || "" })
   );
   const observerRef = useIntersectionObserver({ hasNextPage, fetchNextPage });
 
   // 검색 결과 UI 출력 여부
-  const { ref, isFocus } = useInputFocus();
+  const { ref, isFocus } = useSearchInputFocus();
   const hasSearchResult = users?.pages[0] && users?.pages[0].length !== 0;
-  
+
   return (
-    <SearchBox ref={ref} className={styles.container} queryStringKey="name">
+    <SearchBox
+      ref={ref}
+      queryStringKey="name"
+      placeholder="사용자 이름을 입력하세요."
+      className={styles.container}
+    >
       {hasSearchResult && isFocus && (
         <ul className="flex-column">
           {users?.pages.map((page) =>

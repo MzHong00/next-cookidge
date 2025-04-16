@@ -54,6 +54,7 @@ export const LikeButton = ({
             <RiHeart3Line color={BUTTON_COLOR} />
           )
         }
+        style={{ paddingInline: 0 }}
       >
         {likeMembers.length}
       </IconBox>
