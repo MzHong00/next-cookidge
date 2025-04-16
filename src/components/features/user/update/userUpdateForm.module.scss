@@ -1,0 +1,31 @@
+@use '/src/styles/mixin.scss' as m;
+
+.form {
+    max-width: 800px;
+    margin: auto;
+    @include m.flex-layout(column, center, center);
+
+    .imageInput {
+        width: 200px;
+        border-radius: 100%;
+        overflow: hidden;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        padding: var(--base-padding);
+        background-color: rgb(var(--color-dark-light));
+        border-radius: var(--border-radius);
+    }
+
+    &>div {
+        width: 100%;
+    }
+
+    .updateButton {
+        width: 100%;
+        padding: var(--base-padding);
+        @include m.main-button();
+    }
+}

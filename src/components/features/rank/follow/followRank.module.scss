@@ -1,0 +1,29 @@
+@use '/src/styles/mixin.scss' as m;
+
+.rankList {
+    width: 100%;
+    @include m.grid-template(column, repeat(auto-fit, minmax(200px, 1fr)));
+
+    .rankItem {
+        position: relative;
+
+        .rankTag {
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            @include m.flex-layout(column, center, center);
+            background-color: rgba(black, 0.8);
+            border-radius: 100%;
+        }
+
+        .rankUserCard {
+            @include m.flex-layout(row, center, space-between);
+
+            .rankValue {
+                padding-inline: 0;
+            }
+        }
+    }
+}

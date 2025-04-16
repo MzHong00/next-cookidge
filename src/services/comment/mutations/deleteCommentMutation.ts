@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import type { IComment } from "@/types/comment";
+import type { IComment } from "@/types/comment/comment";
 import type { IRecipe } from "@/types/recipe/recipe";
 import { CommentService } from "..";
 import { CommentQueries } from "../queries/commentQueries";

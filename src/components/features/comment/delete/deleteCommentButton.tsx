@@ -1,4 +1,4 @@
-import type { IComment } from "@/types/comment";
+import type { IComment } from "@/types/comment/comment";
 import type { IRecipe } from "@/types/recipe/recipe";
 
 import { useConfirmDialogActions } from "@/lib/zustand/confirmDialogStore";

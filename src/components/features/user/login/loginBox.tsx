@@ -10,6 +10,10 @@ import { GoogleOAuthService } from "@/services/oauth";
 import { IconBox } from "@/components/common/iconBox";
 
 import styles from "./loginBox.module.scss";
+import { AuthService } from "@/services/auth";
+import { UserQueries } from "@/services/user/queries/userQueries";
+import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 const LOGIN_TYPES = ["소셜 로그인", "테스트 계정"];
 
@@ -51,10 +55,19 @@ export const LoginBox = ({ className }: { className?: string }) => {
 };
 
 const TestAccount = () => {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
   return (
     <>
       <p>임시 제공하는 계정을 통해 Cookidge 서비스를 체험하세요!</p>
-      <button>
+      <button
+        onClick={async () => {
+          await AuthService.testAccountLogin("5789");
+          queryClient.invalidateQueries({ queryKey: UserQueries.keys.me });
+          router.back();
+        }}
+      >
         <IconBox Icon={RiUser5Line}>테스트 계정으로 로그인</IconBox>
       </button>
     </>

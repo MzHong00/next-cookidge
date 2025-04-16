@@ -1,4 +1,4 @@
-import type { IUser } from "../user";
+import type { IUser } from "../user/user";
 import { ICreateRecipeForm } from "./recipe.contract";
 
 export interface IRecipe {
@@ -25,28 +25,18 @@ export interface IIngredient {
 }
 
 export interface ICookingStep {
-  picture?: string;
+  picture: string;
   instruction: string;
 }
 
 export interface IRecipeQuery {
+  title: string;
   categories: IRecipe["category"][];
   sort: "time" | "like";
 }
 
 export interface IRecipeInputDTO
-  extends Pick<
-    ICreateRecipeForm,
-    | "name"
-    | "ingredients"
-    | "introduction"
-    | "servings"
-    | "category"
-    | "cooking_time"
-  > {
-  pictures: string;
-  cooking_steps: {
-    picture: string;
-    instruction: string;
-  }[];
+  extends Omit<ICreateRecipeForm, "pictures" | "cooking_steps"> {
+  pictures: string[];
+  cooking_steps: ICookingStep[];
 }

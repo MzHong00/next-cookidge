@@ -1,6 +1,6 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 
-import type { IRecipe } from "@/types/recipe/recipe";
+import type { IRecipe, IRecipeQuery } from "@/types/recipe/recipe";
 import { RecipeService } from "..";
 
 const LIMIT = 10;
@@ -8,7 +8,9 @@ const LIMIT = 10;
 export class RecipeQueries {
   static readonly keys = {
     root: ["recipe"],
-    list: ["recipe-infinite"],
+    list: ["recipe", "infinite"],
+    like: ["recipe", "by-users-like"],
+    users: ["recipe", "by-users-name"],
   };
 
   static detailQuery(recipeId: IRecipe["_id"]) {
@@ -19,13 +21,13 @@ export class RecipeQueries {
     });
   }
 
-  static listQuery(slug: string = "") {
+  static listQuery(queryParams?: Partial<IRecipeQuery>) {
     return infiniteQueryOptions({
-      queryKey: [...this.keys.list, slug],
+      queryKey: [...this.keys.list, queryParams],
       queryFn: ({ pageParam, signal }) =>
         RecipeService.readRecipeList({
-          slug: slug,
           params: {
+            ...queryParams,
             limit: LIMIT,
             offset: pageParam * LIMIT,
           },
@@ -37,6 +39,21 @@ export class RecipeQueries {
 
         return lastPageParam + 1;
       },
+    });
+  }
+
+  static listQueryByUserName(name: string) {
+    return queryOptions({
+      queryKey: [...this.keys.users, name],
+      queryFn: ({ signal }) =>
+        RecipeService.readRecipeListByUserName({ signal, userName: name }),
+    });
+  }
+
+  static listQueryByUserLike() {
+    return queryOptions({
+      queryKey: [...this.keys.like],
+      queryFn: ({ signal }) => RecipeService.readMyLikeRecieps({ signal }),
     });
   }
 }

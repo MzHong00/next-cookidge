@@ -1,0 +1,29 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    @include m.flex-layout(row);
+
+    .sortItem {
+        background: rgb(var(--color-dark));
+
+    }
+
+    .filterItem {
+        background: rgb(var(--color-main));
+
+        &>button {
+            @include m.flex-layout(row, center, normal, 0);
+
+            & svg {
+                font-size: medium;
+            }
+        }
+    }
+
+    li {
+        padding-inline: calc(var(--base-padding) / 2);
+        @include m.flex-layout(row, center, normal, 0);
+        border-radius: var(--border-radius);
+        font-size: var(--base-font-size-small);
+    }
+}

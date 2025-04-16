@@ -1,0 +1,7 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    width: 100%;
+    @include m.skeleton-shimmer();
+    border-radius: var(--border-radius);
+}

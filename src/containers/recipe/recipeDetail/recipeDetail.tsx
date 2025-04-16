@@ -1,8 +1,9 @@
 "use client";
 
-import { memo, useCallback, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { memo, useCallback, useState } from "react";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { RiGroupLine } from "@react-icons/all-files/ri/RiGroupLine";
 import { RiTimer2Line } from "@react-icons/all-files/ri/RiTimer2Line";
 import { RiCalendarLine } from "@react-icons/all-files/ri/RiCalendarLine";
@@ -11,6 +12,7 @@ import type { IIngredient, IRecipe } from "@/types/recipe/recipe";
 import { fadeSlide } from "@/lib/framer-motion";
 import { CurrentDateGap } from "@/utils/currentDateGap";
 import { INGREDIENT_CATEGORIES } from "@/constants/ingredient";
+import { UserQueries } from "@/services/user/queries/userQueries";
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import { IconBox } from "@/components/common/iconBox";
 import { Profile } from "@/components/common/profile";
@@ -19,6 +21,7 @@ import { PictureSlider } from "@/components/common/pictureSlider";
 import { RecipeStep } from "@/components/features/recipe/step/recipeStep";
 import { LikeButton } from "@/components/features/recipe/like/likeButtton";
 import { CommentList } from "@/components/features/comment/read/commentList";
+import { RecipeDeleteButton } from "@/components/features/recipe/delete/recipeDeleteButton";
 
 import styles from "./recipeDetail.module.scss";
 
@@ -28,10 +31,10 @@ const SLIDE_MOVE_PX = 300;
 export function RecipeDetail({ id }: { id: string }) {
   const [tab, setTab] = useState<(typeof SECTION)[number]>(SECTION[0]);
 
+  const { data: me } = useQuery(UserQueries.meQuery());
   const { data: recipe } = useSuspenseQuery(RecipeQueries.detailQuery(id));
 
   const { ingredients, cooking_steps, user, ...contents } = recipe;
-  const { name, picture } = user;
 
   const changeTabHandler = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -49,7 +52,15 @@ export function RecipeDetail({ id }: { id: string }) {
         animate="visible"
         custom={SLIDE_MOVE_PX}
       >
-        <Profile name={name} picture={picture} />
+        <header className={styles.cardHeader}>
+          <Profile name={user.name} picture={user.picture} />
+          {me?._id === user._id && (
+            <div className={styles.recipeAction}>
+              <RecipeUpdateLink recipe_id={recipe._id} />
+              <RecipeDeleteButton recipe_id={recipe._id} />
+            </div>
+          )}
+        </header>
 
         <TabIndex tab={tab} onClick={changeTabHandler} />
 
@@ -166,3 +177,7 @@ const TabIndex = memo(
   }
 );
 TabIndex.displayName = "TabIndex";
+
+const RecipeUpdateLink = ({ recipe_id }: { recipe_id: IRecipe["_id"] }) => {
+  return <Link href={`/recipe/${recipe_id}/update`}>수정</Link>;
+};

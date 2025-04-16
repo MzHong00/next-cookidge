@@ -1,7 +1,7 @@
 import axios from "..";
 
-import type { IUser } from "@/types/user";
-import type { PagenationParams } from "@/types";
+import type { IUser } from "@/types/user/user";
+import type { PagenationParams } from "@/types/common";
 
 export class UserService {
   static readonly root = "/user";
@@ -27,17 +27,26 @@ export class UserService {
     return response.data;
   }
 
-  static async updateUser(
-    updateData: Pick<IUser, "name" | "introduce"> & {
-      picture?: IUser["picture"];
-    }
-  ): Promise<{ message: string }> {
-    return (await axios.patch(`${this.root}/update`, updateData)).data;
+  static async fetchFollowerList(config: {
+    signal: AbortSignal;
+    params: PagenationParams & {
+      name: IUser["name"];
+    };
+  }): Promise<Pick<IUser, "_id" | "name" | "picture">[]> {
+    const response = await axios.get(`${this.root}/follower`, config);
+
+    return response.data;
   }
 
-  // 유저 삭제
-  static async deleteUser(): Promise<{ message: string }> {
-    return (await axios.delete(`${this.root}/delete`)).data;
+  static async fetchFollowingList(config: {
+    signal: AbortSignal;
+    params: PagenationParams & {
+      name: IUser["name"];
+    };
+  }): Promise<Pick<IUser, "_id" | "name" | "picture">[]> {
+    const response = await axios.get(`${this.root}/following`, config);
+
+    return response.data;
   }
 
   static async searchUser(config: {
@@ -52,6 +61,14 @@ export class UserService {
     })[]
   > {
     return (await axios.get(`${this.root}/search`, config)).data;
+  }
+
+  static async updateUser(
+    updateData: Pick<IUser, "name" | "introduce"> & {
+      picture?: IUser["picture"];
+    }
+  ): Promise<{ message: string }> {
+    return (await axios.patch(`${this.root}/update`, updateData)).data;
   }
 
   // 유저 팔로우
@@ -70,5 +87,10 @@ export class UserService {
         unfollow_user_id: unfollowUserId,
       })
     ).data;
+  }
+
+  // 유저 삭제
+  static async deleteUser(): Promise<{ message: string }> {
+    return (await axios.delete(`${this.root}/delete`)).data;
   }
 }

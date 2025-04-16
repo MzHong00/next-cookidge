@@ -1,3 +1,9 @@
+import { NotFound } from "@/components/common/notFound";
+
+export const metadata = {
+  title: "냉장고"
+}
+
 export default function FridgePage() {
-  return <div>냉장고 페이지</div>;
+  return <NotFound msg="페이지 준비중입니다."/>;
 }
