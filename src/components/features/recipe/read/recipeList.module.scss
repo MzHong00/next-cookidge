@@ -1,0 +1,7 @@
+@use '/src/styles/mixin.scss' as m;
+
+.spinner {
+    margin-block: 0.5rem;
+    @include m.flex-layout(row, center, center);
+    float: left;
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { RiGroupLine } from "@react-icons/all-files/ri/RiGroupLine";
 
 import { IconBox } from "@/components/common/iconBox";
@@ -10,13 +10,13 @@ import { RankQueries } from "@/services/rank/queries/rankQueries";
 import styles from "./followRank.module.scss";
 
 export function FollowRank() {
-  const { data: userInfinite } = useInfiniteQuery(
+  const { data: userInfinite } = useSuspenseInfiniteQuery(
     RankQueries.InfiniteFollowerRankQuery()
   );
 
   return (
     <ul className={styles.rankList}>
-      {userInfinite?.pages[0].map((user, i) => {
+      {userInfinite.pages[0].map((user, i) => {
         const rank =
           (i === 0 && "🥇") || (i === 1 && "🥈") || (i === 2 && "🥉") || i + 1;
         const isRanker = typeof rank !== "number";

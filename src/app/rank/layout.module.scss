@@ -1,30 +1,8 @@
 @use '/src/styles/mixin.scss' as m;
 
 .container {
+    max-width: 500px;
+    margin: auto;
     padding-bottom: 10vh;
     @include m.flex-layout(column, normal, normal, 3rem);
-
-    .contents {
-        width: 100%;
-        max-width: 500px;
-        margin: auto;
-        @include m.flex-layout(column, normal, normal, 3rem);
-
-        &>section {
-            @include m.flex-layout(column);
-
-            .rankTitle {
-                @include m.flex-layout(column, center, normal, 0);
-            }
-        }
-    }
-}
-
-.skeletonRankList {
-    width: 100%;
-    @include m.grid-template(column, repeat(auto-fit, minmax(200px, 1fr)));
-
-    &>* {
-        padding: var(--base-padding);
-    }
 }

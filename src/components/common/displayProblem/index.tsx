@@ -1,21 +1,22 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { RiErrorWarningLine } from "@react-icons/all-files/ri/RiErrorWarningLine";
 
 import { IconBox } from "../iconBox";
 
 import styles from "./index.module.scss";
 
-export const NotFound = ({
-  msg = "페이지를 찾지 못했어요..!",
+export const DisplayProblem = ({
+  msg,
 }: {
-  msg?: string;
+  msg: string;
 }) => {
   const router = useRouter();
 
   return (
     <div className={styles.container}>
-      <h1>404</h1>
+      <RiErrorWarningLine />
       <p>{msg}</p>
       <button
         onClick={() => {

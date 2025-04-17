@@ -21,9 +21,9 @@ export class RecipeQueries {
     });
   }
 
-  static listQuery(queryParams?: Partial<IRecipeQuery>) {
+  static listQuery(queryParams?: Partial<IRecipeQuery>, qsKey?: string) {
     return infiniteQueryOptions({
-      queryKey: [...this.keys.list, queryParams],
+      queryKey: [...this.keys.list, qsKey || queryParams],
       queryFn: ({ pageParam, signal }) =>
         RecipeService.readRecipeList({
           params: {
