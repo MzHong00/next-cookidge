@@ -1,9 +1,9 @@
-import { NotFound } from "@/components/common/notFound";
+import { DisplayProblem } from "@/components/common/displayProblem";
 
 export const metadata = {
-  title: "냉장고"
-}
+  title: "냉장고",
+};
 
 export default function FridgePage() {
-  return <NotFound msg="페이지 준비중입니다."/>;
+  return <DisplayProblem msg="페이지 준비중입니다." />;
 }
