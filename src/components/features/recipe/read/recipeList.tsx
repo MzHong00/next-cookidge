@@ -3,15 +3,16 @@
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import type { IRecipeQuery } from "@/types/recipe/recipe";
-import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import { ClientRender } from "@/components/common/clientRender";
-import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { LoadingSpinner } from "@/components/common/loadingSpinner";
 import { ResponsiveMasonry } from "@/components/common/responsiveMasonry";
 import { RecipeThumbnail } from "@/components/features/recipe/thumbnail/recipeThumbnail";
-import { RecipeThumbnailSkeleton } from "../thumbnail/recipeThumbnailSkeleton";
+import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+
+import styles from "./recipeList.module.scss";
 
 const THUMBNAIL_WIDTH = 400;
-const TUHMBNAIL_SKELETON_COUNT = 4;
 
 export const RecipeList = ({ recipeQuery }: { recipeQuery: IRecipeQuery }) => {
   const { data, isFetching, hasNextPage, fetchNextPage } =
@@ -34,12 +35,14 @@ export const RecipeList = ({ recipeQuery }: { recipeQuery: IRecipeQuery }) => {
               </article>
             ))
           )}
-          {isFetching &&
-            Array.from({ length: TUHMBNAIL_SKELETON_COUNT }).map((_, i) => (
-              <RecipeThumbnailSkeleton key={i} />
-            ))}
         </ResponsiveMasonry>
       </ClientRender>
+      {isFetching && (
+        <LoadingSpinner
+          className={styles.spinner}
+          msg="레시피 가져오는 중..."
+        />
+      )}
       <div ref={target} />
     </div>
   );
