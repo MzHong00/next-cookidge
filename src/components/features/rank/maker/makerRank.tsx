@@ -1,6 +1,6 @@
 "use client";
 
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { RiBook2Line } from "@react-icons/all-files/ri/RiBook2Line";
 
 import { IconBox } from "@/components/common/iconBox";
@@ -10,13 +10,13 @@ import { RankQueries } from "@/services/rank/queries/rankQueries";
 import styles from "../follow/followRank.module.scss";
 
 export function MakerRank() {
-  const { data: makerInfinite } = useInfiniteQuery(
+  const { data: makerInfinite } = useSuspenseInfiniteQuery(
     RankQueries.InfiniteRecipeMakerRankQuery()
   );
 
   return (
     <ul className={styles.rankList}>
-      {makerInfinite?.pages[0].map(({ _id, recipe_count, author }, i) => {
+      {makerInfinite.pages[0].map(({ _id, recipe_count, author }, i) => {
         const rank =
           (i === 0 && "🥇") || (i === 1 && "🥈") || (i === 2 && "🥉") || i + 1;
         const isRanker = typeof rank !== "number";

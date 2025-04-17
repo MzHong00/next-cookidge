@@ -2,7 +2,7 @@
 
 .container {
     @include m.flex-layout(column, center, normal, 8px);
-    z-index: 100;
+    z-index: 10000;
 }
 
 .loadingDots {

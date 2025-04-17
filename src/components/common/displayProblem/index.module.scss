@@ -5,11 +5,8 @@
     margin: auto;
     @include m.flex-layout(column, center, center, 2rem);
 
-    &>h1 {
-        color: rgba(var(--main-rgb));
-        font-size: 10rem;
-        font-family: cursive;
-        text-shadow: 2px 2px 8px silver;
+    &>svg {
+        font-size: 8rem;
     }
 
     &>p {
