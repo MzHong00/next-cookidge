@@ -11,12 +11,16 @@ import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 import styles from "./recipeList.module.scss";
+import { useSearchParams } from "next/navigation";
 
 const THUMBNAIL_WIDTH = 400;
 
 export const RecipeList = ({ recipeQuery }: { recipeQuery: IRecipeQuery }) => {
+  const searchParams = useSearchParams();
   const { data, isFetching, hasNextPage, fetchNextPage } =
-    useSuspenseInfiniteQuery(RecipeQueries.listQuery(recipeQuery));
+    useSuspenseInfiniteQuery(
+      RecipeQueries.listQuery(recipeQuery, searchParams.toString())
+    );
   const target = useIntersectionObserver({ hasNextPage, fetchNextPage });
 
   return (
