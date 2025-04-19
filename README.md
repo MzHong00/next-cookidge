@@ -1,4 +1,6 @@
-기존의 React로 구현한 (Cookidge)[https://cookidge.vercel.app]프로젝트를 NextJS를 사용하여 마이그레이션한 프로젝트이다.
+![](https://velog.velcdn.com/images/mzhong/post/200e8bc6-c1c1-4970-a998-61b119554da6/image.png)
+
+기존의 React로 구현한 (Cookidge)[https://cookidge.vercel.app] 프로젝트를 NextJS를 사용하여 마이그레이션한 프로젝트이다.
 
 배포: https://cookidge-next.vercel.app
 
