@@ -1,3 +1,33 @@
+![](https://velog.velcdn.com/images/mzhong/post/200e8bc6-c1c1-4970-a998-61b119554da6/image.png)
+
+기존의 React로 구현한 [Cookidge](https://github.com/MzHong00/cookidge) 프로젝트를 NextJS를 사용하여 마이그레이션한 프로젝트이다.
+
+배포: https://cookidge-next.vercel.app
+
+## 기술 스택
+
+- TypeScript
+- SCSS
+- NextJS
+- Tankstack-Query
+- Zustand
+- Framer
+- Zod
+
+## 성능 개선 기술
+
+- 낙관적 업데이트를 통한 좋아요 기능 즉각적 반응
+- NextJS의 Image API를 사용하여 이미지 최적화를 했다. 자동으로 제공하는 확장자 변형 및 width height 지정하여 이미지 로딩 속도 개선
+- Masonry 레이아웃 반응형으로 행의 개수 조절 및 검색 기능에서 디바운스를 사용하여 성능 최적화
+- Abort Signal을 통한 네트워크 요청 취소 기능 구현
+- useMemo, useCallback, memo 등을 사용하여 리렌더링 연산이 복잡한 컴포넌트에 적용하여 성능 최적화
+
+## 사용했던 NextJS의 기본적인 기능
+
+- generateMetadata를 사용한 동적 메타 태그 변경
+- Paralle Route와 Intercepting Route를 사용하여 모달 구현
+- middleware.ts로 특정 루트에서 사용자 인증 수행
+- Tanstack Query를 사용하여 서버 컴포넌트에서 데이터 패칭을 수행하기 위해 prefetch 및 de/hydration API를 사용
 
 ## 🔥 트러블 슈팅
 
@@ -134,7 +164,7 @@ getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 �
 
 ✔ [해결2]
 
-`queryClient.invalidateQueries(queryKey, { refetchType: inactive })`에서 refetchType 속성을 통해 inActive 상태의 데이터를 백그라운드에서 페치할 수 있따.
+`queryClient.invalidateQueries(queryKey, { refetchType: inactive })`에서 refetchType 속성을 통해 inActive 상태의 데이터를 백그라운드에서 페치할 수 있다다.
 
 - 'active': refetch 조건과 일치하고 useQuery유사한 후크를 통해 적극적으로 렌더링되는 쿼리만 백그라운드에서 다시 페치됩니다. 이는 기본 동작입니다.
 - 'inactive': refetch 조건자와 일치하고 현재 렌더링되지 않는 쿼리만 백그라운드에서 다시 페치됩니다.
@@ -144,7 +174,14 @@ getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 �
 ### 👉 **Zod + React Hook Form에서 input type="number"를 사용할 때, 폼에서 문자열로 받아와져 검증 에러가 발생**
 
 ✔ [해결]
+
 `z.coerce.number()`를 사용하여 문자열로 값을 받아와지는 `input type="number"`의 값을 숫자로 취급할 수 있다.
+
+### 👉 **RSC에서 반환하는 인코딩된 한글 params 데이터를 한글 문자열로 출력하기**
+
+✔ [해결]
+
+decodeURICoponent API를 사용하여 인코딩 된 데이터를 디코딩할 수 있다.
 
 ## 🤔 궁금증 및 생각
 
