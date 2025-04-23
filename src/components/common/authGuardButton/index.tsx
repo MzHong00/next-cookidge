@@ -17,10 +17,7 @@ export const AuthGuardButton = ({
   const me = queryClient.getQueryData(UserQueries.keys.me);
 
   const authGuardHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!me) {
-      router.push("/login", { scroll: false });
-      return;
-    }
+    if (!me) return router.push("/login", { scroll: false });
 
     onClick?.(e);
   };
