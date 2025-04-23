@@ -1,0 +1,91 @@
+@use 'app/app.scss';
+
+.container {
+    min-height: 24rem;
+    max-width: 40rem;
+    max-height: 64vh;
+    padding-inline: 1rem;
+    overflow-y: auto;
+    border: none;
+}
+
+.form {
+    height: 100%;
+    @include app.flex-layout(column, stretch, space-between, 0.5rem);
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.table {
+    width: 100%;
+    table-layout: fixed;
+
+    &>thead {
+        position: sticky;
+        top: 0;
+        background-color: white;
+        z-index: 10;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    &>colgroup {
+        &>:last-child {
+            width: 32px;
+        }
+    }
+}
+
+.ingredient {
+    height: 2rem;
+    vertical-align: baseline;
+
+    & input, & select {
+        min-height: 2rem;
+        width: 100%;
+        height: 100%;
+        color: black;
+        border: none;
+        background-color: white;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &>:last-child{
+        text-align: center;
+    }
+}
+
+.removeButton {
+    padding: 0.25rem;
+    display: inline;
+}
+
+.appendButton {
+    height: 100%;
+    flex-grow: 1;
+
+    &>button{
+        width: fit-content;
+        padding-inline: 0.5rem;
+        gap: 0.5rem;
+        position: sticky;
+        bottom: 0;
+        background-color: white;
+    }
+}
+
+.submitButton {
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    border-radius: 5px;
+    @include app.main-button;
+    color:white !important;
+}
+
+@media screen and (max-width: 767px) {
+    .container {
+        padding-inline: 0.5em;
+        max-width: none;
+    }
+}

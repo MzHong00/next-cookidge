@@ -1,9 +1,20 @@
-import { DisplayProblem } from "@/components/common/displayProblem";
+import QueryHydrate from "@/components/common/queryHydrate";
+import { FridgeList } from "@/containers/fridge/fridgeList/fridgeList";
+import { FridgeQueries } from "@/services/fridge/queries/fridgeQueries";
+import { UserQueries } from "@/services/user/queries/userQueries";
 
-export const metadata = {
-  title: "냉장고",
-};
+export default async function FridgePage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
 
-export default function FridgePage() {
-  return <DisplayProblem msg="페이지 준비중입니다." />;
+  return (
+    <QueryHydrate
+      queryOptions={[FridgeQueries.listQuery(), UserQueries.meQuery()]}
+    >
+      <FridgeList active_fridge_id={id} />
+    </QueryHydrate>
+  );
 }
