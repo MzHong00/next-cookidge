@@ -10,12 +10,6 @@
 .comment {
     @include m.flex-layout(row, center, normal, 0.5rem);
 
-    .profileButton {
-        width: 40px;
-        height: 40px;
-        padding: 0;
-    }
-
     .nameBar {
         display: flex;
         gap: 0.5rem;
