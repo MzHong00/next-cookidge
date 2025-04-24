@@ -14,11 +14,18 @@ import { LikeButton } from "../like/likeButtton";
 
 import styles from "./recipeThumbnail.module.scss";
 
+const DEFAULT_RECIPE_WIDTH = 400;
+
 interface Props extends Partial<ImageProps> {
   recipe: IRecipe;
 }
 
-export const RecipeThumbnail = ({ recipe, ...props }: Props) => {
+export const RecipeThumbnail = ({
+  recipe,
+  width = DEFAULT_RECIPE_WIDTH,
+  height = DEFAULT_RECIPE_WIDTH,
+  ...props
+}: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const InfoToggleHandler = () => {
@@ -37,7 +44,13 @@ export const RecipeThumbnail = ({ recipe, ...props }: Props) => {
       }}
     >
       {isOpen && <Info {...recipe} />}
-      <Image src={PIdToURL(recipe.pictures[0])} alt="Thumbnail" {...props} />
+      <Image
+        src={PIdToURL(recipe.pictures[0])}
+        alt={recipe.name}
+        width={width}
+        height={height}
+        {...props}
+      />
     </motion.div>
   );
 };
