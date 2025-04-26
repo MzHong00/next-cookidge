@@ -3,7 +3,6 @@
 .container {
     @include m.flex-layout(column);
     flex-shrink: 1;
-    @include m.dark-section();
 
     .title {
         @include m.flex-layout(row, center);

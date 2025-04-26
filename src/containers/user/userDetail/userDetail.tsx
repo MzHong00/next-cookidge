@@ -23,7 +23,7 @@ export const UserDetail = ({ name }: { name: string }) => {
   return (
     <div className={styles.container}>
       <section>
-        <UserCard {...user} disabled />
+        <UserCard {...user} className="dark-section" disabled />
       </section>
 
       <section className={styles.actionSection}>

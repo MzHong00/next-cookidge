@@ -54,11 +54,7 @@ export function RecipeDetail({ id }: { id: string }) {
         custom={SLIDE_MOVE_PX}
       >
         <header className={styles.cardHeader}>
-          <UserCard
-            name={user.name}
-            picture={user.picture}
-            style={{ background: "none" }}
-          />
+          <UserCard name={user.name} picture={user.picture} />
           {me?._id === user._id && (
             <div className={styles.recipeAction}>
               <RecipeUpdateLink recipe_id={recipe._id} />
