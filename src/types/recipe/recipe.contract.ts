@@ -42,7 +42,11 @@ export const CreateRecipeSchema = z.object({
     "파일을 선택해 주세요."
   ),
   ingredients: z
-    .array(IngredientSchema)
+    .array(
+      IngredientSchema.omit({
+        expired_at: true,
+      })
+    )
     .min(1, "재료를 1개 이상 추가해 주세요."),
   introduction: z
     .string()

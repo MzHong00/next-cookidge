@@ -68,9 +68,9 @@
     animation: shimmer 3s infinite;
 }
 
-@mixin dark-section {
+@mixin dark-section($color: rgb(var(--color-dark))) {
     padding: 1rem;
-    background-color: rgb(var(--color-dark));
+    background-color: $color;
     border-radius: 10px;
 }
 
