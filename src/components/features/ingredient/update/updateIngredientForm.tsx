@@ -1,29 +1,27 @@
-import { useFieldArray, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { CgRemoveR } from "@react-icons/all-files/cg/CgRemoveR";
 import { RiAddLine } from "@react-icons/all-files/ri/RiAddLine";
 
-import type { IFridge } from "shared/api/fridge";
-import type { IIngredient, IIngredientInputDto } from "shared/api/ingredient";
-import { IconButton } from "shared/ui/iconButton";
-import { SubjectBox } from "shared/ui/subjectBox";
-import { generateKey } from "shared/helper/generateKey";
-import { getDateToISO } from "shared/helper/getDateToISO";
+import type { IFridge } from "@/types/fridge/type";
 import {
+  IngredientFormSchema,
+  type IUpdateIngredientForm,
+} from "@/types/ingredient/ingredient.contract";
+import type { IIngredient } from "@/types/ingredient/ingredient";
+import {
+  INGREDIENT_CATEGORIES,
   INGREDIENT_TABLE_FIELD,
-  INGREDIENTS_CATEGORIES,
-} from "entities/ingredient";
-import { useUpdateIngredientMutation } from "..";
+} from "@/constants/ingredient";
+import { IconBox } from "@/components/common/iconBox";
+import { useUpdateIngredientMutation } from "@/services/ingredient/mutations/updateIngredientMutation";
 
 import styles from "./updateIngredientForm.module.scss";
-
-interface IngredientInputForm {
-  ingredients: IIngredient[];
-}
 
 interface Props {
   fridge_id: IFridge["_id"];
   onSubmitAttach: () => void;
-  stored_ingredients?: IFridge["stored_ingredients"];
+  stored_ingredients: IIngredient[];
 }
 
 export const UpdateIngredientForm = ({
@@ -33,117 +31,104 @@ export const UpdateIngredientForm = ({
 }: Props) => {
   const { mutate } = useUpdateIngredientMutation(fridge_id);
 
-  const { control, register, handleSubmit, reset } =
-    useForm<IngredientInputForm>({
-      defaultValues: {
-        ingredients: stored_ingredients || [
-          { _id: generateKey(), expired_at: getDateToISO() },
-        ],
-      },
-    });
+  const {
+    control,
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<IUpdateIngredientForm>({
+    resolver: zodResolver(IngredientFormSchema),
+    defaultValues: {
+      ingredients: stored_ingredients,
+    },
+  });
 
   const { fields, append, remove } = useFieldArray({
     name: "ingredients",
     control,
   });
 
-  const onClickAppendField = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    append({ _id: generateKey(), expired_at: getDateToISO() } as IIngredient);
+  const onClickAppendField = () => {
+    append({ name: "", category: "", quantity: "", expired_at: Date() });
   };
 
-  const onSubmit = (data: IngredientInputForm) => {
-    const ingredients = data.ingredients.map((ingredient) => {
-      const { _id, ...inputIngredientDto } = ingredient;
-      return inputIngredientDto as IIngredientInputDto;
-    });
-
+  const onSubmit: SubmitHandler<IUpdateIngredientForm> = ({ ingredients }) => {
     onSubmitAttach();
     mutate(ingredients);
     reset();
   };
 
   return (
-    <SubjectBox title="재료 추가" className={styles.container}>
+    <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div style={{ overflowY: "auto" }}>
           <table className={styles.table}>
-            <colgroup >
+            <colgroup>
               {Array.from({ length: 5 }).map((_, i) => (
                 <col key={i} />
               ))}
             </colgroup>
             <thead>
               <tr>
-                {INGREDIENT_TABLE_FIELD.map((filed) => (
-                  <td key={filed}>{filed}</td>
+                {INGREDIENT_TABLE_FIELD.map((field) => (
+                  <td key={field}>{field}</td>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {fields?.map((ingredient, index) => (
-                <tr key={ingredient._id} className={styles.ingredient}>
+              {fields.map((ingredient, index) => (
+                <tr key={ingredient.id} className={styles.ingredient}>
                   <td>
-                    <select
-                      id="category"
-                      {...register(`ingredients.${index}.category`, {
-                        required: true,
-                      })}
-                    >
-                      {INGREDIENTS_CATEGORIES.map((category) => (
-                        <option key={category.text}>
-                          {category.emoji} {category.text}
-                        </option>
-                      ))}
+                    <select {...register(`ingredients.${index}.category`)}>
+                      {Object.entries(INGREDIENT_CATEGORIES).map(
+                        ([text, emoji]) => (
+                          <option key={text} value={text}>
+                            {emoji} {text}
+                          </option>
+                        )
+                      )}
                     </select>
                   </td>
                   <td>
                     <input
                       placeholder="재료 이름"
-                      {...register(`ingredients.${index}.name`, {
-                        required: true,
-                      })}
+                      {...register(`ingredients.${index}.name`)}
                     />
                   </td>
                   <td>
                     <input
                       placeholder="수량"
-                      {...register(`ingredients.${index}.quantity`, {
-                        required: true,
-                      })}
+                      {...register(`ingredients.${index}.quantity`)}
                     />
                   </td>
                   <td>
                     <input
                       type="date"
-                      {...register(`ingredients.${index}.expired_at`, {
-                        required: true,
-                      })}
+                      {...register(`ingredients.${index}.expired_at`)}
                     />
                   </td>
                   <td>
-                    <IconButton
-                      Icon={CgRemoveR}
-                      onClick={() => remove(index)}
-                      className={styles.removeButton}
-                      color="red"
-                    />
+                    <button onClick={() => remove(index)}>
+                      <IconBox
+                        Icon={CgRemoveR}
+                        className={styles.removeButton}
+                        color="red"
+                      />
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-          <div className={styles.appendButton}>
-            <IconButton
-              Icon={RiAddLine}
-              onClick={onClickAppendField}
-            >
-              추가
-            </IconButton>
-          </div>
-          <input type="submit" className={styles.submitButton} value="확인" />
+        <div className={styles.appendButton}>
+          <button onClick={onClickAppendField}>
+            <IconBox Icon={RiAddLine}>추가</IconBox>
+          </button>
+        </div>
+        <input type="submit" className={styles.submitButton} value="확인" />
       </form>
-    </SubjectBox>
+    </div>
   );
 };

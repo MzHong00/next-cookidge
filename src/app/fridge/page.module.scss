@@ -1,0 +1,9 @@
+@use '/src/styles/mixin.scss' as m;
+
+.createButton {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    z-index: 100;
+    transition-duration: 0.3s;
+}

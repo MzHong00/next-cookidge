@@ -2,20 +2,6 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { CgRemoveR } from "@react-icons/all-files/cg/CgRemoveR";
 import { RiAddLine } from "@react-icons/all-files/ri/RiAddLine";
 
-import type { IFridge } from "shared/api/fridge";
-import type { IIngredient, IIngredientInputDto } from "shared/api/ingredient";
-import { IconButton } from "shared/ui/iconButton";
-import { SubjectBox } from "shared/ui/subjectBox";
-import { generateKey } from "shared/helper/generateKey";
-import { getDateToISO } from "shared/helper/getDateToISO";
-import {
-  INGREDIENT_TABLE_FIELD,
-  INGREDIENTS_CATEGORIES,
-} from "entities/ingredient";
-import { useCreateIngredientMutation } from "..";
-
-import styles from "./createIngredientForm.module.scss";
-import { FadeLayout } from "shared/ui/fadeLayout";
 
 interface IngredientInputForm {
   ingredients: IIngredient[];

@@ -4,10 +4,10 @@ import type { IUser } from "@/types/user/user";
 import type { PagenationParams } from "@/types/common";
 import type {
   IRecipe,
-  IIngredient,
   IRecipeQuery,
   IRecipeInputDTO,
 } from "@/types/recipe/recipe";
+import { IIngredient } from "@/types/ingredient/ingredient";
 
 export class RecipeService {
   static readonly root = "/recipe";

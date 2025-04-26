@@ -6,7 +6,7 @@ export interface IFridge {
   name: string;
   owner_id: IUser["_id"];
   shared_members: IUser["_id"][];
-  allowed_users?: Pick<IUser, "_id" | "picture" | "name">[];
+  allowed_users: Pick<IUser, "_id" | "picture" | "name">[];
   stored_ingredients: IIngredient[];
   last_updated: string;
 }

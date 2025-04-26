@@ -10,8 +10,4 @@
         object-position: center;
         object-fit: cover;
     }
-
-    .name {
-        @include m.text-ellipsis();
-    }
 }

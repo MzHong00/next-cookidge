@@ -3,8 +3,8 @@
 import { useSearchParams } from "next/navigation";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { Profile } from "@/components/common/profile";
 import { SearchBox } from "@/components/common/search";
+import { UserCard } from "@/containers/user/userCard/userCard";
 import { UserQueries } from "@/services/user/queries/userQueries";
 import { useSearchInputFocus } from "@/hooks/useSearchInputFocus";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
@@ -39,7 +39,7 @@ export const UserSearch = () => {
           {users?.pages.map((page) =>
             page.map(({ _id, name, picture }) => (
               <li key={_id}>
-                <Profile name={name} picture={picture} />
+                <UserCard name={name} picture={picture} />
               </li>
             ))
           )}

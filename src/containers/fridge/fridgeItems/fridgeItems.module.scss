@@ -1,0 +1,24 @@
+@use '/src/styles/mixin.scss' as m;
+
+.ingredientContainer {
+    @include m.flex-layout(column, center, center);
+
+    .ingredientControls {
+        @include m.flex-layout(row);
+    }
+
+    .ingredientActions {
+        width: 100%;
+        @include m.flex-layout(row);
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .ingredientContainer {
+        padding-inline: 0.5rem !important;
+    }
+
+    .subInfo {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,7 @@
+@use '/src/styles/mixin.scss' as m;
+
+.config {
+    margin-left: auto;
+    padding: 1rem !important;
+    background-color: rgb(var(--color-dark)) !important;
+}

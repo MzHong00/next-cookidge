@@ -68,6 +68,12 @@
     animation: shimmer 3s infinite;
 }
 
+@mixin dark-section {
+    padding: 1rem;
+    background-color: rgb(var(--color-dark));
+    border-radius: 10px;
+}
+
 @keyframes shimmer {
     from {
         background-position: 200% 0;

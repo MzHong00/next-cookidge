@@ -1,15 +1,5 @@
 @use '/src/styles/mixin.scss' as m;
 
-.contentsButton {
-    width: 100%;
-    padding-block: 1rem;
-
-    &:hover {
-        filter: none;
-        background-color: rgb(var(--color-dark-light));
-    }
-}
-
 .activeButton {
     background-color: rgb(var(--color-dark-light));
 }

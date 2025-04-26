@@ -5,5 +5,3 @@ export interface IIngredient {
   quantity: string;
   expired_at: string;
 }
-
-export interface IIngredientInputDto extends Omit<IIngredient, "_id"> {}

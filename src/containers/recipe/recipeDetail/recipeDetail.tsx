@@ -16,8 +16,8 @@ import { INGREDIENT_CATEGORIES } from "@/constants/ingredient";
 import { UserQueries } from "@/services/user/queries/userQueries";
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import { IconBox } from "@/components/common/iconBox";
-import { Profile } from "@/components/common/profile";
 import { Underline } from "@/components/common/underline";
+import { UserCard } from "@/containers/user/userCard/userCard";
 import { PictureSlider } from "@/components/common/pictureSlider";
 import { RecipeStep } from "@/components/features/recipe/step/recipeStep";
 import { LikeButton } from "@/components/features/recipe/like/likeButtton";
@@ -54,7 +54,11 @@ export function RecipeDetail({ id }: { id: string }) {
         custom={SLIDE_MOVE_PX}
       >
         <header className={styles.cardHeader}>
-          <Profile name={user.name} picture={user.picture} />
+          <UserCard
+            name={user.name}
+            picture={user.picture}
+            style={{ background: "none" }}
+          />
           {me?._id === user._id && (
             <div className={styles.recipeAction}>
               <RecipeUpdateLink recipe_id={recipe._id} />
