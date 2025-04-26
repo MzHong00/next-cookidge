@@ -6,6 +6,7 @@
     padding: 0.5rem;
     position: relative;
     @include m.flex-layout(row, center, normal, 0);
+    flex-grow: 1;
     background: rgb(var(--color-dark));
     border-radius: var(--border-radius);
 
