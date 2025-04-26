@@ -54,7 +54,7 @@ export class RecipeQueries {
     const { fridge_id, categories, my_ingredients } = params;
 
     return queryOptions({
-      queryKey: this.keys.recommend,
+      queryKey: [...this.keys.recommend, fridge_id],
       queryFn: ({ signal }) =>
         RecipeService.recommnedRecipe({
           signal,
@@ -65,8 +65,6 @@ export class RecipeQueries {
         }),
       select: (data) =>
         data?.filter((recipe) => recipe.matched_ingredients.length !== 0),
-      enabled: false,
-      retry: false,
     });
   }
 

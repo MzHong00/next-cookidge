@@ -16,7 +16,6 @@ const SKELETON_COUNT = 4;
 export const RecipeRecommend = ({
   fridge_id,
   my_ingredients,
-  ...props
 }: {
   fridge_id: IFridge["_id"];
   my_ingredients: IIngredient[];
@@ -44,7 +43,7 @@ export const RecipeRecommend = ({
   };
 
   return (
-    <div>
+    <div className="dark-section">
       <button onClick={onClickRecommendRecipe} disabled={isFetching}>
         <IconBox Icon={RiCompass3Line} className={styles.recommendButton}>
           레시피 추천
