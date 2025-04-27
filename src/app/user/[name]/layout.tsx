@@ -5,12 +5,10 @@ import { IconBox } from "@/components/common/iconBox";
 
 export default async function UserDetailLayout({
   children,
-  recipe,
   modalFollower,
   modalFollowing,
 }: {
   children: React.ReactNode;
-  recipe: React.ReactNode;
   modalFollower: React.ReactNode;
   modalFollowing: React.ReactNode;
 }) {
@@ -22,7 +20,6 @@ export default async function UserDetailLayout({
         <IconBox Icon={RiSearchLine}>사용자 검색</IconBox>
       </Link>
       {children}
-      {recipe}
     </div>
   );
 }

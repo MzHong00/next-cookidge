@@ -1,7 +1,5 @@
-import { Suspense } from "react";
-
-import { LoadingDots } from "@/components/common/loadingDots";
-import { ClientRender } from "@/components/common/clientRender";
+import QueryHydrate from "@/components/common/queryHydrate";
+import { UserQueries } from "@/services/user/queries/userQueries";
 import { UserUpdate } from "@/containers/user/userUpdate/userUpdate";
 
 export const metadata = {
@@ -12,18 +10,9 @@ export default async function MeUpdatePage() {
   return (
     <div>
       <h3 style={{ marginBottom: "2rem" }}>프로필 편집</h3>
-      <Suspense
-        fallback={
-          <LoadingDots
-            msg="프로필 정보 가져오는 중..."
-            className="abs-center"
-          />
-        }
-      >
-        <ClientRender>
-          <UserUpdate />
-        </ClientRender>
-      </Suspense>
+      <QueryHydrate queryOptions={[UserQueries.meQuery()]}>
+        <UserUpdate />
+      </QueryHydrate>
     </div>
   );
 }
