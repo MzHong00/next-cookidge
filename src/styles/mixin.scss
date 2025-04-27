@@ -74,6 +74,12 @@
     border-radius: 10px;
 }
 
+@mixin light-dark-section() {
+    padding: 1rem;
+    background-color: rgb(var(--color-dark-light));
+    border-radius: 10px;
+}
+
 @keyframes shimmer {
     from {
         background-position: 200% 0;
