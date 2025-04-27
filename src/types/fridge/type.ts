@@ -11,7 +11,4 @@ export interface IFridge {
   last_updated: string;
 }
 
-export interface IFridgeFormInput
-  extends Pick<IFridge, "name" | "shared_members"> {}
-
 export interface IFridgeList extends Pick<IFridge, "_id" | "name"> {}
