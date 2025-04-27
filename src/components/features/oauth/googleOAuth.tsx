@@ -25,5 +25,5 @@ export default function GoogleOAuthRedirecrt({ code }: { code?: string }) {
     login();
   }, [code, client, router]);
 
-  return <LoadingDots msg="로그인 정보를 불러오는 중..." className="abs-center" />;
+  return <LoadingDots msg="로그인 정보를 불러오는 중..." />;
 }
