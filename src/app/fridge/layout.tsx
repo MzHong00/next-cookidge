@@ -3,9 +3,16 @@ export const metadata = {
 };
 
 export default async function RootLayout({
+  modal,
   children,
 }: {
+  modal: React.ReactNode;
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      {modal}
+      {children}
+    </>
+  );
 }
