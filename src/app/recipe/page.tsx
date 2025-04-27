@@ -28,15 +28,8 @@ export default async function RecipePage({
       </AuthGuardLink>
 
       <RecipeQueryBox />
-      
-      <Suspense
-        fallback={
-          <LoadingDots
-            msg="레시피 목록 가져오는 중..."
-            className="abs-center"
-          />
-        }
-      >
+
+      <Suspense fallback={<LoadingDots msg="레시피 목록 가져오는 중..." />}>
         <RecipeList recipeQuery={recipeQuery} />
       </Suspense>
     </>
