@@ -1,15 +1,19 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 
-import type { IFridgeFormInput } from "@/types/fridge/type";
-import { InputBox } from "@/components/common/inputBox";
+import {
+  FridgeFormSchema,
+  type IFridgeForm,
+} from "@/types/fridge/fridge.contract";
 import { IconBox } from "@/components/common/iconBox";
+import { ErrorMessage } from "@/components/common/inputErrorMessage";
 import { useConfirmDialogActions } from "@/lib/zustand/confirmDialogStore";
 import { useCreateFridgeMutation } from "@/services/fridge/mutations/createFridgeMutation";
 
-import styles from "./createFridgeForm.module.css";
+import styles from "./createFridgeForm.module.scss";
 
 export const CreateFridgeForm = () => {
   const router = useRouter();
@@ -21,13 +25,12 @@ export const CreateFridgeForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFridgeFormInput>({
+  } = useForm<IFridgeForm>({
     mode: "onBlur",
+    resolver: zodResolver(FridgeFormSchema),
   });
 
-  const onSubmit: SubmitHandler<IFridgeFormInput> = (data) => {
-    if (isPending) return;
-
+  const onSubmit: SubmitHandler<IFridgeForm> = (data) => {
     openDialogMessage({
       message: `${data.name} 냉장고를 생성하시겠습니까?`,
       requestFn: async () => {
@@ -37,38 +40,27 @@ export const CreateFridgeForm = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <InputBox
-            label="이름"
-            placeholder="냉장고 이름"
-            {...register("name", { required: true, maxLength: 10 })}
-            aria-invalid={errors.name ? "true" : "false"}
-            autoComplete="off"
-          />
-          {errors.name?.type === "required" && (
-            <p className="alert-text">*필수 항목</p>
-          )}
-          {errors.name?.type === "maxLength" && (
-            <p className="alert-text">*10자 이내로 입력해주세요</p>
-          )}
-        </div>
-        <div className={styles.actionBar}>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              router.back();
-            }}
-            className={styles.closeButton}
-          >
-            취소
-          </button>
-          <button className="main-button">
-            <IconBox>생성</IconBox>
-          </button>
-        </div>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit(onSubmit)} className="flex-column">
+      <div>
+        <input
+          placeholder="냉장고 이름"
+          className={styles.input}
+          {...register("name")}
+        />
+        {errors.name && <ErrorMessage msg={errors.name.message} />}
+      </div>
+      <div className="flex-row-center">
+        <button disabled={isPending}>
+          <IconBox className="main-button">생성</IconBox>
+        </button>
+        <button
+          onClick={() => {
+            router.back();
+          }}
+        >
+          취소
+        </button>
+      </div>
+    </form>
   );
 };
