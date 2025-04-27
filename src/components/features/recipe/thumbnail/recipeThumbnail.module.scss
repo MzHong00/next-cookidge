@@ -38,8 +38,10 @@
         }
     }
 
-    &> footer {
+    &>footer {
         @include m.flex-layout(row, normal, space-between, 0.5rem);
+        position: sticky;
+        bottom: 0;
     }
 
     .recipeLinkButton {
