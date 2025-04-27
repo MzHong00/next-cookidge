@@ -50,7 +50,7 @@ export const UpdateRecipeForm = ({ recipe }: { recipe: IRecipe }) => {
 
   const onSubmit: SubmitHandler<IUpdateRecipeForm> = async (data) => {
     openDialogMessage({
-      message: `${data.name} 레시피를 생성하시겠습니까?`,
+      message: `${data.name} 레시피를 수정하시겠습니까?`,
       requestFn: async () => {
         try {
           // 이미지 압축 로딩 메시지 출력
