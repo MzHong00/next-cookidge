@@ -1,3 +1,14 @@
+@use '/src/styles/mixin.scss' as m;
+
 .container {
     width: 100%;
+
+    .userList {
+        @include m.flex-layout(column, normal, normal, 0);
+
+        &>li {
+            padding-inline: var(--base-padding);
+            padding-block: calc(var(--base-padding) / 2);
+        }
+    }
 }
