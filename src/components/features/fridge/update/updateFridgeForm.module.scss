@@ -1,15 +1,18 @@
-@use 'app/app.scss';
+@use '/src/styles/mixin.scss' as m;
 
-.errorMessage {
-    height: 1rem;
-}
+.container {
+    @include m.flex-layout(column, normal, normal, 0);
 
-.submitButton {
-    margin-left: auto;
-    padding-inline: 1rem;
-    padding-block: 0.5rem;
-    @include app.main-button();
-    border-radius: 5px;
-    vertical-align: bottom;
-    color: white !important;
+    .form {
+        @include m.flex-layout(row);
+        @include m.dark-section();
+
+        .submitButton {
+            margin-left: auto;
+            padding-inline: 1rem;
+            padding-block: 0.5rem;
+            @include m.main-button();
+            border-radius: var(--border-radius);
+        }
+    }
 }

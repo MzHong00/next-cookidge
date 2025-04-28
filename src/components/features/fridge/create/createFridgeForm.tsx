@@ -43,7 +43,7 @@ export const CreateFridgeForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="flex-column">
       <div>
         <input
-          placeholder="냉장고 이름"
+          placeholder="냉장고 이름을 입력하세요."
           className={styles.input}
           {...register("name")}
         />

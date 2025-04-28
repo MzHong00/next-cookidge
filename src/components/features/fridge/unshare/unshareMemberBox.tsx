@@ -39,7 +39,7 @@ export const UnshareMemberBox = ({ fridge_id, allowed_users }: Props) => {
   };
 
   return (
-    <div>
+    <div className="flex-column">
       <div className="flex-row">
         {allowed_users?.map((user) => (
           <button
@@ -54,6 +54,7 @@ export const UnshareMemberBox = ({ fridge_id, allowed_users }: Props) => {
               className={`${styles.profilePicture} ${
                 selectedUser._id === user._id && styles.activeButton
               }`}
+              disabled
             />
           </button>
         ))}
@@ -61,7 +62,6 @@ export const UnshareMemberBox = ({ fridge_id, allowed_users }: Props) => {
 
       <button
         onClick={onClickUnshareMember}
-        style={{ color: "white", backgroundColor: "red" }}
         className={styles.removeButton}
       >
         추방
