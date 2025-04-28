@@ -6,12 +6,12 @@ import type{ IFridge } from "@/types/fridge/type";
 import { FridgeService } from "..";
 import { useAlertActions } from "@/lib/zustand/alertStore";
 
-export const useShareMemberMutation = (fridgeId?: IFridge["_id"]) => {
+export const useShareMemberMutation = (fridgeId: IFridge["_id"]) => {
   const { alertEnqueue } = useAlertActions();
 
   return useMutation({
-    mutationFn: (member_id: IUser["_id"]) =>
-      FridgeService.addSharedMember(fridgeId, member_id),
+    mutationFn: (inviteName: IUser["name"]) =>
+      FridgeService.addSharedMember(fridgeId, inviteName),
     onSuccess: (data) => {
       alertEnqueue({
         message: data.message,

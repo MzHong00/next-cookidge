@@ -6,7 +6,7 @@ import type { IFridge } from "@/types/fridge/type";
 import { FridgeQueries } from "@/services/fridge/queries/fridgeQueries";
 import { UpdateFridgeForm } from "@/components/features/fridge/update/updateFridgeForm";
 import { UnshareMemberBox } from "@/components/features/fridge/unshare/unshareMemberBox";
-import { ShareMemberSettingBox } from "@/components/features/fridge/share/shareMemberSettingBox";
+import { InviteShareMemberForm } from "@/components/features/fridge/share/inviteShareMemberForm";
 
 export default function FridgeSetting({ id }: { id: IFridge["_id"] }) {
   const {
@@ -20,7 +20,7 @@ export default function FridgeSetting({ id }: { id: IFridge["_id"] }) {
 
       <h2>냉장고 공유 멤버 수정</h2>
       <div className="flex-column dark-section">
-        <ShareMemberSettingBox allowed_users={allowed_users} fridge_id={_id} />
+        <InviteShareMemberForm allowed_users={allowed_users} fridge_id={_id} />
         <UnshareMemberBox fridge_id={_id} allowed_users={allowed_users} />
       </div>
     </div>
