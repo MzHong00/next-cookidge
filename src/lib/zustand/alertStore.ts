@@ -9,7 +9,7 @@ interface AlertStore {
   queue: AlertTypes[];
   actions: {
     alertEnqueue: (alert: AlertTypes) => void;
-    alertDequeue: () => void;
+    alertDequeue: (delMessage: AlertTypes["message"]) => void;
   };
 }
 
@@ -20,9 +20,9 @@ const useAlertStore = create<AlertStore>()((set) => ({
       set(({ queue }) => ({
         queue: [...queue, alert],
       })),
-    alertDequeue: () =>
+    alertDequeue: (delMessage: AlertTypes["message"]) =>
       set(({ queue }) => ({
-        queue: queue.slice(1),
+        queue: queue.filter(({ message }) => message !== delMessage),
       })),
   },
 }));
