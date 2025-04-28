@@ -9,8 +9,7 @@ import { UserCard } from "@/containers/user/userCard/userCard";
 import { UserQueries } from "@/services/user/queries/userQueries";
 import { useSearchInputFocus } from "@/hooks/useSearchInputFocus";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-import { useScrollIntoViewOnChange } from "@/hooks/useScrollIntoViewOnChange";
-import { useUpDownArrowNavigationWithReset } from "@/hooks/useUpDownArrowNavigationWithReset";
+import { useUpDownArrowNavigation } from "@/hooks/useUpDownArrowNavigation";
 
 import styles from "./userSearch.module.scss";
 
@@ -32,19 +31,23 @@ export const UserSearch = ({ className }: { className?: string }) => {
 
   const itemTotalCount =
     users?.pages.reduce((prev, page) => prev + page.length, 0) || 0;
-  const { targetIndex, onKeyDown } = useUpDownArrowNavigationWithReset(
-    itemTotalCount,
-    searchName
-  );
-  const focusRef = useScrollIntoViewOnChange<HTMLLIElement>(targetIndex);
+
+  const {
+    targetRef,
+    targetIndex,
+    inputValue,
+    onArrowKeyDown,
+    onChangeSetValue,
+  } = useUpDownArrowNavigation(itemTotalCount);
 
   return (
     <SearchBox
       ref={ref}
-      queryStringKey="name"
+      value={inputValue}
       placeholder="사용자 이름을 입력하세요."
       className={`${className} ${styles.container}`}
-      onKeyDown={onKeyDown}
+      onKeyDown={onArrowKeyDown}
+      onChange={onChangeSetValue}
     >
       {isFocus &&
         isEmptySearch &&
@@ -57,7 +60,7 @@ export const UserSearch = ({ className }: { className?: string }) => {
                 return (
                   <li
                     key={_id}
-                    ref={isFocus ? focusRef : undefined}
+                    ref={isFocus ? targetRef : undefined}
                     style={{
                       ...(isFocus && {
                         backgroundColor: "rgba(var(--color-dark), 0.5)",
@@ -74,10 +77,10 @@ export const UserSearch = ({ className }: { className?: string }) => {
         ) : isFetching ? (
           <LoadingSpinner msg="사용자 검색중..." />
         ) : (
-          <p>일치하는 사용자가 존재하지 않습니다.</p>
+          <p style={{ padding: "var(--base-padding)" }}>
+            일치하는 사용자가 존재하지 않습니다.
+          </p>
         ))}
     </SearchBox>
   );
 };
-
-
