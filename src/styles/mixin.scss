@@ -29,6 +29,14 @@
     white-space: nowrap;
 }
 
+@mixin button-shape {
+    width: fit-content;
+    height: fit-content;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    border-radius: var(--border-radius);
+}
+
 @mixin main-button {
     color: rgb(var(--foreground));
     background-color: rgb(var(--color-main)) !important;
