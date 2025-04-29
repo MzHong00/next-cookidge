@@ -48,8 +48,9 @@ export const InviteShareMemberForm = ({
   };
 
   return (
-    <form onSubmit={onSubmitInviteShareMember}>
+    <form onSubmit={onSubmitInviteShareMember} className={styles.form}>
       <UserSearch className={styles.searchBox} />
+      <input type="submit" value="초대" className={styles.inviteSubmit} />
     </form>
   );
 };

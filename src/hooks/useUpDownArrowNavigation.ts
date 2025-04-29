@@ -18,6 +18,7 @@ export const useUpDownArrowNavigation = (itemTotalCount: number) => {
     searchParams.get(USER_QS_KEY) || ""
   );
 
+  // Input 입력에 따른 쿼리 스트링 설정 코어 이펙트 (디바운스)
   useEffect(() => {
     setTargetIndex(-1);
     const timer = setTimeout(() => {
@@ -32,16 +33,18 @@ export const useUpDownArrowNavigation = (itemTotalCount: number) => {
     const targetElement = targetRef.current;
     if (!targetElement || targetIndex < 0) return;
 
-    targetElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    targetElement.scrollIntoView({ behavior: "instant", block: "nearest" });
     setInputValue(targetElement.innerText);
   }, [targetIndex]);
 
+  // Input 입력에 따른 Values 변경 리스너
   const onChangeSetValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
     setQueryValue(value);
     setInputValue(value);
   };
 
+  // 키보드 커서 이동 이벤트 리스너
   const onArrowKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "ArrowUp") {
       setTargetIndex((prev) => (prev > 0 ? prev - 1 : prev));
@@ -54,7 +57,10 @@ export const useUpDownArrowNavigation = (itemTotalCount: number) => {
     targetRef,
     targetIndex,
     inputValue,
-    onChangeSetValue,
+    setInputValue,
+    setQueryValue,
+    setTargetIndex,
     onArrowKeyDown,
+    onChangeSetValue,
   };
 };
