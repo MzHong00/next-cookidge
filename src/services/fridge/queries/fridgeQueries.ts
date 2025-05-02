@@ -1,3 +1,4 @@
+import type { AxiosRequestConfig } from "axios";
 import { queryOptions } from "@tanstack/react-query";
 
 import { FridgeService } from "..";
@@ -9,17 +10,17 @@ export class FridgeQueries {
     detail: ["fridge", "detail"],
   };
 
-  static listQuery() {
+  static listQuery(options?: AxiosRequestConfig) {
     return queryOptions<IFridgeList[]>({
       queryKey: this.keys.list,
-      queryFn: () => FridgeService.fetchFridgeList(),
+      queryFn: () => FridgeService.fetchFridgeList(options),
     });
   }
 
-  static detailQuery(id: string) {
+  static detailQuery(id: string, options?: AxiosRequestConfig) {
     return queryOptions({
       queryKey: [...this.keys.detail, id],
-      queryFn: async () => await FridgeService.fetchFridgeDetail(id),
+      queryFn: () => FridgeService.fetchFridgeDetail(id, options),
     });
   }
 }

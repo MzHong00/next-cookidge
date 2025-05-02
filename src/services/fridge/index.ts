@@ -1,24 +1,30 @@
+import type { AxiosRequestConfig } from "axios";
 import axios from "..";
+
 import type { IFridge } from "@/types/fridge/type";
 import type { IUser } from "@/types/user/user";
 
 export class FridgeService {
-  static readonly root = "/refrigerator";
+  static readonly root = "refrigerator";
 
-  static async fetchFridgeList() {
+  static async fetchFridgeList(options?: AxiosRequestConfig) {
     try {
-      return (await axios.get(`${this.root}/read-list`)).data;
+      return (await axios.get(`${this.root}/read-list`, options)).data;
     } catch (error) {
       throw error;
     }
   }
 
-  static async fetchFridgeDetail(fridgeId?: IFridge["_id"]): Promise<IFridge> {
+  static async fetchFridgeDetail(
+    fridgeId: IFridge["_id"],
+    options?: AxiosRequestConfig
+  ): Promise<IFridge> {
     try {
       return (
-        await axios.get(`${this.root}/read-detail`, {
-          params: { refrigerator_id: fridgeId },
-        })
+        await axios.get(
+          `${this.root}/read-detail?refrigerator_id=${fridgeId}`,
+          options
+        )
       ).data;
     } catch (error) {
       throw error;

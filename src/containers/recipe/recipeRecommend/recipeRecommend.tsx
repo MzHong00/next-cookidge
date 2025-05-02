@@ -24,6 +24,7 @@ export const RecipeRecommend = ({
   const {
     data: recipes,
     isFetching,
+    isRefetching,
     refetch,
   } = useQuery(
     RecipeQueries.recommendQuery({
@@ -50,7 +51,7 @@ export const RecipeRecommend = ({
         </IconBox>
       </button>
       <div className={styles.recipeList}>
-        {isFetching
+        {isRefetching
           ? Array.from({ length: SKELETON_COUNT }).map((_, i) => (
               <RecipeThumbnailSkeleton key={i} />
             ))
