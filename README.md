@@ -20,6 +20,8 @@
 - NextJS의 Image API를 사용하여 이미지 최적화를 했다. 자동으로 제공하는 확장자 변형 및 width height 지정하여 이미지 로딩 속도 개선
 - Masonry 레이아웃 반응형으로 행의 개수 조절 및 검색 기능에서 디바운스를 사용하여 성능 최적화
 - Abort Signal을 통한 네트워크 요청 취소 기능 구현
+- RSC의 초기 렌더링 속도 장점을 사용하기 위해 prefetch, de/hydrate를 사용하여 리액트 쿼리 초기 데이터 패칭을 서버에서 한 후 클라이언트로 내려주는 방식으로 초기 로딩속도 개선
+- 인증을 관리하기 위해 fetch 대신 axios를 사용하여 interceptor를 사용해 클라이언트의 인증과 토큰 재발급을 관리하였다. 그러나 generateMetadata를 사용할 때, axios를 사용하면 캐싱을 사용할 수 없기 때문에 generateMetadata가 필요한 API 서비스 요청을 fetch 함수를 사용하여 axios, fetch를 유동적으로 사용하였다.
 - useMemo, useCallback, memo 등을 사용하여 리렌더링 연산이 복잡한 컴포넌트에 적용하여 성능 최적화
 
 ## 사용했던 NextJS의 기본적인 기능

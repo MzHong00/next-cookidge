@@ -24,21 +24,16 @@ export const apiFetch = async <T>(
   return data;
 };
 
+// NextJS 서버 측 -> API 서버
+export const axiosBeApi = axios.create({
+  baseURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/api`,
+});
+
 // 일반적인 코어 인스턴스
 const instance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_CLIENT}/api/`,
   withCredentials: true,
 });
-
-instance.interceptors.request.use(
-  (config) => {
-    return config;
-  },
-  (error) => {
-    console.log(error);
-    return Promise.reject(error);
-  }
-);
 
 instance.interceptors.response.use(
   (response) => {
