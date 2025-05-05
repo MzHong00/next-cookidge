@@ -21,8 +21,8 @@ export default async function FridgePage() {
       >
         <FridgeList />
       </QueryHydrate>
-      <Link href="/fridge/create" className={styles.createButton}>
-        <IconBox Icon={RiAddLine} className="main-button">
+      <Link href="/fridge/create" className="float-right-side">
+        <IconBox Icon={RiAddLine} className={styles.createButton}>
           냉장고 만들기
         </IconBox>
       </Link>

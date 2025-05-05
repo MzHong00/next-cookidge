@@ -88,6 +88,19 @@
     border-radius: 10px;
 }
 
+@mixin float-right-side() {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    z-index: 100;
+
+    @media screen and (max-width: 768px) {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 80px;
+    }
+}
+
 @keyframes shimmer {
     from {
         background-position: 200% 0;

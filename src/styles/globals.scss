@@ -199,3 +199,7 @@ label {
 .light-dark-section {
   @include m.dark-section();
 }
+
+.float-right-side {
+  @include m.float-right-side();
+}
