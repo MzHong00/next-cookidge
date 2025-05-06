@@ -11,4 +11,7 @@ export interface IFridge {
   last_updated: string;
 }
 
-export interface IFridgeList extends Pick<IFridge, "_id" | "name"> {}
+export type IFridgeList = Pick<
+  IFridge,
+  "_id" | "name" | "last_updated" | "stored_ingredients"
+>;

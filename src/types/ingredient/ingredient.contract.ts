@@ -18,7 +18,7 @@ export const IngredientSchema = z.object({
       QUANTITY_LIMIT_LENGTH,
       `재료 양을 ${QUANTITY_LIMIT_LENGTH}자 내외로 입력해 주세요.`
     ),
-  expired_at: z.string(),
+  expired_at: z.string().min(1, "유통기한을 입력해 주세요.")
 });
 
 export const IngredientFormSchema = z.object({
