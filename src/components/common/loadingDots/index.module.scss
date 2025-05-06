@@ -2,7 +2,7 @@
 
 .container {
     @include m.flex-layout(column, center, normal, 0.5rem);
-    @include m.abs-center();
+    @include m.abs-center(fixed);
     z-index: 10000;
 }
 

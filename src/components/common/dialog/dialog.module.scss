@@ -2,17 +2,17 @@
 
 .dialog {
     min-width: 300px;
+    padding: var(--base-padding);
     @include m.flex-layout(column, normal, normal, 0.5rem);
-    position: fixed;
     border-radius: var(--border-radius);
     background-color: rgb(var(--color-dark));
     color: rgb(var(--foreground));
     box-shadow: var(--base-box-shadow);
 
     .container {
-        padding: 1rem;
+        width: 100%;
+        height: 100%;
         @include m.flex-layout(column);
-        overflow-y: auto;
 
         &>header {
             width: 100%;

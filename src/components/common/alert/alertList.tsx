@@ -40,7 +40,7 @@ const Alert = ({ message, type }: AlertTypes) => {
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [alertDequeue]);
+  }, [message, alertDequeue]);
 
   return (
     <motion.div
