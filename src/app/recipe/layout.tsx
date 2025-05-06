@@ -2,19 +2,19 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "레시피",
-  description: "Cookidge 레시피 둘러보기",
+  description: "Cookidge의 레시피를 둘러보세요.",
 };
 
 export default function RecipeLayout({
-  modal,
+  createModal,
   children,
 }: {
-  modal: React.ReactNode;
+  createModal: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
     <>
-      {modal}
+      {createModal}
       {children}
     </>
   );

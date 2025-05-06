@@ -32,7 +32,12 @@ export default async function RecipeDetailPage({
   const { id } = await params;
 
   return (
-    <QueryHydrate queryOptions={[RecipeQueries.detailQuery(id), CommentQueries.infiniteQuery(id)]}>
+    <QueryHydrate
+      queryOptions={[
+        RecipeQueries.detailQuery(id),
+        CommentQueries.infiniteQuery(id),
+      ]}
+    >
       <RecipeDetail id={id} />
     </QueryHydrate>
   );
