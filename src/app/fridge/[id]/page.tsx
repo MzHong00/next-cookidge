@@ -4,10 +4,6 @@ import { getCookiesAsString } from "@/utils/getStringCookies";
 import QueryHydrate from "@/components/common/queryHydrate";
 import { FridgeDetail } from "@/containers/fridge/fridgeDetail/fridgeDetail";
 
-export const metadata = {
-  title: "냉장고",
-};
-
 export default async function FridgeDetailPage({
   params,
 }: {

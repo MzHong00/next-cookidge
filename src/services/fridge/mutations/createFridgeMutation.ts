@@ -10,11 +10,10 @@ export const useCreateFridgeMutation = () => {
   const { alertEnqueue } = useAlertActions();
 
   return useMutation({
-    mutationKey: [FridgeQueries.keys.list, "create"],
     mutationFn: (fridgeName: string) => FridgeService.createFridge(fridgeName),
     onSuccess: async (data) => {
       await queryClient.invalidateQueries({
-        queryKey: [FridgeQueries.keys.list],
+        queryKey: [...FridgeQueries.keys.list],
       });
 
       alertEnqueue({

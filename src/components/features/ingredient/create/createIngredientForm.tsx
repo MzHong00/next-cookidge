@@ -1,26 +1,45 @@
-import { useFieldArray, useForm } from "react-hook-form";
+"use client";
+
+import { Fragment } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { CgRemoveR } from "@react-icons/all-files/cg/CgRemoveR";
 import { RiAddLine } from "@react-icons/all-files/ri/RiAddLine";
 
+import type { IFridge } from "@/types/fridge/type";
+import {
+  IngredientFormSchema,
+  IUpdateIngredientForm,
+} from "@/types/ingredient/ingredient.contract";
+import {
+  INGREDIENT_CATEGORIES,
+  INGREDIENT_TABLE_FIELD,
+} from "@/constants/ingredient";
+import { IconBox } from "@/components/common/iconBox";
+import { ErrorMessage } from "@/components/common/inputErrorMessage";
+import { useCreateIngredientMutation } from "@/services/ingredient/mutations/createIngredientMutation";
 
-interface IngredientInputForm {
-  ingredients: IIngredient[];
-}
+import styles from "./createIngredientForm.module.scss";
 
-interface Props {
+export const CreateIngredientForm = ({
+  fridge_id,
+}: {
   fridge_id: IFridge["_id"];
-  onSubmitAttach: () => void;
-}
-
-export const CreateIngredientForm = ({ fridge_id, onSubmitAttach }: Props) => {
+}) => {
   const { mutate } = useCreateIngredientMutation(fridge_id);
 
-  const { control, register, handleSubmit, reset } =
-    useForm<IngredientInputForm>({
-      defaultValues: {
-        ingredients: [{ _id: generateKey(), expired_at: getDateToISO() }],
-      },
-    });
+  const {
+    control,
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<IUpdateIngredientForm>({
+    resolver: zodResolver(IngredientFormSchema),
+    defaultValues: {
+      ingredients: [{ name: "", quantity: "", expired_at: "" }],
+    },
+  });
 
   const { fields, append, remove } = useFieldArray({
     name: "ingredients",
@@ -29,104 +48,96 @@ export const CreateIngredientForm = ({ fridge_id, onSubmitAttach }: Props) => {
 
   const onClickAppendField = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    append({ _id: generateKey(), expired_at: getDateToISO() } as IIngredient);
+    append({ name: "", category: "", quantity: "", expired_at: "" });
   };
 
-  const onSubmit = (data: IngredientInputForm) => {
+  const onSubmit: SubmitHandler<IUpdateIngredientForm> = (data) => {
     const ingredients = data.ingredients.map((ingredient) => {
-      const { _id, ...inputIngredientDto } = ingredient;
+      const { ...inputIngredientDto } = ingredient;
 
-      return inputIngredientDto as IIngredientInputDto;
+      return inputIngredientDto;
     });
 
-    onSubmitAttach();
     mutate(ingredients);
     reset();
   };
 
   return (
-    <FadeLayout>
-      <SubjectBox title="재료 추가" className={styles.container}>
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-          <div style={{ overflowY: "auto" }}>
-            <table className={styles.table}>
-              <colgroup>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <col key={i} />
-                ))}
-              </colgroup>
-              <thead>
-                <tr>
-                  {INGREDIENT_TABLE_FIELD.map((filed) => (
-                    <td key={filed}>{filed}</td>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {fields?.map((ingredient, index) => (
-                  <tr key={ingredient._id} className={styles.ingredient}>
-                    <td>
-                      <select
-                        id="category"
-                        {...register(`ingredients.${index}.category`, {
-                          required: true,
-                        })}
-                      >
-                        {INGREDIENTS_CATEGORIES.map((category) => (
-                          <option key={category.text}>
-                            {category.emoji} {category.text}
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <div style={{ overflowY: "auto" }}>
+        <table className={styles.table}>
+          <colgroup>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <col key={i} />
+            ))}
+          </colgroup>
+          <thead>
+            <tr>
+              {INGREDIENT_TABLE_FIELD.map((filed) => (
+                <td key={filed}>{filed}</td>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {fields?.map((ingredient, i) => (
+              <Fragment key={ingredient.id}>
+                <tr className={styles.ingredientRow}>
+                  <td>
+                    <select
+                      id="category"
+                      {...register(`ingredients.${i}.category`)}
+                    >
+                      {Object.entries(INGREDIENT_CATEGORIES).map(
+                        ([text, emoji]) => (
+                          <option key={text}>
+                            {emoji} {text}
                           </option>
-                        ))}
-                      </select>
-                    </td>
-                    <td>
-                      <input
-                        placeholder="재료 이름"
-                        {...register(`ingredients.${index}.name`, {
-                          required: true,
-                        })}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        placeholder="수량"
-                        {...register(`ingredients.${index}.quantity`, {
-                          required: true,
-                        })}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="date"
-                        {...register(`ingredients.${index}.expired_at`, {
-                          required: true,
-                        })}
-                      />
-                    </td>
-                    <td>
-                      <IconButton
+                        )
+                      )}
+                    </select>
+                  </td>
+                  <td>
+                    <input
+                      placeholder="재료 이름"
+                      {...register(`ingredients.${i}.name`)}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      placeholder="수량"
+                      {...register(`ingredients.${i}.quantity`)}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="date"
+                      {...register(`ingredients.${i}.expired_at`)}
+                    />
+                  </td>
+                  <td>
+                    <button onClick={() => remove(i)}>
+                      <IconBox
                         Icon={CgRemoveR}
-                        onClick={() => remove(index)}
                         className={styles.removeButton}
                         color="red"
                       />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className={styles.appendButton}>
-            <IconButton
-              Icon={RiAddLine}
-              onClick={onClickAppendField}
-            >
-              추가
-            </IconButton>
-          </div>
-          <input type="submit" className={styles.submitButton} value="확인" />
-        </form>
-      </SubjectBox>
-    </FadeLayout>
+                    </button>
+                  </td>
+                </tr>
+                {errors.ingredients?.[i] && (
+                  <ErrorMessage msg="모든 항목을 입력해주세요." />
+                )}
+              </Fragment>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className={styles.appendButton}>
+        <button onClick={onClickAppendField}>
+          <IconBox Icon={RiAddLine}>추가</IconBox>
+        </button>
+      </div>
+      <input type="submit" className={styles.submit} value="생성" />
+    </form>
   );
 };

@@ -14,8 +14,8 @@ export const useUpdateFridgeMutation = (id?: IFridge["_id"]) => {
     mutationFn: (name: IFridge["name"]) => FridgeService.updateFridge(id, name),
     onSuccess: (data) => {
       const { detail, list } = FridgeQueries.keys;
-      queryClient.invalidateQueries({ queryKey: [list] });
-      queryClient.invalidateQueries({ queryKey: [detail, id] });
+      queryClient.invalidateQueries({ queryKey: list });
+      queryClient.invalidateQueries({ queryKey: [...detail, id] });
 
       alertEnqueue({
         message: data.message,

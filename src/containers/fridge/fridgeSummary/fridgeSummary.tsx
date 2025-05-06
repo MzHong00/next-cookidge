@@ -6,14 +6,16 @@ import styles from "./fridgeSummary.module.scss";
 const THRESHOLD = 5;
 
 export const FridgeSummary = ({
+  className,
   last_updated,
   stored_ingredients,
 }: {
+  className?: string;
   last_updated: IFridge["last_updated"];
   stored_ingredients: IIngredient[];
 }) => {
   return (
-    <div className="flex-column">
+    <div className={`flex-column ${className}`}>
       <div className={styles.summaryGroup}>
         <IngredientTotalCount count={stored_ingredients.length} />
         <IngredientNearExpiry

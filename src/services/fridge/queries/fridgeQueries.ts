@@ -2,7 +2,6 @@ import type { AxiosRequestConfig } from "axios";
 import { queryOptions } from "@tanstack/react-query";
 
 import { FridgeService } from "..";
-import type { IFridgeList } from "@/types/fridge/type";
 
 export class FridgeQueries {
   static readonly keys = {
@@ -11,7 +10,7 @@ export class FridgeQueries {
   };
 
   static listQuery(options?: AxiosRequestConfig) {
-    return queryOptions<IFridgeList[]>({
+    return queryOptions({
       queryKey: this.keys.list,
       queryFn: () => FridgeService.fetchFridgeList(options),
     });

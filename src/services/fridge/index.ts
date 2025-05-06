@@ -1,13 +1,15 @@
 import type { AxiosRequestConfig } from "axios";
 import axios from "..";
 
-import type { IFridge } from "@/types/fridge/type";
 import type { IUser } from "@/types/user/user";
+import type { IFridge, IFridgeList } from "@/types/fridge/type";
 
 export class FridgeService {
   static readonly root = "refrigerator";
 
-  static async fetchFridgeList(options?: AxiosRequestConfig) {
+  static async fetchFridgeList(
+    options?: AxiosRequestConfig
+  ): Promise<IFridgeList[]> {
     try {
       return (await axios.get(`${this.root}/read-list`, options)).data;
     } catch (error) {
