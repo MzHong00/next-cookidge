@@ -5,17 +5,17 @@ import { IconBox } from "@/components/common/iconBox";
 
 export default async function UserDetailLayout({
   children,
-  modalFollower,
-  modalFollowing,
+  followerModal,
+  followingModal,
 }: {
   children: React.ReactNode;
-  modalFollower: React.ReactNode;
-  modalFollowing: React.ReactNode;
+  followerModal: React.ReactNode;
+  followingModal: React.ReactNode;
 }) {
   return (
     <div className="flex-column">
-      {modalFollower}
-      {modalFollowing}
+      {followerModal}
+      {followingModal}
       <Link href="/user" className="main-button-dark">
         <IconBox Icon={RiSearchLine}>사용자 검색</IconBox>
       </Link>
