@@ -1,4 +1,4 @@
-import axios from "..";
+import axios, { apiFetch } from "..";
 
 import type { IUser } from "@/types/user/user";
 import type { PagenationParams } from "@/types/common";
@@ -12,10 +12,10 @@ import { IIngredient } from "@/types/ingredient/ingredient";
 export class RecipeService {
   static readonly root = "/recipe";
 
-  static async readRecipe(
-    id?: IRecipe["_id"]
-  ): Promise<IRecipe & { user: IUser }> {
-    return (await axios.get(`${this.root}/read/detail/${id}`)).data;
+  static async readRecipe(id: IRecipe["_id"]) {
+    return await apiFetch<IRecipe & { user: IUser }>(
+      `${this.root}/read/detail/${id}`
+    );
   }
 
   static async readRecipeList(config: {

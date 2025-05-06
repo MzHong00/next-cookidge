@@ -1,6 +1,8 @@
 import { BackButton } from "@/components/common/backButton";
 
 import styles from "./styles.module.scss";
+import { Suspense } from "react";
+import { LoadingDots } from "@/components/common/loadingDots";
 
 export default function Layout({
   children,
@@ -18,7 +20,9 @@ export default function Layout({
       <nav>
         <BackButton />
       </nav>
-      {children}
+      <Suspense fallback={<LoadingDots msg="레시피 가져오는 중..." />}>
+        {children}
+      </Suspense>
     </div>
   );
 }

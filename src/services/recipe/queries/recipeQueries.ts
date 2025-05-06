@@ -1,9 +1,9 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 
+import type { IFridge } from "@/types/fridge/type";
+import type { IIngredient } from "@/types/ingredient/ingredient";
 import type { IRecipe, IRecipeQuery } from "@/types/recipe/recipe";
 import { RecipeService } from "..";
-import { IFridge } from "@/types/fridge/type";
-import { IIngredient } from "@/types/ingredient/ingredient";
 
 const LIMIT = 10;
 
