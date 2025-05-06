@@ -2,7 +2,7 @@
 
 .container {
     width: 100%;
-    background-color: rgb(var(--color-dark-light));
+    background-color: rgb(var(--color-dark));
 
     .userList {
         @include m.flex-layout(column, normal, normal, 0);
