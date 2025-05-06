@@ -26,7 +26,7 @@ export const useUpDownArrowNavigation = (itemTotalCount: number) => {
     }, DEBOUNCE_MS_TIME);
 
     return () => clearTimeout(timer);
-  }, [queryValue, USER_QS_KEY, setSearchParams]);
+  }, [queryValue, setSearchParams]);
 
   // 스크롤 이동 및 값에 타겟 텍스트 문자열 할당
   useEffect(() => {
