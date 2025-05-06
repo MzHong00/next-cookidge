@@ -1,6 +1,5 @@
 "use client";
 
-import type { CSSProperties } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
@@ -15,25 +14,19 @@ import { UserQueries } from "@/services/user/queries/userQueries";
 
 import styles from "./index.module.scss";
 
-export function Navbar({
-  style,
-  className,
-}: {
-  style?: CSSProperties;
-  className?: string;
-}) {
+export function Navbar() {
   const path = usePathname();
   const { data: me } = useQuery(UserQueries.meQuery());
 
   return (
-    <nav style={style} className={`${styles.container} ${className}`}>
+    <nav className={styles.container}>
       <div className={styles.profile}>
         {me ? (
           <DialogButton
-          DialogTitle="메뉴"
+            DialogTitle="메뉴"
             buttonComponent={<Profile picture={me.picture} disabled />}
           >
-            <Menu me={me}/>
+            <Menu me={me} />
           </DialogButton>
         ) : (
           <Link href="/login" scroll={false}>
