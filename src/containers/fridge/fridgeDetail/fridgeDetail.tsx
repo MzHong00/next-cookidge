@@ -18,7 +18,14 @@ import styles from "./fridgeDetailPage.module.scss";
 
 export const FridgeDetail = ({ id }: { id: IFridge["_id"] }) => {
   const {
-    data: { _id, name, allowed_users, stored_ingredients, last_updated },
+    data: {
+      _id,
+      name,
+      owner_id,
+      allowed_users,
+      stored_ingredients,
+      last_updated,
+    },
   } = useSuspenseQuery(FridgeQueries.detailQuery(id));
 
   return (
@@ -34,7 +41,7 @@ export const FridgeDetail = ({ id }: { id: IFridge["_id"] }) => {
         </Dropdown>
       </div>
 
-      <FridgeSharedMembers allowed_users={allowed_users} />
+      <FridgeSharedMembers owner_id={owner_id} allowed_users={allowed_users} />
       <FridgeSummary
         stored_ingredients={stored_ingredients}
         last_updated={last_updated}
