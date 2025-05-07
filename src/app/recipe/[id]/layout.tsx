@@ -1,7 +1,6 @@
-import { BackButton } from "@/components/common/backButton";
-
-import styles from "./styles.module.scss";
 import { Suspense } from "react";
+
+import { BackButton } from "@/components/common/backButton";
 import { LoadingDots } from "@/components/common/loadingDots";
 
 export default function Layout({
@@ -14,7 +13,7 @@ export default function Layout({
   background: React.ReactNode;
 }) {
   return (
-    <div className={styles.layout}>
+    <div className="flex-column">
       {modal}
       {background}
       <nav>

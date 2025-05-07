@@ -19,7 +19,7 @@ import { IconBox } from "@/components/common/iconBox";
 import { Underline } from "@/components/common/underline";
 import { UserCard } from "@/containers/user/userCard/userCard";
 import { PictureSlider } from "@/components/common/pictureSlider";
-import { RecipeStep } from "@/components/features/recipe/step/recipeStep";
+import { RecipeStep } from "@/containers/recipe/recipeStep/recipeStep";
 import { LikeButton } from "@/components/features/recipe/like/likeButtton";
 import { CommentList } from "@/components/features/comment/read/commentList";
 import { RecipeDeleteButton } from "@/components/features/recipe/delete/recipeDeleteButton";

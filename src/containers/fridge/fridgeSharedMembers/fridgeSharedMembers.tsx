@@ -16,8 +16,8 @@ export const FridgeSharedMembers = ({
       <h2>냉장고 공유</h2>
       <ul className={styles.sharedMemberList}>
         {allowed_users?.map(({ _id, name, picture }) => (
-          <li>
-            <Profile key={_id} name={name} title={name} picture={picture} />
+          <li key={_id}>
+            <Profile name={name} title={name} picture={picture} />
             {owner_id === _id && (
               <IconBox Icon={RiVipCrownFill} className={styles.profileIcon} />
             )}

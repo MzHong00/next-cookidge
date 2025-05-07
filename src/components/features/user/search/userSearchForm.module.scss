@@ -1,0 +1,42 @@
+@use '/src/styles/mixin.scss' as m;
+
+.form {
+    width: 100%;
+    position: relative;
+    @include m.flex-layout(row, center);
+    border-radius: var(--border-radius);
+    background: rgb(var(--color-dark));
+
+    .userItem {
+        padding-inline: var(--base-padding);
+        padding-block: calc(var(--base-padding) / 2);
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    .submit {
+        margin: 0.5rem;
+        @include m.main-button();
+        @include m.button-shape();
+    }
+
+    .result {
+        width: 100%;
+        max-height: 16rem;
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        background: inherit;
+        border-radius: inherit;
+        box-shadow: inherit;
+        overflow-y: auto;
+        z-index: 50;
+    }
+
+    .notHasResult {
+        padding: var(--base-padding);
+        @include m.dark-section();
+    }
+}

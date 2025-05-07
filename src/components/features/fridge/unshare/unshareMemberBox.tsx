@@ -41,7 +41,7 @@ export const UnshareMemberBox = ({ fridge_id, allowed_users }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.sharedMemberList}>
-        {allowed_users?.map((user) => (
+        {allowed_users.map((user) => (
           <button
             key={user._id}
             title={user.name}

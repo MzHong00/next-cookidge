@@ -7,25 +7,20 @@ import { IconBox } from "../iconBox";
 
 import styles from "./index.module.scss";
 
-const SearchBoxComponent = (
-  {
-    style,
-    children,
-    className,
-    ...props
-  }: InputHTMLAttributes<HTMLInputElement>,
+const SearchInputComponent = (
+  { children, className, ...props }: InputHTMLAttributes<HTMLInputElement>,
   ref: ForwardedRef<HTMLInputElement>
 ) => {
   return (
-    <div style={style} className={`${styles.container} ${className}`}>
+    <div className={`${styles.container} ${className}`}>
       <IconBox Icon={RiSearchLine} className={styles.icon} />
-      <input ref={ref} name="search" type="search" {...props} />
+      <input ref={ref} type="text" {...props} />
       {children && <div className={styles.children}>{children}</div>}
     </div>
   );
 };
 
-export const SearchBox = forwardRef<
+export const SearchInput = forwardRef<
   HTMLInputElement,
   Partial<InputHTMLAttributes<HTMLInputElement>>
->(SearchBoxComponent);
+>(SearchInputComponent);

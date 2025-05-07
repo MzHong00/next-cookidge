@@ -3,30 +3,31 @@ import { useState, useEffect, useRef } from "react";
 import useCustomSearchParams from "./useSearchParams";
 import { DEBOUNCE_MS_TIME } from "@/constants/common";
 
-const USER_QS_KEY = "name";
-
 // 위, 아래 방향키를 통해 타겟을 변경하는 훅스
-export const useUpDownArrowNavigation = (itemTotalCount: number) => {
+export const useSearchWithArrowNavigation = (
+  itemTotalCount: number = 0,
+  queryStringKey: string
+) => {
   const targetRef = useRef<HTMLLIElement>(null);
   const [targetIndex, setTargetIndex] = useState(-1);
   const [searchParams, setSearchParams] = useCustomSearchParams();
 
   const [inputValue, setInputValue] = useState(
-    searchParams.get(USER_QS_KEY) || ""
+    searchParams.get(queryStringKey) || ""
   );
   const [queryValue, setQueryValue] = useState<string>(
-    searchParams.get(USER_QS_KEY) || ""
+    searchParams.get(queryStringKey) || ""
   );
 
   // Input 입력에 따른 쿼리 스트링 설정 코어 이펙트 (디바운스)
   useEffect(() => {
     setTargetIndex(-1);
     const timer = setTimeout(() => {
-      setSearchParams.set(USER_QS_KEY, queryValue);
+      setSearchParams.set(queryStringKey, queryValue);
     }, DEBOUNCE_MS_TIME);
 
     return () => clearTimeout(timer);
-  }, [queryValue, setSearchParams]);
+  }, [queryValue, setSearchParams, queryStringKey]);
 
   // 스크롤 이동 및 값에 타겟 텍스트 문자열 할당
   useEffect(() => {

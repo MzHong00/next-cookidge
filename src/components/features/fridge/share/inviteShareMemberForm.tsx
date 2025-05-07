@@ -1,9 +1,10 @@
 "use client";
 
 import type { IFridge } from "@/types/fridge/type";
-import { UserSearch } from "../../user/search/userSearch";
+import { UserSearchForm } from "../../user/search/userSearchForm";
 import { useAlertActions } from "@/lib/zustand/alertStore";
 import { useConfirmDialogActions } from "@/lib/zustand/confirmDialogStore";
+import { USER_QUERY_STRING_KEY } from "@/constants/common";
 import { useShareMemberMutation } from "@/services/fridge/mutations/shareMemberMutation";
 
 import styles from "./inviteShareMemberForm.module.scss";
@@ -21,10 +22,10 @@ export const InviteShareMemberForm = ({
 
   const onSubmitInviteShareMember = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    
     // 폼 값 검증
     const form = new FormData(e.currentTarget);
-    const searchName = form.get("search") as string;
+    const searchName = form.get(USER_QUERY_STRING_KEY) as string;
     if (isPending || !searchName) return;
 
     // 이미 공유자인지 확인
@@ -48,9 +49,9 @@ export const InviteShareMemberForm = ({
   };
 
   return (
-    <form onSubmit={onSubmitInviteShareMember} className={styles.form}>
-      <UserSearch className={styles.searchBox} />
-      <input type="submit" value="초대" className={styles.inviteSubmit} />
-    </form>
+    <UserSearchForm
+      className={styles.form}
+      onSubmit={onSubmitInviteShareMember}
+    />
   );
 };
