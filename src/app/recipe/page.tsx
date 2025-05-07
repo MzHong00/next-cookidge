@@ -19,7 +19,12 @@ export default async function RecipePage({
 
   return (
     <>
-      <Link href="/recipe/create" scroll={false} className="float-right-side">
+      <Link
+        href="/recipe/create"
+        scroll={false}
+        prefetch={false}
+        className="float-right-side"
+      >
         <IconBox Icon={RiAddLine} className={styles.openFormButton}>
           레시피 생성
         </IconBox>

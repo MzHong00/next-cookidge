@@ -10,20 +10,20 @@ import { LoadingDots } from "@/components/common/loadingDots";
 
 export default function GoogleOAuthRedirecrt({ code }: { code?: string }) {
   const router = useRouter();
-  const client = useQueryClient();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const login = async () => {
       if (!code) return;
       
       await GoogleOAuthService.loginSuccessRedirect(code);
-      client.invalidateQueries({ queryKey: UserQueries.keys.me });
+      queryClient.invalidateQueries({ queryKey: UserQueries.keys.me });
 
       router.replace("/");
     };
 
     login();
-  }, [code, client, router]);
+  }, [code, queryClient, router]);
 
   return <LoadingDots msg="로그인 정보를 불러오는 중..." />;
 }
