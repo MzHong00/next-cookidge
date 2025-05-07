@@ -3,6 +3,7 @@ import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 import type { IUser } from "@/types/user/user";
 import type { PagenationParams } from "@/types/common";
 import { UserService } from "..";
+import { AxiosRequestConfig } from "axios";
 
 export class UserQueries {
   static readonly keys = {
@@ -13,10 +14,10 @@ export class UserQueries {
     following: ["user", "inifinite", "following"],
   };
 
-  static meQuery() {
+  static meQuery(options?: AxiosRequestConfig) {
     return queryOptions({
       queryKey: [...this.keys.me],
-      queryFn: () => UserService.fetchMe(),
+      queryFn: () => UserService.fetchMe(options),
       refetchOnWindowFocus: false,
     });
   }

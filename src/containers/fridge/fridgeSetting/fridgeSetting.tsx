@@ -12,7 +12,7 @@ export default function FridgeSetting({ id }: { id: IFridge["_id"] }) {
   const {
     data: { _id, name, allowed_users },
   } = useSuspenseQuery(FridgeQueries.detailQuery(id));
-
+  
   return (
     <div className="flex-column">
       <h2>냉장고 이름 수정</h2>

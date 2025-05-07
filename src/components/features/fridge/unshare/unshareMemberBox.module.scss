@@ -1,17 +1,25 @@
-.profilePicture {
-    &:hover {
-        box-shadow: 0px 0px 2px 3px;
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    @include m.flex-layout(column);
+
+    .sharedMemberList {
+        @include m.flex-layout(row);
+        flex-wrap: wrap;
+    }
+
+    .removeButton {
+        @include m.button-shape();
+        background-color: red;
     }
 }
 
-.removeButton {
-    width: fit-content;
-    padding-inline: var(--base-padding);
-    padding-block: calc(var(--base-padding) / 2);
-    border-radius: var(--border-radius);
-    background-color: red;
+.profilePicture {
+    &:hover {
+        box-shadow: 0px 0px 1px 2px;
+    }
 }
 
 .activeButton {
-    box-shadow: 0px 0px 2px 3px;
+    box-shadow: 0px 0px 1px 2px;
 }

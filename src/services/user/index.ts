@@ -2,16 +2,13 @@ import axios from "..";
 
 import type { IUser } from "@/types/user/user";
 import type { PagenationParams } from "@/types/common";
+import { AxiosRequestConfig } from "axios";
 
 export class UserService {
   static readonly root = "/user";
 
-  static async fetchMe(): Promise<IUser | null> {
-    const response = await axios.get(`${this.root}/me`, {
-      headers: {
-        "Cache-Control": "no-cache", // 캐시를 사용하지 않음
-      },
-    });
+  static async fetchMe(options?: AxiosRequestConfig): Promise<IUser | null> {
+    const response = await axios.get(`${this.root}/me`, options);
     const { user } = response?.data;
 
     return user ?? null;

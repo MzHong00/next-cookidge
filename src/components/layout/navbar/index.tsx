@@ -36,10 +36,11 @@ export function Navbar() {
       </div>
 
       <nav className={styles.nav}>
-        {NAV_TYPES.map(({ Icon, href }) => {
+        {NAV_TYPES.map(({ Icon, href, text }) => {
           const isActiveTab = path.startsWith(href);
+
           return (
-            <Link key={href} href={href} scroll={false}>
+            <Link key={href} href={href} title={text} scroll={false}>
               <Icon
                 style={{
                   ...(isActiveTab && {

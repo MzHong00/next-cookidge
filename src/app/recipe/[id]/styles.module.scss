@@ -1,6 +1,0 @@
-@use '/src/styles/mixin.scss' as m;
-
-.layout {
-    padding: 20px;
-    @include m.flex-layout(column);
-}
