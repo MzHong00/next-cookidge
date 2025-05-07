@@ -24,7 +24,7 @@ export const RecipeStep = ({
   } = useSlide();
 
   return (
-    <div className="flex-column">
+    <div className={styles.container}>
       <ul className={styles.indicatorContainer}>
         {Array.from({ length: recipeSteps.length }).map((_, i) => (
           <li key={i}>
@@ -44,10 +44,10 @@ export const RecipeStep = ({
       >
         {recipeSteps.map(({ picture, instruction }, idx) => (
           <li key={`${instruction}${idx}`}>
-            <div>
+            <div className={styles.pictureBox}>
               <Image
                 src={PIdToURL(picture)}
-                alt={""}
+                alt={picture}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
               />

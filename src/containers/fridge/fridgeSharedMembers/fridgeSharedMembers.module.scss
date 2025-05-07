@@ -1,0 +1,27 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    @include m.flex-layout(column);
+    @include m.dark-section();
+
+    .sharedMemberList {
+        @include m.flex-layout(row);
+        flex-wrap: wrap;
+
+        &>li {
+            position: relative;
+
+            .profileIcon {
+                padding: 2px;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                color: yellow;
+                background-color: black;
+                font-size: 0.75rem;
+            }
+        }
+    }
+
+    
+}

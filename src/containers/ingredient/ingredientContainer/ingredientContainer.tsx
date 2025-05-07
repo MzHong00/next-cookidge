@@ -11,7 +11,7 @@ import type { IFridge } from "@/types/fridge/type";
 import type { IIngredient } from "@/types/ingredient/ingredient";
 import { DEBOUNCE_MS_TIME } from "@/constants/common";
 import { IconBox } from "@/components/common/iconBox";
-import { SearchBox } from "@/components/common/search";
+import { SearchInput } from "@/components/common/search";
 import { IngredientList } from "../ingredientList/ingredientList";
 import { UpdateIngredientForm } from "@/components/features/ingredient/update/updateIngredientForm";
 
@@ -49,7 +49,7 @@ export const IngredientContainer = ({
       </div>
 
       <div className={styles.ingredientActions}>
-        <SearchBox value={filterValue} onChange={onChangeFilterValue} />
+        <SearchInput value={filterValue} onChange={onChangeFilterValue} />
         <select value={sortTypeValue} onChange={onChangeSortTypeValue}>
           {INGREDIENT_SORT_TYPES.map((value) => (
             <option key={value} value={value}>
@@ -71,7 +71,7 @@ export const IngredientContainer = ({
   );
 };
 
-export const useFilterAndSortIngredients = (ingredients: IIngredient[]) => {
+const useFilterAndSortIngredients = (ingredients: IIngredient[]) => {
   const [filterValue, setFilterValue] = useState("");
   const [sortTypeValue, setSortTypeValue] = useState(INGREDIENT_SORT_TYPES[0]);
   const [debouncedFilterValue, setDebouncedFilterValue] = useState("");

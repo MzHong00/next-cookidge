@@ -2,7 +2,8 @@
 
 import { Suspense } from "react";
 
-import { SearchBox } from "@/components/common/search";
+import { RECIPE_QUERY_STRING_KEY } from "@/constants/common";
+import { SearchInput } from "@/components/common/search";
 import { RecipeSort } from "@/components/features/recipe/sort/recipeSort";
 import { RecipeFilter } from "@/components/features/recipe/filter/recipeFilter";
 import { RecipeDisplayQuery } from "../recipeDisplayQuery/recipeDisplayQuery";
@@ -11,20 +12,20 @@ import { useSetQueryStringByInput } from "@/hooks/useSetQueryStringByInput";
 import styles from "./RecipeQueryBox.module.scss";
 
 export const RecipeQueryBox = () => {
-  const { value, onChangeSetValue } = useSetQueryStringByInput("title");
+  const { value, onChangeSetValue } = useSetQueryStringByInput(RECIPE_QUERY_STRING_KEY);
 
   return (
     <div className={styles.container}>
-      <Suspense>
-        <div className={styles.actionBar}>
-          <SearchBox value={value} onChange={onChangeSetValue} />
-          <div className={styles.option}>
+      <div className={styles.actionBar}>
+        <SearchInput value={value} onChange={onChangeSetValue} />
+        <div className={styles.option}>
+          <Suspense>
             <RecipeFilter />
             <RecipeSort />
-          </div>
+          </Suspense>
         </div>
-        <RecipeDisplayQuery />
-      </Suspense>
+      </div>
+      <RecipeDisplayQuery />
     </div>
   );
 };

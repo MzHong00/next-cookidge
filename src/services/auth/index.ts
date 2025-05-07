@@ -16,5 +16,7 @@ export class AuthService {
     await axios.post(`${this.api}/test-account`, {
       code: code,
     });
+
+    window.location.href = `${process.env.NEXT_PUBLIC_CLIENT}`;
   }
 }
