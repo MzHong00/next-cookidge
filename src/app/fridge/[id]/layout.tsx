@@ -1,18 +1,18 @@
 export const metadata = {
-  title: "냉장고 목록",
+  title: "냉장고",
 };
 
 export default async function RootLayout({
   children,
-  createModal,
+  ingredientCreateModal,
 }: {
   children: React.ReactNode;
-  createModal: React.ReactNode;
+  ingredientCreateModal: React.ReactNode;
 }) {
   return (
     <>
       {children}
-      {createModal}
+      {ingredientCreateModal}
     </>
   );
 }

@@ -180,6 +180,10 @@ label {
   @include m.abs-center-y();
 }
 
+.button-shape {
+  @include m.button-shape();
+}
+
 .main-button {
   @include m.main-button();
 }
@@ -194,4 +198,8 @@ label {
 
 .light-dark-section {
   @include m.dark-section();
+}
+
+.float-right-side {
+  @include m.float-right-side();
 }

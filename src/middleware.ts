@@ -1,27 +1,61 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
-// 이 함수는 내부에서 `await`를 사용하는 경우 `async`로 표시될 수 있습니다
-export async function middleware(request: NextRequest) {
-  const token = request.cookies.get("token")?.value;
-console.log(token);
+import { axiosBeApi } from "./services";
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export async function middleware(req: NextRequest) {
+  const accessToken = req.cookies.get("access_token")?.value;
+  const refreshToken = req.cookies.get("refresh_token")?.value;
 
-  const statusCode = res.status;
-  const { message } = await res.json();
-  console.log(message);
+  if (!refreshToken)
+    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_CLIENT}/login`);
 
-  if (statusCode !== 200)
-    return NextResponse.redirect(new URL("/login", request.url));
+  try {
+    // access_token이 없거나 만료된 경우 토큰 재발급 절차
+    if (!accessToken || isExpired(accessToken)) {
+      console.log("만료");
+
+      const res = await axiosBeApi("/auth/issue-token", {
+        headers: {
+          Cookie: `refresh_token=${refreshToken}`,
+        },
+      });
+
+      // set-cookie 헤더에서 엑세스 토큰 값을 추출
+      const newAccessToken = res.headers["set-cookie"]
+        ?.toString()
+        .match(/access_token=([^;]+)/)?.[1];
+        
+      if (!newAccessToken)
+        return NextResponse.redirect(`${process.env.NEXT_PUBLIC_CLIENT}/login`);
+
+      if (200 <= res.status && res.status < 300) {
+        const resNext = NextResponse.next();
+        resNext.cookies.set("access_token", newAccessToken, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "strict",
+        });
+
+        return resNext;
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_CLIENT}/login`);
+  }
 }
 
-// 아래 "Matching Paths"를 참조하여 자세히 알아보세요
+// 토큰 만료 여부 확인 함수 (예시)
+function isExpired(token: string): boolean {
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return Date.now() / 1000 > payload.exp;
+  } catch {
+    return true;
+  }
+}
+
 export const config = {
   matcher: [
     "/recipe/create",

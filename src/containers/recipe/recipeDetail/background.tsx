@@ -28,7 +28,7 @@ export function Background({ id, pidSrc }: Props) {
         src={PIdToURL(pidSrc || "")}
         alt="background"
         fill
-        quality={1}
+        priority
       />
     </motion.div>
   );

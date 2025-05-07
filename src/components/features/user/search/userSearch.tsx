@@ -36,6 +36,8 @@ export const UserSearch = ({ className }: { className?: string }) => {
     targetRef,
     targetIndex,
     inputValue,
+    setInputValue,
+    setTargetIndex,
     onArrowKeyDown,
     onChangeSetValue,
   } = useUpDownArrowNavigation(itemTotalCount);
@@ -66,8 +68,12 @@ export const UserSearch = ({ className }: { className?: string }) => {
                         backgroundColor: "rgba(var(--color-dark), 0.5)",
                       }),
                     }}
+                    onClick={() => {
+                      setTargetIndex(i);
+                      setInputValue(name);
+                    }}
                   >
-                    <UserCard name={name} picture={picture} />
+                    <UserCard name={name} picture={picture} disabled />
                   </li>
                 );
               })

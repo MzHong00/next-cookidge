@@ -1,17 +1,14 @@
 import axios from "..";
 import type { IFridge } from "@/types/fridge/type";
-import type { IIngredient, IIngredientInputDto } from "@/types/ingredient/ingredient";
-
+import type { IIngredientInputDTO } from "@/types/ingredient/ingredient";
 
 export class IngredientService {
-  static readonly root = "/api/ingredient";
+  static readonly root = "/ingredient";
 
   static async createIngredientMutation(
-    ingredients: Omit<IIngredient, "_id">[],
-    fridgeId?: IFridge["_id"]
+    fridgeId: IFridge["_id"],
+    ingredients: IIngredientInputDTO[]
   ) {
-    if (!fridgeId) return;
-
     return (
       await axios.post(
         `${this.root}/create`,
@@ -26,11 +23,9 @@ export class IngredientService {
   }
 
   static async updateIngredientMutation(
-    ingredients: IIngredientInputDto[],
-    fridgeId?: IFridge["_id"]
+    fridgeId: IFridge["_id"],
+    ingredients: IIngredientInputDTO[]
   ) {
-    if (!fridgeId) return;
-
     return (
       await axios.patch(
         `${this.root}/update`,

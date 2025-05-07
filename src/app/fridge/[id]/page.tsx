@@ -1,15 +1,8 @@
 import type { IFridge } from "@/types/fridge/type";
+import { FridgeQueries } from "@/services/fridge/queries/fridgeQueries";
+import { getCookiesAsString } from "@/utils/getStringCookies";
 import QueryHydrate from "@/components/common/queryHydrate";
 import { FridgeDetail } from "@/containers/fridge/fridgeDetail/fridgeDetail";
-import { FridgeQueries } from "@/services/fridge/queries/fridgeQueries";
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-}
 
 export default async function FridgeDetailPage({
   params,
@@ -17,9 +10,18 @@ export default async function FridgeDetailPage({
   params: Promise<{ id: IFridge["_id"] }>;
 }) {
   const { id } = await params;
+  const cookies = await getCookiesAsString();
 
   return (
-    <QueryHydrate queryOptions={[FridgeQueries.detailQuery(id)]}>
+    <QueryHydrate
+      queryOptions={[
+        FridgeQueries.detailQuery(id, {
+          headers: {
+            Cookie: cookies,
+          },
+        }),
+      ]}
+    >
       <FridgeDetail id={id} />
     </QueryHydrate>
   );

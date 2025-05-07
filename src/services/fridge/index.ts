@@ -1,24 +1,32 @@
+import type { AxiosRequestConfig } from "axios";
 import axios from "..";
-import type { IFridge } from "@/types/fridge/type";
+
 import type { IUser } from "@/types/user/user";
+import type { IFridge, IFridgeList } from "@/types/fridge/type";
 
 export class FridgeService {
-  static readonly root = "/refrigerator";
+  static readonly root = "refrigerator";
 
-  static async fetchFridgeList() {
+  static async fetchFridgeList(
+    options?: AxiosRequestConfig
+  ): Promise<IFridgeList[]> {
     try {
-      return (await axios.get(`${this.root}/read-list`)).data;
+      return (await axios.get(`${this.root}/read-list`, options)).data;
     } catch (error) {
       throw error;
     }
   }
 
-  static async fetchFridgeDetail(fridgeId?: IFridge["_id"]): Promise<IFridge> {
+  static async fetchFridgeDetail(
+    fridgeId: IFridge["_id"],
+    options?: AxiosRequestConfig
+  ): Promise<IFridge> {
     try {
       return (
-        await axios.get(`${this.root}/read-detail`, {
-          params: { refrigerator_id: fridgeId },
-        })
+        await axios.get(
+          `${this.root}/read-detail?refrigerator_id=${fridgeId}`,
+          options
+        )
       ).data;
     } catch (error) {
       throw error;
@@ -67,14 +75,14 @@ export class FridgeService {
   }
 
   static async addSharedMember(
-    fridgeId?: IFridge["_id"],
-    memberId?: IUser["_id"]
+    fridgeId: IFridge["_id"],
+    inviteName: IUser["_id"]
   ): Promise<{ message: string }> {
     try {
       return (
         await axios.patch(`${this.root}/shared-member/add`, {
           refrigerator_id: fridgeId,
-          member_id: memberId,
+          invite_name: inviteName,
         })
       ).data;
     } catch (error) {

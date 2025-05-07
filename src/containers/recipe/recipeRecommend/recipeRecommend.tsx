@@ -3,11 +3,11 @@ import { RiCompass3Line } from "@react-icons/all-files/ri/RiCompass3Line";
 
 import type { IFridge } from "@/types/fridge/type";
 import type { IIngredient } from "@/types/ingredient/ingredient";
+import { useAlertActions } from "@/lib/zustand/alertStore";
+import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import { IconBox } from "@/components/common/iconBox";
 import { RecipeThumbnail } from "@/components/features/recipe/thumbnail/recipeThumbnail";
 import { RecipeThumbnailSkeleton } from "@/components/features/recipe/thumbnail/recipeThumbnailSkeleton";
-import { useAlertActions } from "@/lib/zustand/alertStore";
-import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 
 import styles from "./recipeRecommend.module.scss";
 
@@ -24,6 +24,7 @@ export const RecipeRecommend = ({
   const {
     data: recipes,
     isFetching,
+    isRefetching,
     refetch,
   } = useQuery(
     RecipeQueries.recommendQuery({
@@ -49,8 +50,12 @@ export const RecipeRecommend = ({
           레시피 추천
         </IconBox>
       </button>
+      <p className={styles.recommendDescription}>
+        재료를 추가하고 새로운 레시피를 추천 받으세요.
+      </p>
+
       <div className={styles.recipeList}>
-        {isFetching
+        {isRefetching
           ? Array.from({ length: SKELETON_COUNT }).map((_, i) => (
               <RecipeThumbnailSkeleton key={i} />
             ))

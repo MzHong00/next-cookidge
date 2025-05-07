@@ -1,25 +1,7 @@
 @use '/src/styles/mixin.scss' as m;
 
 .openFormButton {
-    position: fixed;
-    right: 30px;
-    bottom: 30px;
-    z-index: 100;
-    background-color: rgba(var(--color-dark), 0.5);
     transition-duration: 0.3s;
-
-    &:hover {
-        background-color: rgb(var(--color-dark));
-    }
-
-    &>div {
-        box-shadow: var(--base-box-shadow);
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .openFormButton {
-        @include m.abs-center-x(fixed);
-        bottom: 80px;
-    }
+    box-shadow: var(--base-box-shadow);
+    background-color: rgb(var(--color-dark)) !important;
 }

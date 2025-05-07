@@ -1,7 +1,7 @@
 "use client";
 
 import { createPortal } from "react-dom";
-import { CSSProperties, useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { twistFade } from "@/lib/framer-motion";
 import { motion } from "motion/react";
 import { RiCloseLine } from "@react-icons/all-files/ri/RiCloseLine";
@@ -16,9 +16,7 @@ import styles from "./dialog.module.scss";
 */
 
 interface Props {
-  className?: string;
-  style?: CSSProperties;
-  DialogTitle?: string;
+  DialogTitle: string;
   buttonComponent: React.ReactNode;
   children:
     | React.ReactNode
@@ -26,14 +24,12 @@ interface Props {
 }
 
 export const DialogButton = ({
-  style,
   children,
-  className,
   DialogTitle,
   buttonComponent,
 }: Props) => {
   const [isShow, setIsShow] = useState<boolean>(false);
-  const [mounted, setMounted] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   const openHandler = () => {
     setIsShow(true);
@@ -44,19 +40,19 @@ export const DialogButton = ({
   };
 
   useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
+    setIsMounted(true);
+    return () => setIsMounted(false);
   }, []);
 
-  return mounted ? (
+  return isMounted ? (
     <>
-      <button onClick={openHandler}>{buttonComponent || "버튼"}</button>
+      <button onClick={openHandler}>{buttonComponent}</button>
 
       {createPortal(
         <>
           {isShow && (
             <div
-              className={`${styles.background}`}
+              className={styles.background}
               onClick={(e) => {
                 if (e.target === e.currentTarget) setIsShow(false);
               }}
@@ -66,18 +62,19 @@ export const DialogButton = ({
                 initial="initial"
                 animate="animate"
                 transition={{ duration: 0.2 }}
-                style={style}
-                className={`${styles.container} ${className}`}
+                className={styles.dialog}
               >
-                <header>
-                  <button onClick={closeHandler}>
-                    <RiCloseLine />
-                  </button>
-                  {DialogTitle && <h2>{DialogTitle}</h2>}
-                </header>
-                {typeof children === "function"
-                  ? children({ closeHandler })
-                  : children}
+                <div className={styles.container}>
+                  <header>
+                    <button onClick={closeHandler}>
+                      <RiCloseLine />
+                    </button>
+                    {DialogTitle && <h2>{DialogTitle}</h2>}
+                  </header>
+                  {typeof children === "function"
+                    ? children({ closeHandler })
+                    : children}
+                </div>
               </motion.div>
             </div>
           )}

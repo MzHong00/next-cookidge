@@ -32,4 +32,8 @@
 
 .icon {
     padding: 0.5rem;
+
+    &:hover {
+        filter: none;
+    }
 }
