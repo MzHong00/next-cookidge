@@ -1,7 +1,8 @@
 .spinner {
     margin-inline: auto;
+    padding-block: var(--base-padding);
     text-align: center;
-    
+
     &>svg {
         color: rgb(var(--main-rgb));
         font-size: 2em;

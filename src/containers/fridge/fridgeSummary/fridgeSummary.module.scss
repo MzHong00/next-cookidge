@@ -1,0 +1,14 @@
+@use '/src/styles/mixin.scss' as m;
+
+.summaryGroup {
+    @include m.flex-layout(row);
+
+    &>div {
+        @include m.dark-section();
+        flex: 1 1 0;
+    }
+}
+
+.lastUpdateDate {
+    text-align: end;
+}

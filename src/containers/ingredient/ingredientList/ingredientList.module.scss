@@ -1,0 +1,6 @@
+@use '/src/styles/mixin.scss' as m;
+
+.ingredientList {
+    width: 100%;
+    @include m.grid-template(column, repeat(auto-fill, minmax(200px, 1fr)));
+}

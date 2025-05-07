@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import type { IRecipeQuery } from "@/types/recipe/recipe";
@@ -11,7 +12,6 @@ import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 import styles from "./recipeList.module.scss";
-import { useSearchParams } from "next/navigation";
 
 const THUMBNAIL_WIDTH = 400;
 

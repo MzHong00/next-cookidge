@@ -1,7 +1,8 @@
 @use '/src/styles/mixin.scss' as m;
 
 .container {
-    @include m.flex-layout(column, center, normal, 8px);
+    @include m.flex-layout(column, center, normal, 0.5rem);
+    @include m.abs-center(fixed);
     z-index: 10000;
 }
 

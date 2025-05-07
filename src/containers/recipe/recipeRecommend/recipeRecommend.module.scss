@@ -1,0 +1,31 @@
+@use '/src/styles/mixin.scss' as m;
+
+.recommendDescription {
+    font-size: 0.95rem;
+    margin-block: 0.25rem;
+}
+
+.recipeList {
+    margin-block: var(--base-padding);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+.recommendButton {
+    @include m.main-button();
+
+    &>svg {
+        transition: transform 0.5s ease-in-out;
+    }
+
+    &:hover svg {
+        transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .recipeList {
+        grid-template-columns: 1fr 1fr;
+    }
+}

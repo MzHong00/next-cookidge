@@ -1,5 +1,6 @@
+import type { IIngredient } from "../ingredient/ingredient";
 import type { IUser } from "../user/user";
-import { ICreateRecipeForm } from "./recipe.contract";
+import type { ICreateRecipeForm } from "./recipe.contract";
 
 export interface IRecipe {
   _id: string;
@@ -14,14 +15,6 @@ export interface IRecipe {
   cooking_steps: ICookingStep[];
   like_members: IUser["_id"][];
   created_at: string;
-}
-
-export interface IIngredient {
-  _id: string;
-  name: string;
-  category: string;
-  quantity: string;
-  expired_at: string;
 }
 
 export interface ICookingStep {

@@ -16,14 +16,9 @@ export class GoogleOAuthService {
 
   static async loginSuccessRedirect(oauth_code: string) {
     try {
-      const response = await axios.get(`${this.root}/callback`, {
+      axios.get(`${this.root}/callback`, {
         params: { code: oauth_code },
-        withCredentials: true,
       });
-
-      const accessToken = response.data.token;
-
-      return accessToken;
     } catch (error) {
       console.log(`구글 로그인 redirect 에러: ${error}`);
       throw error;

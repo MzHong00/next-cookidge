@@ -42,11 +42,6 @@ export const Profile = ({
           />
         </Link>
       )}
-      {name && (
-        <h4 title={name} className={styles.name}>
-          {name}
-        </h4>
-      )}
     </div>
   );
 };

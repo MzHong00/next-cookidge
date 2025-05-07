@@ -1,0 +1,15 @@
+@use '/src/styles/mixin.scss' as m;
+
+.form {
+    @include m.flex-layout(row, center);
+
+    .searchBox {
+        padding: 0 !important;
+        @include m.light-dark-section();
+    }
+
+    .inviteSubmit {
+        @include m.button-shape();
+        @include m.main-button();
+    }
+}

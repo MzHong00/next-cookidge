@@ -12,9 +12,7 @@ export class UserService {
         "Cache-Control": "no-cache", // 캐시를 사용하지 않음
       },
     });
-    const { user, token } = response?.data;
-
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+    const { user } = response?.data;
 
     return user ?? null;
   }

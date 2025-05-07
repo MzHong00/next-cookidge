@@ -29,6 +29,14 @@
     white-space: nowrap;
 }
 
+@mixin button-shape {
+    width: fit-content;
+    height: fit-content;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    border-radius: var(--border-radius);
+}
+
 @mixin main-button {
     color: rgb(var(--foreground));
     background-color: rgb(var(--color-main)) !important;
@@ -66,6 +74,31 @@
     background: linear-gradient(90deg, silver 25%, rgb(var(--color-grey-medium)) 50%, silver 75%);
     background-size: 200% 100%;
     animation: shimmer 3s infinite;
+}
+
+@mixin dark-section($color: rgb(var(--color-dark))) {
+    padding: 1rem;
+    background-color: $color;
+    border-radius: 10px;
+}
+
+@mixin light-dark-section() {
+    padding: 1rem;
+    background-color: rgb(var(--color-dark-light));
+    border-radius: 10px;
+}
+
+@mixin float-right-side() {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    z-index: 100;
+
+    @media screen and (max-width: 768px) {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 80px;
+    }
 }
 
 @keyframes shimmer {

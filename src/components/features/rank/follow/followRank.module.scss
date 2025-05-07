@@ -20,7 +20,8 @@
 
         .rankUserCard {
             @include m.flex-layout(row, center, space-between);
-
+            @include m.dark-section();
+            
             .rankValue {
                 padding-inline: 0;
             }

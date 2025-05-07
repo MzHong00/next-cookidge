@@ -1,0 +1,25 @@
+@use '/src/styles/mixin.scss' as m;
+
+.container {
+    height: 100%;
+    @include m.flex-layout(column, center, center, 0.25rem);
+    @include m.dark-section(rgb(var(--color-dark-light)));
+
+    .title {
+        @include m.flex-layout(column, center, center, 0);
+
+        .categoryIcon {
+            font-size: 3rem;
+        }
+    }
+    
+    .quantity {
+        padding-inline: calc(var(--base-padding) / 2);
+        @include m.main-button-dark();
+        font-size: var(--base-font-size-small);
+    }
+
+    .expired_at{ 
+        font-size: var(--base-font-size-small);
+    }
+}

@@ -46,15 +46,17 @@ export function Dialog({ title, style, className, children }: Props) {
           if (e.target === e.currentTarget) closeDialog();
         }}
         style={style}
-        className={`${styles.container} ${className}`}
+        className={`${styles.dialog} ${className}`}
       >
-        <header>
-          <button onClick={closeDialog}>
-            <RiCloseLine />
-          </button>
-          {title && <h2>{title}</h2>}
-        </header>
-        {children}
+        <div className={`${styles.container}`}>
+          <header>
+            <button onClick={closeDialog}>
+              <RiCloseLine />
+            </button>
+            {title && <h2>{title}</h2>}
+          </header>
+          {children}
+        </div>
       </motion.dialog>
     </AnimatePresence>,
     document.body

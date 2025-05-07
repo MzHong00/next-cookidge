@@ -3,7 +3,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import type { IUser } from "@/types/user/user";
-import { Profile } from "@/components/common/profile";
+import { UserCard } from "@/containers/user/userCard/userCard";
 import { UserQueries } from "@/services/user/queries/userQueries";
 
 export const FollowingList = ({ name }: { name: IUser["name"] }) => {
@@ -16,7 +16,7 @@ export const FollowingList = ({ name }: { name: IUser["name"] }) => {
       {data?.pages.map((page) =>
         page.map((user) => (
           <li key={user._id}>
-            <Profile {...user} />
+            <UserCard {...user} />
           </li>
         ))
       )}

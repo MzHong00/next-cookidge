@@ -11,7 +11,6 @@ import { UserQueries } from "@/services/user/queries/userQueries";
 import { CommentQueries } from "@/services/comment/queries/commentQueries";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { Profile } from "@/components/common/profile";
-import { IconBox } from "@/components/common/iconBox";
 import { CreateComment } from "../create/createComment";
 import { DeleteCommentButton } from "../delete/deleteCommentButton";
 
@@ -72,9 +71,7 @@ const Comment = ({
 
   return (
     <div className={styles.comment}>
-      <IconBox className={styles.profileButton}>
-        <Profile name={user[0].name} picture={user[0].picture} />
-      </IconBox>
+      <Profile name={user[0].name} picture={user[0].picture} />
       <div>
         <header className={styles.nameBar}>
           <h4>{user[0].name}</h4>

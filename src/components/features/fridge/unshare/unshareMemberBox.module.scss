@@ -1,0 +1,17 @@
+.profilePicture {
+    &:hover {
+        box-shadow: 0px 0px 2px 3px;
+    }
+}
+
+.removeButton {
+    width: fit-content;
+    padding-inline: var(--base-padding);
+    padding-block: calc(var(--base-padding) / 2);
+    border-radius: var(--border-radius);
+    background-color: red;
+}
+
+.activeButton {
+    box-shadow: 0px 0px 2px 3px;
+}
