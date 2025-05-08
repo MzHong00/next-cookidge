@@ -47,6 +47,8 @@
 
 그러나, 추가 에러로 document is not defined 에러가 발생했다.
 
+<hr>
+
 > document is not defined 에러
 
 **원인:** NextJS는 SSR이기 때문에 `document`, `window`객체에 접근할 수 없다. 두 객체는 `client` 브라우저 측에서 사용할 수 있기 때문이다.
@@ -76,11 +78,15 @@ useEffect(() => {
 return mounted ? <Component /> : null
 ```
 
+<hr>
+
 > Dialog 태그 `initial` 애니메이션 적용 불가
 
 **원인:** `framer motion`은 컴포넌트가 마운트 될 때 `initial` 애니메이션을 발생 시키는데, `<dialog>` 태그는 `open`하면 컴포넌트가 새로 생기는게 아니라 기존에 있던게 CSS적으로 보여지고 안보여지게 작동하기 때문에 애니메이션이 발생하지 않음
 
 **해결:** `portal`을 사용하여 재사용 가능한 모달 컴포넌트를 만들었다. 특징으로는 선언적으로 구현하였으며, 모달 버튼 컴포넌트로 만들고 `children`으로 모달창의 내용을 받도록 구현
+
+<hr>
 
 > Skipping auto-scroll
 
@@ -88,11 +94,15 @@ return mounted ? <Component /> : null
 
 **해결:** Link 태그 scroll 속성 비활성화하였다. `<Link scroll={false}>`를 사용하여 페이지 전환시 스크롤 위치를 최상단에 위치하게 한다.
 
+<hr>
+
 > 낙관적 업데이트 중 onMutate 안에서 setQueryData가 안되는 현상
 
 **원인:** getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 나와서 me._id를 출력할 때, 에러가 안나오고 setQueryData가 작동을 안함 (에러가 출력하지 않았다는 것이 포인트)
 
 **해결:** 쿼리 키를 올바르게 설정하여 단순하게 해결
+
+<hr>
 
 > 좋아요 버튼 isLike hydrate missmatch 에러
 
@@ -100,21 +110,29 @@ return mounted ? <Component /> : null
 
 **해결:** 기존의 `useMemo`로 서버에서 렌더링할 때, me 데이터가 undefiend로 isLike가 서버측에서는 무조건 false로 됨. 따라서 `useEffect`를 사용하여 클라이언트 측의 isLike의 첫 값을 false로 시켜 서버에서 렌더링 했을 때의 값과 일치시킨다.
 
+<hr>
+
 > NextJS zod FileList is not defined 에러
 
 **원인:** `pictures: z.instanceof(FileList)` 검증 코드에서 FileList는 브라우저가 제공하는 API이기 떄문에 서버측에서 코드를 실행할 때, FileList를 모른다.
 
 **해결:** 구글링을 통해 `z.custom<FileList>((val) => val instanceof FileList && val.length > 0)` 커스텀하여 해결
 
+<hr>
+
 > 인터셉터 라우팅 적용 안됨 및 initialTree is not iterable 에러
 
 **해결:** `.next`폴더 제거 후, 개발 서버 재실행
+
+<hr>
 
 > 병렬 라우팅에서 하위 경로로 들어갔을 때 404에러 발생
 
 **원인:** 특정 하위 경로로 이동했을 떄, 일치하지 않은 슬룻의 렌더링을 처리해줘야 했다.
 
 **해결:** `/user/[name]`의 경로에서 recipe 병렬 루트가 문제였으며 `default.tsx`를 삽입하여 해결하였다.
+
+<hr>
 
 > inActive 상태의 데이터에 queryClient.invalidateQueries를 걸었을 때, refetch가 안되는 현상
 
@@ -129,9 +147,13 @@ return mounted ? <Component /> : null
 - 'all': refetch 조건자와 일치하는 모든 쿼리는 활성 또는 비활성 상태에 관계없이 백그라운드에서 다시 페치됩니다.
 - 'none': 쿼리를 다시 가져오지 않습니다. refetch 조건과 일치하는 쿼리는 무효로 표시됩니다.
 
+<hr>
+
 > Zod + React Hook Form에서 input type="number"를 사용할 때, 폼에서 문자열로 받아와져 검증 에러가 발생
 
 **해결:** `z.coerce.number()`를 사용하여 문자열로 값을 받아와지는 `input type="number"`의 값을 숫자로 취급할 수 있다.
+
+<hr>
 
 > RSC에서 반환하는 인코딩된 한글 params 데이터를 한글 문자열로 출력하기
 
