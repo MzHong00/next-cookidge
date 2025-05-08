@@ -13,16 +13,14 @@ export const RecipeSort = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   return (
-    <Dropdown buttonComponent={<IconBox Icon={BiSort}>정렬</IconBox>}>
+    <Dropdown buttonChildren={<IconBox Icon={BiSort}>정렬</IconBox>}>
       {RECIPE_SORT.map(({ query, text }) => {
         const isActive = searchParams.get("sort") === query;
 
         return (
           <button
             key={query}
-            className={`${isActive && styles.activeButton} ${
-              styles.contentsButton
-            }`}
+            className={`${isActive && styles.activeButton}`}
             onClick={() => {
               setSearchParams.set("sort", query);
             }}

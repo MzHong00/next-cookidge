@@ -1,14 +1,13 @@
 import { Metadata } from "next";
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
 
 import type { IUser } from "@/types/user/user";
 import { PIdToURL } from "@/utils/pidToUrl";
-import { UserQueries } from "@/services/user/queries/userQueries";
+import { getCookiesAsString } from "@/utils/getStringCookies";
 import { UserDetail } from "@/containers/user/userDetail/userDetail";
+import QueryHydrate from "@/components/common/queryHydrate";
+import { UserRecipeList } from "@/components/features/recipe/read/userRecipeList";
+import { UserQueries } from "@/services/user/queries/userQueries";
+import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 
 export async function generateMetadata({
   params,
@@ -42,14 +41,19 @@ export default async function UserDetailPage({
   params: Promise<{ name: string }>;
 }) {
   const { name } = await params;
+  const cookies = await getCookiesAsString();
   const decodedName = decodeURIComponent(name);
 
-  const queryclient = new QueryClient();
-  await queryclient.prefetchQuery(UserQueries.userQuery(decodedName));
-
   return (
-    <HydrationBoundary state={dehydrate(queryclient)}>
+    <QueryHydrate
+      queryOptions={[
+        UserQueries.meQuery({ headers: { Cookie: cookies } }),
+        UserQueries.userQuery(decodedName),
+        RecipeQueries.listQueryByUserName(decodedName),
+      ]}
+    >
       <UserDetail name={decodedName} />
-    </HydrationBoundary>
+      <UserRecipeList name={decodedName} />
+    </QueryHydrate>
   );
 }

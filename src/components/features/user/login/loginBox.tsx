@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
-import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
 import { RiUser5Line } from "@react-icons/all-files/ri/RiUser5Line";
@@ -55,7 +54,6 @@ export const LoginBox = ({ className }: { className?: string }) => {
 };
 
 const TestAccount = () => {
-  const router = useRouter();
   const queryClient = useQueryClient();
 
   return (
@@ -65,7 +63,6 @@ const TestAccount = () => {
         onClick={async () => {
           await AuthService.testAccountLogin("5789");
           queryClient.invalidateQueries({ queryKey: UserQueries.keys.me });
-          router.back();
         }}
       >
         <IconBox Icon={RiUser5Line}>테스트 계정으로 로그인</IconBox>

@@ -1,6 +1,7 @@
-import { BackButton } from "@/components/common/backButton";
+import { Suspense } from "react";
 
-import styles from "./styles.module.scss";
+import { BackButton } from "@/components/common/backButton";
+import { LoadingDots } from "@/components/common/loadingDots";
 
 export default function Layout({
   children,
@@ -12,13 +13,15 @@ export default function Layout({
   background: React.ReactNode;
 }) {
   return (
-    <div className={styles.layout}>
+    <div className="flex-column">
       {modal}
       {background}
       <nav>
         <BackButton />
       </nav>
-      {children}
+      <Suspense fallback={<LoadingDots msg="레시피 가져오는 중..." />}>
+        {children}
+      </Suspense>
     </div>
   );
 }

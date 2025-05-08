@@ -1,4 +1,3 @@
-import { ClientRender } from "@/components/common/clientRender";
 import styles from "./layout.module.scss";
 
 export default function RankLayout({
@@ -14,7 +13,7 @@ export default function RankLayout({
 
       <div className={styles.container}>
         {search}
-        <ClientRender>{children}</ClientRender>
+        {children}
       </div>
     </div>
   );

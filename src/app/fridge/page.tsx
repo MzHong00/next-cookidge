@@ -1,9 +1,31 @@
-import { DisplayProblem } from "@/components/common/displayProblem";
+import Link from "next/link";
+import { RiAddLine } from "@react-icons/all-files/ri/RiAddLine";
 
-export const metadata = {
-  title: "냉장고",
-};
+import { IconBox } from "@/components/common/iconBox";
+import QueryHydrate from "@/components/common/queryHydrate";
+import { getCookiesAsString } from "@/utils/getStringCookies";
+import { FridgeList } from "@/containers/fridge/fridgeList/fridgeList";
+import { FridgeQueries } from "@/services/fridge/queries/fridgeQueries";
 
-export default function FridgePage() {
-  return <DisplayProblem msg="페이지 준비중입니다." />;
+import styles from "./page.module.scss";
+
+export default async function FridgePage() {
+  const cookies = await getCookiesAsString();
+
+  return (
+    <>
+      <QueryHydrate
+        queryOptions={[
+          FridgeQueries.listQuery({ headers: { Cookie: cookies } }),
+        ]}
+      >
+        <FridgeList />
+      </QueryHydrate>
+      <Link href="/fridge/create" className="float-right-side">
+        <IconBox Icon={RiAddLine} className={styles.createButton}>
+          냉장고 만들기
+        </IconBox>
+      </Link>
+    </>
+  );
 }

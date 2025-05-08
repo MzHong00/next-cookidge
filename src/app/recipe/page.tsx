@@ -1,10 +1,10 @@
+import Link from "next/link";
 import { Suspense } from "react";
 import { RiAddLine } from "@react-icons/all-files/ri/RiAddLine";
 
 import type { IRecipeQuery } from "@/types/recipe/recipe";
 import { IconBox } from "@/components/common/iconBox";
 import { LoadingDots } from "@/components/common/loadingDots";
-import { AuthGuardLink } from "@/components/common/authGuardLink";
 import { RecipeList } from "@/components/features/recipe/read/recipeList";
 import { RecipeQueryBox } from "@/containers/recipe/recipeQueryBox/RecipeQueryBox";
 
@@ -19,24 +19,20 @@ export default async function RecipePage({
 
   return (
     <>
-      <AuthGuardLink
+      <Link
         href="/recipe/create"
-        className={styles.openFormButton}
         scroll={false}
+        prefetch={false}
+        className="float-right-side"
       >
-        <IconBox Icon={RiAddLine}>레시피 생성</IconBox>
-      </AuthGuardLink>
+        <IconBox Icon={RiAddLine} className={styles.openFormButton}>
+          레시피 생성
+        </IconBox>
+      </Link>
 
       <RecipeQueryBox />
-      
-      <Suspense
-        fallback={
-          <LoadingDots
-            msg="레시피 목록 가져오는 중..."
-            className="abs-center"
-          />
-        }
-      >
+
+      <Suspense fallback={<LoadingDots msg="레시피 목록 가져오는 중..." />}>
         <RecipeList recipeQuery={recipeQuery} />
       </Suspense>
     </>

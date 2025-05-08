@@ -1,8 +1,6 @@
-import { Suspense } from "react";
-
-import { LoadingDots } from "@/components/common/loadingDots";
+import QueryHydrate from "@/components/common/queryHydrate";
 import { RecipeUpdate } from "@/containers/recipe/recipeUpdate/recipeUpdate";
-import { ClientRender } from "@/components/common/clientRender";
+import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 
 export const metadata = {
   title: "레시피 수정",
@@ -16,10 +14,8 @@ export default async function RecipeUpdatePage({
   const { id } = await params;
 
   return (
-    <Suspense fallback={<LoadingDots msg="레시피 데이터 가져오는 중..." />}>
-      <ClientRender>
-        <RecipeUpdate recipe_id={id} />
-      </ClientRender>
-    </Suspense>
+    <QueryHydrate queryOptions={[RecipeQueries.detailQuery(id)]}>
+      <RecipeUpdate recipe_id={id} />
+    </QueryHydrate>
   );
 }

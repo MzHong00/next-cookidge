@@ -1,0 +1,6 @@
+@use '/src/styles/mixin.scss' as m;
+
+.form {
+    padding: 0 !important;
+    @include m.light-dark-section();
+}

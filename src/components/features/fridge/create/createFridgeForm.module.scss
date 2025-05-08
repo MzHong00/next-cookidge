@@ -1,0 +1,6 @@
+@use '/src/styles/mixin.scss' as m;
+
+.input {
+    width: 100%;
+    @include m.dark-section(rgb(var(--color-dark-light)));
+}

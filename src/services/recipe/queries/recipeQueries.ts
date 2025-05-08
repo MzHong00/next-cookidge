@@ -1,5 +1,7 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 
+import type { IFridge } from "@/types/fridge/type";
+import type { IIngredient } from "@/types/ingredient/ingredient";
 import type { IRecipe, IRecipeQuery } from "@/types/recipe/recipe";
 import { RecipeService } from "..";
 
@@ -11,6 +13,7 @@ export class RecipeQueries {
     list: ["recipe", "infinite"],
     like: ["recipe", "by-users-like"],
     users: ["recipe", "by-users-name"],
+    recommend: ["recipe", "recommend"],
   };
 
   static detailQuery(recipeId: IRecipe["_id"]) {
@@ -39,6 +42,29 @@ export class RecipeQueries {
 
         return lastPageParam + 1;
       },
+    });
+  }
+
+  // 레시피 추천
+  static recommendQuery(params: {
+    fridge_id: IFridge["_id"];
+    categories?: IRecipe["category"][];
+    my_ingredients?: IIngredient["name"][];
+  }) {
+    const { fridge_id, categories, my_ingredients } = params;
+
+    return queryOptions({
+      queryKey: [...this.keys.recommend, fridge_id],
+      queryFn: ({ signal }) =>
+        RecipeService.recommnedRecipe({
+          signal,
+          params: {
+            categories,
+            my_ingredients,
+          },
+        }),
+      select: (data) =>
+        data?.filter((recipe) => recipe.matched_ingredients.length !== 0),
     });
   }
 

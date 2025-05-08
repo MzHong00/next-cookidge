@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { RiCheckLine } from "@react-icons/all-files/ri/RiCheckLine";
 import { RiErrorWarningLine } from "@react-icons/all-files/ri/RiErrorWarningLine";
 
@@ -14,7 +14,6 @@ import {
 import { fadeSlide } from "@/lib/framer-motion";
 
 import styles from "./alertList.module.scss";
-
 
 export const AlertList = () => {
   const queue = useAlertQueue();
@@ -31,30 +30,28 @@ export const AlertList = () => {
   );
 };
 
-
 const Alert = ({ message, type }: AlertTypes) => {
   const { alertDequeue } = useAlertActions();
   const isSuccess = type === "success";
 
   useEffect(() => {
-    setTimeout(() => {
-      alertDequeue();
+    const timer = setTimeout(() => {
+      alertDequeue(message);
     }, 2000);
-  }, [alertDequeue]);
+
+    return () => clearTimeout(timer);
+  }, [message, alertDequeue]);
 
   return (
-    <AnimatePresence>
-      <motion.div
+    <motion.div
       variants={fadeSlide}
       initial="leftSlide"
       animate="visible"
-      exit="rightSlide"
       className={styles.alert}
       style={{ backgroundColor: isSuccess ? "green" : "red" }}
     >
       {isSuccess ? <RiCheckLine /> : <RiErrorWarningLine />}
       {message}
     </motion.div>
-    </AnimatePresence>
   );
 };

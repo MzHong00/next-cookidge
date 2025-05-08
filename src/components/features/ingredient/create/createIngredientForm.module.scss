@@ -1,0 +1,69 @@
+@use '/src/styles/mixin.scss' as m;
+
+.form {
+    height: 100%;
+    @include m.flex-layout(column, normal, space-between, 0);
+    flex-grow: 1;
+    overflow-y: auto;
+
+    .table {
+        width: 100%;
+        table-layout: fixed;
+
+        &>thead {
+            position: sticky;
+            top: 0;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        &>colgroup {
+            &>:last-child {
+                width: 32px;
+            }
+        }
+    }
+
+    .ingredientRow {
+
+        & input,
+        & select {
+            width: 100%;
+            height: 100%;
+            margin: 0.25rem;
+            @include m.text-ellipsis();
+            @include m.light-dark-section();
+        }
+
+        & td {
+            padding-inline: 2px;
+            padding-block: 0;
+        }
+
+        &>:last-child {
+            text-align: center;
+            vertical-align: middle;
+        }
+    }
+
+    .removeButton {
+        padding: 0rem;
+    }
+
+    .submit {
+        width: 100% !important;
+        margin-top: 1rem;
+        @include m.button-shape();
+        @include m.main-button();
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .ingredientRow {
+
+        & input,
+        & select {
+            padding-inline: 0 !important;
+        }
+    }
+}

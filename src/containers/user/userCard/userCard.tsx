@@ -23,7 +23,14 @@ export const UserCard = ({
 }: Props) => {
   return (
     <div style={style} className={`${className} ${styles.container}`}>
-      <Profile name={name} picture={picture} disabled={disabled} />
+      <div className={styles.title}>
+        <Profile name={name} picture={picture} disabled={disabled} />
+        {name && (
+          <h4 title={name} className={styles.name}>
+            {name}
+          </h4>
+        )}
+      </div>
       {introduce && <p className={styles.introduce}>{introduce}</p>}
       {children}
     </div>

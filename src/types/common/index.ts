@@ -1,5 +1,13 @@
 import type { IconType } from "@react-icons/all-files";
 
+export interface ApiFetchOptions {
+  cookie?: string;
+  next?: {
+    revalidate?: number;
+    tags?: string[];
+  };
+}
+
 export interface PagenationParams {
   limit?: number;
   offset?: number;

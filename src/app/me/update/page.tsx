@@ -1,29 +1,26 @@
-import { Suspense } from "react";
-
-import { LoadingDots } from "@/components/common/loadingDots";
-import { ClientRender } from "@/components/common/clientRender";
+import { getCookiesAsString } from "@/utils/getStringCookies";
+import QueryHydrate from "@/components/common/queryHydrate";
 import { UserUpdate } from "@/containers/user/userUpdate/userUpdate";
+import { ClientRender } from "@/components/common/clientRender";
+import { UserQueries } from "@/services/user/queries/userQueries";
 
 export const metadata = {
   title: "프로필 편집",
 };
 
 export default async function MeUpdatePage() {
+  const cookies = await getCookiesAsString();
+
   return (
     <div>
       <h3 style={{ marginBottom: "2rem" }}>프로필 편집</h3>
-      <Suspense
-        fallback={
-          <LoadingDots
-            msg="프로필 정보 가져오는 중..."
-            className="abs-center"
-          />
-        }
+      <QueryHydrate
+        queryOptions={[UserQueries.meQuery({ headers: { Cookie: cookies } })]}
       >
         <ClientRender>
           <UserUpdate />
         </ClientRender>
-      </Suspense>
+      </QueryHydrate>
     </div>
   );
 }

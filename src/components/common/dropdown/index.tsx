@@ -11,11 +11,12 @@ import styles from "./index.module.scss";
   - 메뉴를 한 번만 클릭하면 창이 닫힙니다.
 */
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  buttonComponent: React.ReactNode;
+interface Props{
+  children: React.ReactNode;
+  buttonChildren: React.ReactNode;
 }
 
-export const Dropdown = ({ buttonComponent, children, ...props }: Props) => {
+export const Dropdown = ({ buttonChildren, children }: Props) => {
   const [isShow, setIsShow] = useState<boolean>(false);
 
   return (
@@ -25,10 +26,11 @@ export const Dropdown = ({ buttonComponent, children, ...props }: Props) => {
           e.preventDefault();
           setIsShow((prev) => !prev);
         }}
-        {...props}
+        className={styles.dropdownButton}
       >
-        {buttonComponent}
+        {buttonChildren}
       </button>
+
       <AnimatePresence>
         {isShow && (
           <motion.nav

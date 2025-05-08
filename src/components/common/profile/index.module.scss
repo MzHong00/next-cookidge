@@ -4,14 +4,10 @@
     @include m.flex-layout(row, center);
     flex-shrink: 1;
     @include m.text-ellipsis();
+    border-radius: 100%;
 
     .profileImage {
-        border-radius: 100%;
         object-position: center;
         object-fit: cover;
-    }
-
-    .name {
-        @include m.text-ellipsis();
     }
 }

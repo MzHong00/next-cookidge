@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 
 import {
+  useConfirmDialogIsOpen,
   useConfirmDialogActions,
   useConfirmDialogIsLoading,
-  useConfirmDialogIsOpen,
 } from "@/lib/zustand/confirmDialogStore";
 
 export const useHandleShowingDialog = () => {
@@ -24,10 +24,18 @@ export const useHandleShowingDialog = () => {
       if (e.target === e.currentTarget) closeDialog();
     };
 
+    const handleEscKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && !isLoading) {
+        closeDialog();
+      }
+    };
+
     element.addEventListener("click", handleClickOutside);
+    element.addEventListener("keydown", handleEscKey);
 
     return () => {
       element.removeEventListener("click", handleClickOutside);
+      element.removeEventListener("keydown", handleEscKey);
     };
   }, [isOpen, isLoading, closeDialog]);
 

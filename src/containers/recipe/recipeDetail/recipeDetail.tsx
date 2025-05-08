@@ -8,17 +8,18 @@ import { RiGroupLine } from "@react-icons/all-files/ri/RiGroupLine";
 import { RiTimer2Line } from "@react-icons/all-files/ri/RiTimer2Line";
 import { RiCalendarLine } from "@react-icons/all-files/ri/RiCalendarLine";
 
-import type { IIngredient, IRecipe } from "@/types/recipe/recipe";
+import type { IRecipe } from "@/types/recipe/recipe";
+import type { IIngredient } from "@/types/ingredient/ingredient";
 import { fadeSlide } from "@/lib/framer-motion";
 import { CurrentDateGap } from "@/utils/currentDateGap";
 import { INGREDIENT_CATEGORIES } from "@/constants/ingredient";
 import { UserQueries } from "@/services/user/queries/userQueries";
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import { IconBox } from "@/components/common/iconBox";
-import { Profile } from "@/components/common/profile";
 import { Underline } from "@/components/common/underline";
+import { UserCard } from "@/containers/user/userCard/userCard";
 import { PictureSlider } from "@/components/common/pictureSlider";
-import { RecipeStep } from "@/components/features/recipe/step/recipeStep";
+import { RecipeStep } from "@/containers/recipe/recipeStep/recipeStep";
 import { LikeButton } from "@/components/features/recipe/like/likeButtton";
 import { CommentList } from "@/components/features/comment/read/commentList";
 import { RecipeDeleteButton } from "@/components/features/recipe/delete/recipeDeleteButton";
@@ -53,7 +54,7 @@ export function RecipeDetail({ id }: { id: string }) {
         custom={SLIDE_MOVE_PX}
       >
         <header className={styles.cardHeader}>
-          <Profile name={user.name} picture={user.picture} />
+          <UserCard name={user.name} picture={user.picture} />
           {me?._id === user._id && (
             <div className={styles.recipeAction}>
               <RecipeUpdateLink recipe_id={recipe._id} />

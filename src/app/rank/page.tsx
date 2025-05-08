@@ -7,6 +7,7 @@ import { FollowRank } from "@/components/features/rank/follow/followRank";
 import { UserCardSkeleton } from "@/containers/user/userCard/userCardSkeleton";
 
 import styles from "./page.module.scss";
+import { ClientRender } from "@/components/common/clientRender";
 
 const USER_SKELETON_COUNT = 10;
 
@@ -20,15 +21,20 @@ export default function RankPage() {
           </h3>
           <p>팔로워가 가장 많은 사용자</p>
         </div>
-        <Suspense
-          fallback={
-            <div className={styles.skeletonRankList}>
-              <UserCardSkeleton count={USER_SKELETON_COUNT} introduce={false} />
-            </div>
-          }
-        >
-          <FollowRank />
-        </Suspense>
+        <ClientRender>
+          <Suspense
+            fallback={
+              <div className={styles.skeletonRankList}>
+                <UserCardSkeleton
+                  count={USER_SKELETON_COUNT}
+                  introduce={false}
+                />
+              </div>
+            }
+          >
+            <FollowRank />
+          </Suspense>
+        </ClientRender>
       </section>
 
       <section>
@@ -38,15 +44,20 @@ export default function RankPage() {
           </h3>
           <p>레시피를 가장 많이 작성한 사용자</p>
         </div>
-        <Suspense
-          fallback={
-            <div className={styles.skeletonRankList}>
-              <UserCardSkeleton count={USER_SKELETON_COUNT} introduce={false} />
-            </div>
-          }
-        >
-          <MakerRank />
-        </Suspense>
+        <ClientRender>
+          <Suspense
+            fallback={
+              <div className={styles.skeletonRankList}>
+                <UserCardSkeleton
+                  count={USER_SKELETON_COUNT}
+                  introduce={false}
+                />
+              </div>
+            }
+          >
+            <MakerRank />
+          </Suspense>
+        </ClientRender>
       </section>
     </div>
   );

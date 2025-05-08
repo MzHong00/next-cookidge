@@ -4,19 +4,19 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-        port: '',
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "",
       },
     ],
   },
   async rewrites() {
     return [
       {
-        source: '/api/:path*',
+        source: "/api/:path*",
         destination: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/:path*`,
       },
-    ]
+    ];
   },
 };
 

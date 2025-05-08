@@ -6,9 +6,9 @@
     padding: 0.5rem;
     position: relative;
     @include m.flex-layout(row, center, normal, 0);
-    background: rgb(var(--color-dark));
+    flex-grow: 1;
+    background: inherit;
     border-radius: var(--border-radius);
-    box-shadow: 0px 0px 2px 1px;
 
     &>input {
         width: 100%;
@@ -19,7 +19,6 @@
     .children {
         width: 100%;
         max-height: 16rem;
-        padding: 1rem;
         position: absolute;
         top: calc(100% + 10px);
         left: 0;
@@ -33,4 +32,8 @@
 
 .icon {
     padding: 0.5rem;
+
+    &:hover {
+        filter: none;
+    }
 }

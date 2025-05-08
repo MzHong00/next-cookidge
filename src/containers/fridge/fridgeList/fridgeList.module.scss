@@ -1,0 +1,20 @@
+@use '/src/styles/mixin.scss' as m;
+
+
+.container {
+    @include m.flex-layout(column);
+
+    .fridgeList {
+        @include m.flex-layout(column);
+
+        &>li {
+            width: 100%;
+            padding-inline: 1rem;
+            border-left: 2px solid;
+        }
+
+        .fridgeSummary {
+            gap: 0;
+        }
+    }
+}
