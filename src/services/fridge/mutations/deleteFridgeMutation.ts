@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+import type { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { IFridge } from "@/types/fridge/type";

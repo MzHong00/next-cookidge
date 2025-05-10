@@ -1,6 +1,5 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import type { IRecipeQuery } from "@/types/recipe/recipe";
@@ -16,11 +15,8 @@ import styles from "./recipeList.module.scss";
 const THUMBNAIL_WIDTH = 400;
 
 export const RecipeList = ({ recipeQuery }: { recipeQuery: IRecipeQuery }) => {
-  const searchParams = useSearchParams();
   const { data, isFetching, hasNextPage, fetchNextPage } =
-    useSuspenseInfiniteQuery(
-      RecipeQueries.listQuery(recipeQuery, searchParams.toString())
-    );
+    useSuspenseInfiniteQuery(RecipeQueries.listQuery(recipeQuery));
   const target = useIntersectionObserver({ hasNextPage, fetchNextPage });
 
   return (

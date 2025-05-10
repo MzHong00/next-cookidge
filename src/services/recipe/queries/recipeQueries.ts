@@ -4,8 +4,7 @@ import type { IFridge } from "@/types/fridge/type";
 import type { IIngredient } from "@/types/ingredient/ingredient";
 import type { IRecipe, IRecipeQuery } from "@/types/recipe/recipe";
 import { RecipeService } from "..";
-
-const LIMIT = 10;
+import { PAGENATION_LIMIT } from "@/constants/common";
 
 export class RecipeQueries {
   static readonly keys = {
@@ -20,25 +19,25 @@ export class RecipeQueries {
     return queryOptions({
       queryKey: [...this.keys.root, recipeId],
       queryFn: () => RecipeService.readRecipe(recipeId),
-      enabled: !!recipeId,
     });
   }
 
-  static listQuery(queryParams?: Partial<IRecipeQuery>, qsKey?: string) {
+  static listQuery(queryParams?: Partial<IRecipeQuery>) {
     return infiniteQueryOptions({
-      queryKey: [...this.keys.list, qsKey || queryParams],
+      queryKey: [...this.keys.list, JSON.stringify(queryParams)],
       queryFn: ({ pageParam, signal }) =>
         RecipeService.readRecipeList({
           params: {
             ...queryParams,
-            limit: LIMIT,
-            offset: pageParam * LIMIT,
+            limit: PAGENATION_LIMIT,
+            offset: pageParam * PAGENATION_LIMIT,
           },
           signal,
         }),
       initialPageParam: 0,
       getNextPageParam: (lastPage, allPages, lastPageParam) => {
-        if (lastPage?.length === 0 || lastPage?.length < LIMIT) return;
+        if (lastPage?.length === 0 || lastPage?.length < PAGENATION_LIMIT)
+          return;
 
         return lastPageParam + 1;
       },
