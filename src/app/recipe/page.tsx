@@ -9,6 +9,8 @@ import { RecipeList } from "@/components/features/recipe/read/recipeList";
 import { RecipeQueryBox } from "@/containers/recipe/recipeQueryBox/RecipeQueryBox";
 
 import styles from "./page.module.scss";
+import QueryHydrate from "@/components/common/queryHydrate";
+import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 
 export default async function RecipePage({
   searchParams,
@@ -32,9 +34,9 @@ export default async function RecipePage({
 
       <RecipeQueryBox />
 
-      <Suspense fallback={<LoadingDots msg="레시피 목록 가져오는 중..." />}>
+      <QueryHydrate queryOptions={[RecipeQueries.listQuery(recipeQuery)]}>
         <RecipeList recipeQuery={recipeQuery} />
-      </Suspense>
+      </QueryHydrate>
     </>
   );
 }

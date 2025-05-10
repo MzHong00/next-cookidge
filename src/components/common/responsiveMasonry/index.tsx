@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Masonry, { type MasonryProps } from "react-layout-masonry";
 
+import { ClientRender } from "../clientRender";
+
 const GAP = 10;
 const MAX_DIVISION = 4;
 
@@ -10,11 +12,13 @@ interface Props extends MasonryProps<"div"> {
   item_width: number;
 }
 
-export const ResponsiveMasonry = ({
-  item_width,
-  children,
-  ...props
-}: Props) => {
+export const ResponsiveMasonryCSR = (props: Props) => (
+  <ClientRender>
+    <ResponsiveMasonry {...props} />
+  </ClientRender>
+);
+
+const ResponsiveMasonry = ({ item_width, children, ...props }: Props) => {
   const column = useViewportDivision(item_width, MAX_DIVISION);
 
   return (
@@ -28,8 +32,13 @@ export const ResponsiveMasonry = ({
   maxWidthPx: 아이템의 최대 가로 길이
   limitWidthDiv: 행의 아이템 최대 개수
 */
-const useViewportDivision = (maxWidthPx: number, limitWidthDiv: number = 100) => {
-  const [count, setCount] = useState<number>(Math.ceil(window.innerWidth / maxWidthPx));
+const useViewportDivision = (
+  maxWidthPx: number,
+  limitWidthDiv: number = 100
+) => {
+  const [count, setCount] = useState<number>(
+    Math.ceil(window.innerWidth / maxWidthPx)
+  );
 
   useEffect(() => {
     let timer: NodeJS.Timeout | undefined;
