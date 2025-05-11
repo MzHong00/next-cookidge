@@ -2,14 +2,16 @@
 
 .recommendDescription {
     font-size: 0.95rem;
-    margin-block: 0.25rem;
+    margin-block: 0.5rem;
 }
 
 .recipeList {
     margin-block: var(--base-padding);
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 1rem;
+    @include m.grid-template(column, repeat(4, 1fr));
+
+    & img {
+        height: 100%;
+    }
 }
 
 .recommendButton {

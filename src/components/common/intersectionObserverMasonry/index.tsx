@@ -2,28 +2,47 @@
 
 import { useEffect, useState } from "react";
 import Masonry, { type MasonryProps } from "react-layout-masonry";
+import { InfiniteQueryObserverResult } from "@tanstack/react-query";
 
 import { ClientRender } from "../clientRender";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
+/* 
+  - Intersection Observer와 반응형 CSS가 적용된 MasonryLayout
+  - Intersection Observer를 내장시킨 이유
+    => 옵저버 타겟을 Masonry 레이아웃 내부에 있어야 자연스럽게 데이터를 가져오는데, 
+    Masonry는 window API를 사용하기 때문에 CSR을 해야한다. Client Render 컴포넌
+    트로 감싸면 마운트 된 후에 렌더링 하기 때문에 옵저버 ref에 할당이 안된다.
+*/
 const GAP = 10;
 const MAX_DIVISION = 4;
 
 interface Props extends MasonryProps<"div"> {
   item_width: number;
+  hasNextPage: boolean;
+  fetchNextPage: () => Promise<InfiniteQueryObserverResult>;
 }
 
-export const ResponsiveMasonryCSR = (props: Props) => (
+export const IntersectionObserverMasonry = (props: Props) => (
   <ClientRender>
     <ResponsiveMasonry {...props} />
   </ClientRender>
 );
 
-const ResponsiveMasonry = ({ item_width, children, ...props }: Props) => {
+const ResponsiveMasonry = ({
+  item_width,
+  hasNextPage,
+  fetchNextPage,
+  children,
+  ...props
+}: Props) => {
   const column = useViewportDivision(item_width, MAX_DIVISION);
+  const target = useIntersectionObserver({ hasNextPage, fetchNextPage });
 
   return (
     <Masonry columns={column} gap={GAP} {...props}>
       {children}
+      <div ref={target} />
     </Masonry>
   );
 };

@@ -1,10 +1,13 @@
 "use client";
 
-import { useSuspenseQuery } from "@tanstack/react-query";
+import {
+  InfiniteQueryObserverResult,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
-import { ResponsiveMasonryCSR } from "@/components/common/responsiveMasonry";
 import { RecipeThumbnail } from "@/components/features/recipe/thumbnail/recipeThumbnail";
+import { IntersectionObserverMasonry } from "@/components/common/intersectionObserverMasonry";
 
 const REIPCE_WIDTH = 400;
 
@@ -14,7 +17,13 @@ export const UserRecipeList = ({ name }: { name: string }) => {
   );
 
   return (
-    <ResponsiveMasonryCSR item_width={REIPCE_WIDTH}>
+    <IntersectionObserverMasonry
+      item_width={REIPCE_WIDTH}
+      hasNextPage={false}
+      fetchNextPage={function (): Promise<InfiniteQueryObserverResult> {
+        throw new Error("Function not implemented.");
+      }}
+    >
       {recipe.map((recipe) => (
         <article key={recipe._id}>
           <RecipeThumbnail
@@ -24,6 +33,6 @@ export const UserRecipeList = ({ name }: { name: string }) => {
           />
         </article>
       ))}
-    </ResponsiveMasonryCSR>
+    </IntersectionObserverMasonry>
   );
 };

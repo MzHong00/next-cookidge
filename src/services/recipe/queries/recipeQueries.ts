@@ -22,7 +22,7 @@ export class RecipeQueries {
     });
   }
 
-  static listQuery(queryParams?: Partial<IRecipeQuery>) {
+  static listQuery(queryParams: Partial<IRecipeQuery> = {}) {
     return infiniteQueryOptions({
       queryKey: [...this.keys.list, JSON.stringify(queryParams)],
       queryFn: ({ pageParam, signal }) =>

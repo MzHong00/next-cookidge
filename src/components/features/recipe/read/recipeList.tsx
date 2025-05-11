@@ -4,10 +4,9 @@ import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import type { IRecipeQuery } from "@/types/recipe/recipe";
 import { LoadingSpinner } from "@/components/common/loadingSpinner";
-import { ResponsiveMasonryCSR } from "@/components/common/responsiveMasonry";
+import { IntersectionObserverMasonry } from "@/components/common/intersectionObserverMasonry";
 import { RecipeThumbnail } from "@/components/features/recipe/thumbnail/recipeThumbnail";
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
-import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 import styles from "./recipeList.module.scss";
 
@@ -16,11 +15,14 @@ const THUMBNAIL_WIDTH = 400;
 export const RecipeList = ({ recipeQuery }: { recipeQuery: IRecipeQuery }) => {
   const { data, isFetching, hasNextPage, fetchNextPage } =
     useSuspenseInfiniteQuery(RecipeQueries.listQuery(recipeQuery));
-  const target = useIntersectionObserver({ hasNextPage, fetchNextPage });
 
   return (
     <div>
-      <ResponsiveMasonryCSR item_width={THUMBNAIL_WIDTH}>
+      <IntersectionObserverMasonry
+        item_width={THUMBNAIL_WIDTH}
+        hasNextPage={hasNextPage}
+        fetchNextPage={fetchNextPage}
+      >
         {data.pages.map((page) =>
           page.map((recipe) => (
             <article key={recipe._id}>
@@ -33,12 +35,11 @@ export const RecipeList = ({ recipeQuery }: { recipeQuery: IRecipeQuery }) => {
             </article>
           ))
         )}
-      </ResponsiveMasonryCSR>
-      <div ref={target} />
+      </IntersectionObserverMasonry>
       {isFetching && (
         <LoadingSpinner
-          className={styles.spinner}
           msg="레시피 가져오는 중..."
+          className={styles.spinner}
         />
       )}
     </div>

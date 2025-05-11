@@ -14,18 +14,11 @@ import { LikeButton } from "../like/likeButtton";
 
 import styles from "./recipeThumbnail.module.scss";
 
-const DEFAULT_RECIPE_WIDTH = 400;
-
 interface Props extends Partial<ImageProps> {
   recipe: IRecipe;
 }
 
-export const RecipeThumbnail = ({
-  recipe,
-  width = DEFAULT_RECIPE_WIDTH,
-  height = DEFAULT_RECIPE_WIDTH,
-  ...props
-}: Props) => {
+export const RecipeThumbnail = ({ recipe, ...props }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const InfoToggleHandler = () => {
@@ -44,13 +37,7 @@ export const RecipeThumbnail = ({
       }}
     >
       {isOpen && <Info {...recipe} />}
-      <Image
-        src={PIdToURL(recipe.pictures[0])}
-        alt={recipe.name}
-        width={width}
-        height={height}
-        {...props}
-      />
+      <Image src={PIdToURL(recipe.pictures[0])} alt={recipe.name} {...props} />
     </motion.div>
   );
 };
@@ -70,7 +57,7 @@ const Info = (props: IRecipe) => {
         <span>{CurrentDateGap(created_at)}전</span>
       </header>
       <p>{introduction}</p>
-      <footer onClick={(e) => e.stopPropagation()}>
+      <footer onClick={(e) => e.stopPropagation()} className="dark-section">
         <LikeButton recipe_id={_id} likeMembers={like_members} />
         <Link
           href={{
@@ -80,7 +67,7 @@ const Info = (props: IRecipe) => {
             },
           }}
         >
-          <IconBox className={styles.recipeLinkButton}>자세히</IconBox>
+          <IconBox className="main-button">자세히</IconBox>
         </Link>
       </footer>
     </motion.div>

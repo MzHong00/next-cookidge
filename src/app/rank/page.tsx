@@ -21,20 +21,7 @@ export default function RankPage() {
           </h3>
           <p>팔로워가 가장 많은 사용자</p>
         </div>
-        <ClientRender>
-          <Suspense
-            fallback={
-              <div className={styles.skeletonRankList}>
-                <UserCardSkeleton
-                  count={USER_SKELETON_COUNT}
-                  introduce={false}
-                />
-              </div>
-            }
-          >
-            <FollowRank />
-          </Suspense>
-        </ClientRender>
+        <FollowRank />
       </section>
 
       <section>
@@ -44,20 +31,7 @@ export default function RankPage() {
           </h3>
           <p>레시피를 가장 많이 작성한 사용자</p>
         </div>
-        <ClientRender>
-          <Suspense
-            fallback={
-              <div className={styles.skeletonRankList}>
-                <UserCardSkeleton
-                  count={USER_SKELETON_COUNT}
-                  introduce={false}
-                />
-              </div>
-            }
-          >
-            <MakerRank />
-          </Suspense>
-        </ClientRender>
+        <MakerRank />
       </section>
     </div>
   );
