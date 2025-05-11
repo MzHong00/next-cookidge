@@ -35,7 +35,7 @@ export function RecipeDetail({ id }: { id: string }) {
   const { data: me } = useQuery(UserQueries.meQuery());
   const { data: recipe } = useSuspenseQuery(RecipeQueries.detailQuery(id));
 
-  const { ingredients, cooking_steps, user, ...contents } = recipe;
+  const { _id, ingredients, cooking_steps, user, ...contents } = recipe;
 
   const changeTabHandler = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -83,6 +83,11 @@ export function RecipeDetail({ id }: { id: string }) {
             <RecipeStep recipeSteps={cooking_steps} />
           </motion.div>
         )}
+        <LikeButton
+          recipe_id={_id}
+          likeMembers={contents.like_members}
+          style={{ width: "fit-content" }}
+        />
       </motion.section>
 
       <section>
@@ -90,7 +95,7 @@ export function RecipeDetail({ id }: { id: string }) {
       </section>
 
       <section>
-        <CommentList recipe_id={id} author_id={recipe.author_id} />
+        <CommentList recipe_id={_id} author_id={recipe.author_id} />
       </section>
     </div>
   );
@@ -99,18 +104,10 @@ export function RecipeDetail({ id }: { id: string }) {
 const Contents = ({
   recipe,
 }: {
-  recipe: Omit<IRecipe, "ingredients" | "cooking_steps">;
+  recipe: Omit<IRecipe, "_id" | "ingredients" | "cooking_steps">;
 }) => {
-  const {
-    _id,
-    name,
-    introduction,
-    pictures,
-    servings,
-    cooking_time,
-    like_members,
-    created_at,
-  } = recipe;
+  const { name, introduction, pictures, servings, cooking_time, created_at } =
+    recipe;
 
   return (
     <div className={styles.contentContainer}>
@@ -126,7 +123,6 @@ const Contents = ({
         </section>
         <p>{introduction}</p>
       </div>
-      <LikeButton recipe_id={_id} likeMembers={like_members} />
     </div>
   );
 };

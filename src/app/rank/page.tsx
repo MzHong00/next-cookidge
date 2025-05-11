@@ -1,15 +1,10 @@
-import { Suspense } from "react";
 import { RiTrophyLine } from "@react-icons/all-files/ri/RiTrophyLine";
 
 import { IconBox } from "@/components/common/iconBox";
 import { MakerRank } from "@/components/features/rank/maker/makerRank";
 import { FollowRank } from "@/components/features/rank/follow/followRank";
-import { UserCardSkeleton } from "@/containers/user/userCard/userCardSkeleton";
 
 import styles from "./page.module.scss";
-import { ClientRender } from "@/components/common/clientRender";
-
-const USER_SKELETON_COUNT = 10;
 
 export default function RankPage() {
   return (

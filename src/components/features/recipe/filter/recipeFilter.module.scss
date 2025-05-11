@@ -8,6 +8,8 @@
 
     .categoryList {
         @include m.flex-layout(row);
+        overflow: hidden;
+        flex-wrap: wrap;
 
         &>li>button {
             background-color: rgb(var(--color-dark-light));
