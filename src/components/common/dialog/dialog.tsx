@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { RiCloseLine } from "@react-icons/all-files/ri/RiCloseLine";
 
+import { ClientRender } from "../clientRender";
 import { twistFade } from "@/lib/framer-motion";
 
 import styles from "./dialog.module.scss";
@@ -19,16 +20,24 @@ interface Props {
   children: React.ReactNode;
 }
 
-export function Dialog({ title, style, className, children }: Props) {
+export const Dialog = (props: Props) => (
+  <ClientRender>
+    <DialogComponent {...props} />
+  </ClientRender>
+);
+
+const DialogComponent = ({ title, style, className, children }: Props) => {
   const router = useRouter();
-  const [isClick, setIsClick] = useState<boolean>(false);
-
+  const [isShow, setIsShow] = useState<boolean>(true);
+  
   const closeDialog = () => {
-    if (isClick) return;
+    if (!isShow) return;
 
-    setIsClick(true);
+    setIsShow(false);
     router.back();
   };
+
+  if(!isShow) return;
 
   return createPortal(
     <div
@@ -55,4 +64,4 @@ export function Dialog({ title, style, className, children }: Props) {
     </div>,
     document.body
   );
-}
+};
