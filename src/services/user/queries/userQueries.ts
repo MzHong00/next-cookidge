@@ -1,9 +1,9 @@
+import type { AxiosRequestConfig } from "axios";
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 
 import type { IUser } from "@/types/user/user";
 import type { PagenationParams } from "@/types/common";
 import { UserService } from "..";
-import { AxiosRequestConfig } from "axios";
 
 export class UserQueries {
   static readonly keys = {

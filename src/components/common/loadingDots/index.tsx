@@ -37,7 +37,7 @@ export const LoadingDots = ({
           transition={transition}
         />
       </div>
-      {msg && <p>{msg}</p>}
+      {msg && <p className={styles.message}>{msg}</p>}
     </div>
   );
 };

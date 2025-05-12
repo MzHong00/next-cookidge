@@ -15,7 +15,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Profile = ({
-  name,
+  name = "프로필",
   picture,
   className,
   disabled = false,
@@ -26,7 +26,7 @@ export const Profile = ({
       {disabled ? (
         <Image
           src={PIdToURL(picture)}
-          alt={name || "프로필"}
+          alt={name}
           width={PROFILE_WIDTH}
           height={PROFILE_WIDTH}
           className={styles.profileImage}

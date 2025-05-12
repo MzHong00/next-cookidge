@@ -3,7 +3,7 @@
 .form {
     width: 100%;
     position: relative;
-    @include m.flex-layout(row, center);
+    @include m.flex-layout(row, center, normal, 0);
     border-radius: var(--border-radius);
     background: rgb(var(--color-dark));
 
