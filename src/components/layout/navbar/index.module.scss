@@ -7,7 +7,7 @@
     @include m.flex-layout(row, normal, space-evenly);
     border: 2px solid;
     border-radius: var(--border-radius);
-    z-index: 1000;
+    z-index: 100;
     background-color: rgb(var(--color-dark));
 
     .profile {
