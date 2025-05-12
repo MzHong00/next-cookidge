@@ -32,7 +32,7 @@ export class RankQueries {
   }
 
   static InfiniteRecipeMakerRankQuery(option?: PagenationParams) {
-    const { limit = 5 } = option || {};
+    const { limit = 10 } = option || {};
 
     return infiniteQueryOptions({
       queryKey: [...this.keys.maker],

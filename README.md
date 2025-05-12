@@ -92,15 +92,19 @@ return mounted ? <Component /> : null
 
 **원인:** `<Link>`태그로 페이지 이동 시, 스크롤 위치를 유지하기 때문에 `position`속성의 `sticky`, `fixed`에 대한 위치값 계산에서 충돌이 생기는 것이다.
 
-**해결:** Link 태그 scroll 속성 비활성화하였다. `<Link scroll={false}>`를 사용하여 페이지 전환시 스크롤 위치를 최상단에 위치하게 한다.
+**해결:** Link 태그 scroll 속성 비활성화하였다. scroll 속성을 비활성화 하여 페이지 전환시 스크롤 위치를 최상단에 위치하게 한다.
+
+```tsx
+<Link scroll={false}>
+```
 
 <hr>
 
 > 낙관적 업데이트 중 onMutate 안에서 setQueryData가 안되는 현상
 
-**원인:** getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 나와서 me._id를 출력할 때, 에러가 안나오고 setQueryData가 작동을 안함 (에러가 출력하지 않았다는 것이 포인트)
+**원인:** getQueryData로 쿼리키를 잘못 입력하여 me 데이터가 undefiend로 나와서 me._id를 출력할 때, 에러가 안나오고 setQueryData가 작동을 안함 
 
-**해결:** 쿼리 키를 올바르게 설정하여 단순하게 해결
+**해결:** 쿼리 키를 올바르게 설정하여 단순하게 해결 (에러가 출력하지 않았다는 것이 포인트)
 
 <hr>
 
@@ -116,7 +120,11 @@ return mounted ? <Component /> : null
 
 **원인:** `pictures: z.instanceof(FileList)` 검증 코드에서 FileList는 브라우저가 제공하는 API이기 떄문에 서버측에서 코드를 실행할 때, FileList를 모른다.
 
-**해결:** 구글링을 통해 `z.custom<FileList>((val) => val instanceof FileList && val.length > 0)` 커스텀하여 해결
+**해결:** 구글링을 통해 FileList를 대체할 커스텀 타입 가드를 정의하여 해결
+
+```tsx
+z.custom<FileList>((val) => val instanceof FileList && val.length > 0)
+```
 
 <hr>
 
@@ -140,7 +148,11 @@ return mounted ? <Component /> : null
 
 **해결방법1:** 기존에 프로필 업데이트를 했을 때, 성공 시 `router.push()`으로 변경하여 해결 
 
-**해결방법2:** `queryClient.invalidateQueries(queryKey, { refetchType: inactive })`에서 refetchType 속성을 통해 inActive 상태의 데이터를 백그라운드에서 페치할 수 있다다.
+**해결방법2:** `invalidateQueries`의 refetchType 속성을 통해 inActive 상태의 데이터를 백그라운드에서 페치할 수 있다.
+
+```tsx
+queryClient.invalidateQueries(queryKey, { refetchType: inactive })
+```
 
 - 'active': refetch 조건과 일치하고 useQuery유사한 후크를 통해 적극적으로 렌더링되는 쿼리만 백그라운드에서 다시 페치됩니다. 이는 기본 동작입니다.
 - 'inactive': refetch 조건자와 일치하고 현재 렌더링되지 않는 쿼리만 백그라운드에서 다시 페치됩니다.
@@ -158,6 +170,18 @@ return mounted ? <Component /> : null
 > RSC에서 반환하는 인코딩된 한글 params 데이터를 한글 문자열로 출력하기
 
 **해결:** decodeURICoponent API를 사용하여 인코딩 된 데이터를 디코딩할 수 있다.
+
+<hr>
+
+> 빌드 pre-rendering 정적 사이트 생성 오류
+
+**원인:** page.tsx에서 tanstack query를 사용하는 컴포넌트가 포함되었을 때, useQuery API는 클라이언트 전용 훅이기 때문에 정적 사이트 생성(SSG) 중 서버에서 실행되지 않아 빌드 오류가 발생한다.
+
+**해결:** 에러가 발생하는 경로에 정적 사이트 생성이 아닌 서버 사이드 렌더링로 처리되도록 강제했다.
+
+```ts
+export const dynamic = "force-dynamic";
+```
 
 ## 🤔 궁금증 및 생각
 
