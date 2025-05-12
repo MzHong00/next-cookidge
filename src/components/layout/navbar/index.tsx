@@ -9,7 +9,7 @@ import { RiUserLine } from "@react-icons/all-files/ri/RiUserLine";
 import { NAV_TYPES } from "@/constants/nav";
 import { Menu } from "@/containers/home/menu/menu";
 import { Profile } from "@/components/common/profile";
-import { DialogButton } from "@/components/common/dialog/dialogButton";
+import { DialogCSR } from "@/components/common/dialog/dialogCSR";
 import { UserQueries } from "@/services/user/queries/userQueries";
 
 import styles from "./index.module.scss";
@@ -22,12 +22,13 @@ export function Navbar() {
     <nav className={styles.container}>
       <div className={styles.profile}>
         {me ? (
-          <DialogButton
-            DialogTitle="메뉴"
+          <DialogCSR
+            title="메뉴"
+            style={{ maxWidth: "300px" }}
             buttonComponent={<Profile picture={me.picture} disabled />}
           >
             <Menu me={me} />
-          </DialogButton>
+          </DialogCSR>
         ) : (
           <Link href="/login" scroll={false}>
             <RiUserLine />

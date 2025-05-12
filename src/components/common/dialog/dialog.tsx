@@ -1,9 +1,9 @@
 "use client";
 
-import { type CSSProperties, useEffect, useRef } from "react";
+import { type CSSProperties, useState } from "react";
+import { motion } from "motion/react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "motion/react";
 import { RiCloseLine } from "@react-icons/all-files/ri/RiCloseLine";
 
 import { twistFade } from "@/lib/framer-motion";
@@ -21,44 +21,38 @@ interface Props {
 
 export function Dialog({ title, style, className, children }: Props) {
   const router = useRouter();
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    if (!dialogRef.current?.open) {
-      dialogRef.current?.showModal();
-    }
-  }, []);
+  const [isClick, setIsClick] = useState<boolean>(false);
 
   const closeDialog = () => {
+    if (isClick) return;
+
+    setIsClick(true);
     router.back();
   };
 
   return createPortal(
-    <AnimatePresence>
-      <motion.dialog
-        ref={dialogRef}
+    <div
+      className={styles.background}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) closeDialog();
+      }}
+    >
+      <motion.div
         variants={twistFade}
         initial="initial"
         animate="animate"
-        exit="exit"
-        transition={{ duration: 0.2 }}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) closeDialog();
-        }}
         style={style}
         className={`${styles.dialog} ${className}`}
       >
-        <div className={`${styles.container}`}>
-          <header>
-            <button onClick={closeDialog}>
-              <RiCloseLine />
-            </button>
-            {title && <h2>{title}</h2>}
-          </header>
-          {children}
-        </div>
-      </motion.dialog>
-    </AnimatePresence>,
+        <header>
+          <button onClick={closeDialog}>
+            <RiCloseLine />
+          </button>
+          {title && <h2>{title}</h2>}
+        </header>
+        {children}
+      </motion.div>
+    </div>,
     document.body
   );
 }
