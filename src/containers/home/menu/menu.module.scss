@@ -1,6 +1,7 @@
 @use '/src/styles/mixin.scss' as m;
 
 .container {
+    padding: calc(var(--base-padding) / 4);
     @include m.grid-template(column, repeat(3, 1fr));
 
     &>li>* {

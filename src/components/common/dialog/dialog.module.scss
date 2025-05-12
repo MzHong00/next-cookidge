@@ -1,19 +1,23 @@
 @use '/src/styles/mixin.scss' as m;
 
-.dialog {
-    min-width: 300px;
-    max-height: 90%;
-    padding: var(--base-padding);
-    @include m.flex-layout(column, normal, normal, 0.5rem);
-    border-radius: var(--border-radius);
-    background-color: rgb(var(--color-dark));
-    color: rgb(var(--foreground));
-    box-shadow: var(--base-box-shadow);
+.background {
+    width: 100%;
+    height: 100vh;
+    @include m.flex-layout(row, center, center, 0);
+    position: fixed;
+    top: 0;
+    background-color: rgb(var(--color-dark), 0.5);
+    z-index: 100;
 
-    .container {
-        width: 100%;
-        height: 100%;
-        @include m.flex-layout(column);
+    .dialog {
+        min-width: 300px;
+        max-height: 90%;
+        padding: var(--base-padding);
+        @include m.flex-layout(column, normal, normal, 0.5rem);
+        border-radius: var(--border-radius);
+        background-color: rgb(var(--color-dark));
+        color: rgb(var(--foreground));
+        box-shadow: var(--base-box-shadow);
         overflow: auto;
 
         &>header {
@@ -25,16 +29,6 @@
             }
         }
     }
-}
-
-.background {
-    width: 100%;
-    height: 100vh;
-    @include m.flex-layout(row, center, center, 0);
-    position: fixed;
-    top: 0;
-    background-color: rgb(var(--color-dark), 0.5);
-    z-index: 100;
 }
 
 @media screen and (max-width:768px) {

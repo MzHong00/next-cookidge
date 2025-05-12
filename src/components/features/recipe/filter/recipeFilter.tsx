@@ -7,18 +7,18 @@ import { fadeSlide } from "@/lib/framer-motion";
 import { FOOD_CATEGORIES } from "@/constants/recipe";
 import useSearchParams from "@/hooks/useSearchParams";
 import { IconBox } from "@/components/common/iconBox";
-import { DialogButton } from "@/components/common/dialog/dialogButton";
+import { DialogCSR } from "@/components/common/dialog/dialogCSR";
 
 import styles from "./recipeFilter.module.scss";
 
 export const RecipeFilter = () => {
   return (
-    <DialogButton
-      DialogTitle="레시피 필터"
+    <DialogCSR
+      title="레시피 필터"
       buttonComponent={<IconBox Icon={RiFilter2Fill}>필터</IconBox>}
     >
       <RecipeFilterContents />
-    </DialogButton>
+    </DialogCSR>
   );
 };
 

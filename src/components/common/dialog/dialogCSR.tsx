@@ -1,10 +1,12 @@
 "use client";
 
+import { type CSSProperties, useState } from "react";
 import { createPortal } from "react-dom";
-import { useState, useEffect } from "react";
-import { twistFade } from "@/lib/framer-motion";
 import { motion } from "motion/react";
 import { RiCloseLine } from "@react-icons/all-files/ri/RiCloseLine";
+
+import { ClientRender } from "../clientRender";
+import { twistFade } from "@/lib/framer-motion";
 
 import styles from "./dialog.module.scss";
 
@@ -16,20 +18,29 @@ import styles from "./dialog.module.scss";
 */
 
 interface Props {
-  DialogTitle: string;
+  title: string;
+  style?: CSSProperties;
+  className?: string;
   buttonComponent: React.ReactNode;
   children:
     | React.ReactNode
     | (({ closeHandler }: { closeHandler: () => void }) => React.ReactNode);
 }
 
-export const DialogButton = ({
+export const DialogCSR = (props: Props) => (
+  <ClientRender>
+    <Dialog {...props} />
+  </ClientRender>
+);
+
+const Dialog = ({
   children,
-  DialogTitle,
+  title,
+  style,
+  className,
   buttonComponent,
 }: Props) => {
   const [isShow, setIsShow] = useState<boolean>(false);
-  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   const openHandler = () => {
     setIsShow(true);
@@ -39,12 +50,7 @@ export const DialogButton = ({
     setIsShow(false);
   };
 
-  useEffect(() => {
-    setIsMounted(true);
-    return () => setIsMounted(false);
-  }, []);
-
-  return isMounted ? (
+  return (
     <>
       <button onClick={openHandler}>{buttonComponent}</button>
 
@@ -61,20 +67,18 @@ export const DialogButton = ({
                 variants={twistFade}
                 initial="initial"
                 animate="animate"
-                transition={{ duration: 0.2 }}
-                className={styles.dialog}
+                style={style}
+                className={`${className} ${styles.dialog}`}
               >
-                <div className={styles.container}>
-                  <header>
-                    <button onClick={closeHandler}>
-                      <RiCloseLine />
-                    </button>
-                    {DialogTitle && <h2>{DialogTitle}</h2>}
-                  </header>
-                  {typeof children === "function"
-                    ? children({ closeHandler })
-                    : children}
-                </div>
+                <header>
+                  <button onClick={closeHandler}>
+                    <RiCloseLine />
+                  </button>
+                  {title && <h2>{title}</h2>}
+                </header>
+                {typeof children === "function"
+                  ? children({ closeHandler })
+                  : children}
               </motion.div>
             </div>
           )}
@@ -82,5 +86,5 @@ export const DialogButton = ({
         document.body
       )}
     </>
-  ) : null;
+  );
 };
