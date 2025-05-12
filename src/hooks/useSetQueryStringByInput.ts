@@ -12,7 +12,11 @@ export const useSetQueryStringByInput = (queryString: string = "title") => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setSearchParams.set(queryString, value);
+      if (value) {
+        setSearchParams.set(queryString, value);
+      } else {
+        setSearchParams.delete(queryString);
+      }
     }, DEBOUNCE_MS_TIME);
 
     return () => clearTimeout(timer);

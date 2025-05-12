@@ -40,10 +40,12 @@ const ResponsiveMasonry = ({
   const target = useIntersectionObserver({ hasNextPage, fetchNextPage });
 
   return (
-    <Masonry columns={column} gap={GAP} {...props}>
-      {children}
+    <>
+      <Masonry columns={column} gap={GAP} {...props}>
+        {children}
+      </Masonry>
       <div ref={target} />
-    </Masonry>
+    </>
   );
 };
 
