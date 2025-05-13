@@ -2,7 +2,7 @@
 
 .container {
     width: 600px;
-    padding: 1rem;
+    padding: var(--base-padding);
     @include m.flex-layout(column);
     aspect-ratio: 1/0.8;
     background-color: rgb(var(--color-dark));
@@ -14,13 +14,13 @@
         flex-grow: 1;
 
         &>section {
-            padding: 1rem;
+            padding: var(--base-padding);
             border-radius: inherit;
             border-radius: var(--border-radius);
         }
 
         .loginSection {
-            padding: 1rem;
+            padding: var(--base-padding);
             @include m.flex-layout(column);
             background-color: rgb(var(--color-dark));
             flex-basis: 60%;
@@ -52,6 +52,10 @@
             overflow: hidden;
 
             &>svg {
+                width: 100%;
+                height: fit-content;
+                max-width: 8rem;
+                max-height: 8rem;
                 position: absolute;
                 right: 10px;
                 bottom: 10px;
@@ -65,5 +69,10 @@
 @media screen and (max-width:768px) {
     .container {
         width: 100%;
+        padding-inline: 0;
+
+        .loginLayout {
+            gap: 0;
+        }
     }
 }

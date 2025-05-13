@@ -1,11 +1,16 @@
 @use '/src/styles/mixin.scss' as m;
 
-.container {
+.form {
     @include m.flex-layout(column, normal, normal, 0);
 
-    .form {
+    .container {
         @include m.flex-layout(row);
         @include m.dark-section();
+
+        .nameInput {
+            min-width: 50px;
+            flex-grow: 1;
+        }
 
         .submitButton {
             margin-left: auto;

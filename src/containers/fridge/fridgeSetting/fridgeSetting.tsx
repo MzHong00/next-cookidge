@@ -4,8 +4,8 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 
 import type { IFridge } from "@/types/fridge/type";
 import { FridgeQueries } from "@/services/fridge/queries/fridgeQueries";
-import { UpdateFridgeForm } from "@/components/features/fridge/update/updateFridgeForm";
 import { UnshareMemberBox } from "@/components/features/fridge/unshare/unshareMemberBox";
+import { UpdateFridgeNameForm } from "@/components/features/fridge/update/updateFridgeNameForm";
 import { InviteShareMemberForm } from "@/components/features/fridge/share/inviteShareMemberForm";
 
 export default function FridgeSetting({ id }: { id: IFridge["_id"] }) {
@@ -16,7 +16,7 @@ export default function FridgeSetting({ id }: { id: IFridge["_id"] }) {
   return (
     <div className="flex-column">
       <h2>냉장고 이름 수정</h2>
-      <UpdateFridgeForm fridge_id={_id} defaultName={name} />
+      <UpdateFridgeNameForm fridge_id={_id} defaultName={name} />
 
       <h2>냉장고 공유 멤버 수정</h2>
       <div className="flex-column dark-section">

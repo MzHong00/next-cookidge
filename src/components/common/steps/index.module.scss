@@ -6,10 +6,9 @@
     background-color: inherit;
 
     &>header {
+        @include m.flex-layout(row);
         position: sticky;
         top: 0;
-        @include m.flex-layout(row);
-        flex-wrap: wrap;
         background-color: inherit;
         z-index: 100;
 
