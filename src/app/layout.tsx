@@ -41,7 +41,7 @@ export default function RootLayout({
         <Provider>
           {auth}
           <Header />
-          <main style={{ padding: "1rem" }}>{children}</main>
+          <main style={{ padding: "1rem", marginBottom: "5rem" }}>{children}</main>
           <Navbar />
         </Provider>
       </body>

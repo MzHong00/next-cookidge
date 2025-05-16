@@ -1,0 +1,11 @@
+@use '/src/styles/mixin.scss' as m;
+
+.pageTitle {
+    margin-bottom: 2rem;
+}
+
+.deleteButton {
+    display: block;
+    margin-top: 5rem;
+    margin-inline: auto;
+}

@@ -1,4 +1,4 @@
-import axios, { apiFetch } from "..";
+import axios, { fetchBeApi } from "..";
 
 import type { IUser } from "@/types/user/user";
 import type { PagenationParams } from "@/types/common";
@@ -13,7 +13,7 @@ export class RecipeService {
   static readonly root = "/recipe";
 
   static async readRecipe(id: IRecipe["_id"]) {
-    return await apiFetch<IRecipe & { user: IUser }>(
+    return await fetchBeApi<IRecipe & { user: IUser }>(
       `${this.root}/read/detail/${id}`
     );
   }

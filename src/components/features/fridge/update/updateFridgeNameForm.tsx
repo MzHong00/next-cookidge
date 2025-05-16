@@ -5,16 +5,16 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 import type { IFridge } from "@/types/fridge/type";
 import {
-  FridgeFormSchema,
   type IFridgeForm,
+  FridgeFormSchema,
 } from "@/types/fridge/fridge.contract";
 import { ErrorMessage } from "@/components/common/inputErrorMessage";
 import { useConfirmDialogActions } from "@/lib/zustand/confirmDialogStore";
 import { useUpdateFridgeMutation } from "@/services/fridge/mutations/updateFridgeMutation";
 
-import styles from "./updateFridgeForm.module.scss";
+import styles from "./updateFridgeNameForm.module.scss";
 
-export const UpdateFridgeForm = ({
+export const UpdateFridgeNameForm = ({
   fridge_id,
   defaultName,
 }: {
@@ -46,11 +46,11 @@ export const UpdateFridgeForm = ({
   };
 
   return (
-    <div className={styles.container}>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+    <form className={styles.form}>
+      <div onSubmit={handleSubmit(onSubmit)} className={styles.container}>
         <input
           placeholder="변경할 이름을 입력하세요."
-          style={{ flexGrow: 1 }}
+          className={styles.nameInput}
           {...register("name")}
         />
         <input
@@ -59,8 +59,8 @@ export const UpdateFridgeForm = ({
           className={styles.submitButton}
           disabled={isPending}
         />
-      </form>
+      </div>
       {errors.name && <ErrorMessage msg={errors.name.message} />}
-    </div>
+    </form>
   );
 };

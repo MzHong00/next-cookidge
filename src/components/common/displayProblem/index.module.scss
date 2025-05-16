@@ -3,14 +3,14 @@
 .container {
     height: 100vh;
     margin: auto;
-    @include m.flex-layout(column, center, center, 2rem);
+    @include m.flex-layout(column, center, center);
 
     &>svg {
-        font-size: 8rem;
+        font-size: 4rem;
     }
 
     &>p {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
     }
 
     &>button {

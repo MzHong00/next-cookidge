@@ -1,14 +1,14 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
+import { env } from "./constants/env";
 import { axiosBeApi } from "./services";
 
 export async function middleware(req: NextRequest) {
   const accessToken = req.cookies.get("access_token")?.value;
   const refreshToken = req.cookies.get("refresh_token")?.value;
 
-  if (!refreshToken)
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_CLIENT}/login`);
+  if (!refreshToken) return NextResponse.redirect(`${env.CLIENT_URL}/login`);
 
   try {
     // access_token이 없거나 만료된 경우 토큰 재발급 절차
@@ -25,9 +25,9 @@ export async function middleware(req: NextRequest) {
       const newAccessToken = res.headers["set-cookie"]
         ?.toString()
         .match(/access_token=([^;]+)/)?.[1];
-        
+
       if (!newAccessToken)
-        return NextResponse.redirect(`${process.env.NEXT_PUBLIC_CLIENT}/login`);
+        return NextResponse.redirect(`${env.CLIENT_URL}/login`);
 
       if (200 <= res.status && res.status < 300) {
         const resNext = NextResponse.next();
@@ -42,11 +42,11 @@ export async function middleware(req: NextRequest) {
     }
   } catch (error) {
     console.error(error);
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_CLIENT}/login`);
+    return NextResponse.redirect(`${env.CLIENT_URL}/login`);
   }
 }
 
-// 토큰 만료 여부 확인 함수 (예시)
+// 토큰 만료 여부 확인 함수
 function isExpired(token: string): boolean {
   try {
     const payload = JSON.parse(atob(token.split(".")[1]));

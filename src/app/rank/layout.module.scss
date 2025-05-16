@@ -3,6 +3,5 @@
 .container {
     max-width: 500px;
     margin: auto;
-    padding-bottom: 10vh;
     @include m.flex-layout(column, normal, normal, 3rem);
 }

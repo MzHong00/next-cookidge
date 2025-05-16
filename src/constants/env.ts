@@ -1,0 +1,5 @@
+export const env = {
+  CLIENT_URL: process.env.NEXT_PUBLIC_CLIENT,
+  SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL,
+  CLOUDINARY_NAME: process.env.NEXT_PUBLIC_CLOUDINARY_NAME,
+};

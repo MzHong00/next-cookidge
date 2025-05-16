@@ -1,0 +1,11 @@
+@use '/src/styles/mixin.scss' as m;
+
+.removeButton {
+    color: red;
+    font-size: var(--base-font-size-small);
+
+    &:hover {
+        text-decoration: underline;
+        filter: none;
+    }
+}
