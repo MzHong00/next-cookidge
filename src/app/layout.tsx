@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     "Cookidge 서비스는 요리 관련 SNS와 냉장고를 관리하는 앱을 동시에 제공하는 서비스입니다.",
   verification: {
     google: "2-CPSScGx8YCokUPTZT-8xEzjDni6uKjhM0ZdCiD3iI",
+    other: {
+      "naver-site-verification": "1e6a3603cf1001bdde5eb0bf0b4a0dd871e42eea",
+    },
   },
 };
 
@@ -31,17 +34,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/* <Script src="https://unpkg.com/react-scan/dist/auto.global.js"></Script> */}
-      <meta
-        name="naver-site-verification"
-        content="1e6a3603cf1001bdde5eb0bf0b4a0dd871e42eea"
-      />
       <body>
         <ConfirmDialog />
         <AlertList />
         <Provider>
           {auth}
           <Header />
-          <main style={{ padding: "1rem", marginBottom: "5rem" }}>{children}</main>
+          <main style={{ padding: "1rem", marginBottom: "5rem" }}>
+            {children}
+          </main>
           <Navbar />
         </Provider>
       </body>
