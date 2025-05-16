@@ -1,22 +1,20 @@
 import axios from "axios";
 
-import type { ApiFetchOptions } from "@/types/common";
 import { AuthService } from "./auth";
+import { env } from "@/constants/env";
 
 // 요청 메모이제이션으로 사용될 API를 요청하는 인스턴스
-export const apiFetch = async <T>(
+export const fetchBeApi = async <T>(
   url: string,
-  init?: ApiFetchOptions
+  init?: RequestInit
 ): Promise<T> => {
-  const { cookie, ...config } = init || {};
+  const { next, ...config } = init || {};
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/${url}`, {
-    headers: {
-      Cookie: `${cookie}`,
-    },
+  const res = await fetch(`${env.SERVER_URL}/api/${url}`, {
+    ...config,
     next: {
       revalidate: 10,
-      ...config,
+      ...next,
     },
   });
   const data = await res.json();
@@ -26,12 +24,12 @@ export const apiFetch = async <T>(
 
 // NextJS 서버 측 -> API 서버
 export const axiosBeApi = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/api`,
+  baseURL: `${env.SERVER_URL}/api`,
 });
 
 // 일반적인 코어 인스턴스
 const instance = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_CLIENT}/api/`,
+  baseURL: `${env.CLIENT_URL}/api/`,
   withCredentials: true,
 });
 
