@@ -1,5 +1,7 @@
-import { RecipeService } from "@/services/recipe";
+import Image from "next/image";
 import { ImageResponse } from "next/og";
+
+import { RecipeService } from "@/services/recipe";
 
 export const alt = "레시피 사진";
 export const size = {
@@ -8,7 +10,11 @@ export const size = {
 };
 export const contentType = "image/png";
 
-export default async function Image({ params }: { params: { id: string } }) {
+export default async function RecipeOpenGraph({
+  params,
+}: {
+  params: { id: string };
+}) {
   const recipe = await RecipeService.readRecipe(params.id);
 
   return new ImageResponse(
@@ -24,7 +30,7 @@ export default async function Image({ params }: { params: { id: string } }) {
           justifyContent: "center",
         }}
       >
-        <img
+        <Image
           src={recipe.pictures[0]}
           alt={alt}
           style={{

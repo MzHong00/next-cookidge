@@ -1,6 +1,7 @@
-import { RecipeService } from "@/services/recipe";
-import { UserService } from "@/services/user";
+import Image from "next/image";
 import { ImageResponse } from "next/og";
+
+import { UserService } from "@/services/user";
 
 export const alt = "프로필 사진";
 export const size = {
@@ -9,7 +10,11 @@ export const size = {
 };
 export const contentType = "image/png";
 
-export default async function Image({ params }: { params: { name: string } }) {
+export default async function UserOpenGraph({
+  params,
+}: {
+  params: { name: string };
+}) {
   const user = await UserService.fetchUser(params.name);
 
   return new ImageResponse(
@@ -25,7 +30,7 @@ export default async function Image({ params }: { params: { name: string } }) {
           justifyContent: "center",
         }}
       >
-        <img
+        <Image
           src={user.picture}
           alt={alt}
           style={{
