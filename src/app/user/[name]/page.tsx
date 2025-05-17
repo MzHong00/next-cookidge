@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 
+import { PIdToURL } from "@/utils/pidToUrl";
 import { UserService } from "@/services/user";
 import { getCookiesAsString } from "@/utils/getStringCookies";
 import { UserQueries } from "@/services/user/queries/userQueries";
@@ -21,6 +22,10 @@ export async function generateMetadata({
   return {
     title: user.name,
     description: user.introduce,
+    openGraph: {
+      title: user.name,
+      images: PIdToURL(user.picture[0])
+    }
   };
 }
 
