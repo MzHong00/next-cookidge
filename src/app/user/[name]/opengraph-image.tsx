@@ -1,4 +1,4 @@
-import Image from "next/image";
+import ImageComponent from "next/image";
 import { ImageResponse } from "next/og";
 
 import { UserService } from "@/services/user";
@@ -11,7 +11,7 @@ export const size = {
 };
 export const contentType = "image/png";
 
-export default async function UserOpenGraph({
+export default async function Image({
   params,
 }: {
   params: { name: string };
@@ -31,7 +31,7 @@ export default async function UserOpenGraph({
           justifyContent: "center",
         }}
       >
-        <Image
+        <ImageComponent
           src={PIdToURL(user.picture)}
           alt={alt}
           style={{
