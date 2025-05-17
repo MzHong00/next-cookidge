@@ -1,13 +1,12 @@
 import { Metadata } from "next";
 
-import type { IUser } from "@/types/user/user";
-import { PIdToURL } from "@/utils/pidToUrl";
+import { UserService } from "@/services/user";
 import { getCookiesAsString } from "@/utils/getStringCookies";
+import { UserQueries } from "@/services/user/queries/userQueries";
 import { UserDetail } from "@/containers/user/userDetail/userDetail";
+import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import QueryHydrate from "@/components/common/queryHydrate";
 import { UserRecipeList } from "@/components/features/recipe/read/userRecipeList";
-import { UserQueries } from "@/services/user/queries/userQueries";
-import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 
 export async function generateMetadata({
   params,
@@ -17,21 +16,11 @@ export async function generateMetadata({
   const { name } = await params;
   const decodedName = decodeURIComponent(name);
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/find?user_name=${decodedName}`,
-    {
-      method: "GET",
-    }
-  );
-  const user = (await res.json()) as IUser;
+  const user = await UserService.fetchUser(decodedName);
 
   return {
     title: user.name,
     description: user.introduce,
-    openGraph: {
-      title: user.name,
-      images: [PIdToURL(user.picture)],
-    },
   };
 }
 

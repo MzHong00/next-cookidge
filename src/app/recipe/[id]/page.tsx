@@ -17,10 +17,6 @@ export async function generateMetadata({
   return {
     title: `${recipe.name} | ${APP_NAME}`,
     description: recipe.introduction,
-    openGraph: {
-      title: recipe.name,
-      images: recipe.pictures,
-    },
   };
 }
 

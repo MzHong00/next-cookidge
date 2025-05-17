@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ImageResponse } from "next/og";
 
 import { RecipeService } from "@/services/recipe";
+import { PIdToURL } from "@/utils/pidToUrl";
 
 export const alt = "레시피 사진";
 export const size = {
@@ -22,16 +23,16 @@ export default async function RecipeOpenGraph({
       <div
         style={{
           fontSize: 48,
-          background: "white",
           width: "100%",
           height: "100%",
           display: "flex",
+          background: "white",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
         <Image
-          src={recipe.pictures[0]}
+          src={PIdToURL(recipe.pictures[0])}
           alt={alt}
           style={{
             width: "100%",
