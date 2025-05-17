@@ -1,8 +1,8 @@
-import axios from "..";
+import axios, { fetchBeApi } from "..";
+import type { AxiosRequestConfig } from "axios";
 
 import type { IUser } from "@/types/user/user";
 import type { PagenationParams } from "@/types/common";
-import { AxiosRequestConfig } from "axios";
 
 export class UserService {
   static readonly root = "/user";
@@ -15,11 +15,7 @@ export class UserService {
   }
 
   static async fetchUser(userName: IUser["name"]): Promise<IUser> {
-    const response = await axios.get(`${this.root}/find`, {
-      params: { user_name: userName },
-    });
-
-    return response.data;
+    return await fetchBeApi(`${this.root}/find?user_name=${userName}`);
   }
 
   static async fetchFollowerList(config: {

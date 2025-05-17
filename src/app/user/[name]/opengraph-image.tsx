@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ImageResponse } from "next/og";
 
 import { UserService } from "@/services/user";
+import { PIdToURL } from "@/utils/pidToUrl";
 
 export const alt = "프로필 사진";
 export const size = {
@@ -22,16 +23,16 @@ export default async function UserOpenGraph({
       <div
         style={{
           fontSize: 48,
-          background: "white",
           width: "100%",
           height: "100%",
           display: "flex",
+          background: "white",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
         <Image
-          src={user.picture}
+          src={PIdToURL(user.picture)}
           alt={alt}
           style={{
             width: "100%",

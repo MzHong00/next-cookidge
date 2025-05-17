@@ -7,7 +7,7 @@ import type {
   IRecipeQuery,
   IRecipeInputDTO,
 } from "@/types/recipe/recipe";
-import { IIngredient } from "@/types/ingredient/ingredient";
+import type { IIngredient } from "@/types/ingredient/ingredient";
 
 export class RecipeService {
   static readonly root = "/recipe";
