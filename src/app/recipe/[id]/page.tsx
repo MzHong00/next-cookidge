@@ -1,10 +1,10 @@
+import { PIdToURL } from "@/utils/pidToUrl";
 import { APP_NAME } from "@/constants/common";
 import QueryHydrate from "@/components/common/queryHydrate";
 import { RecipeService } from "@/services/recipe";
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import { CommentQueries } from "@/services/comment/queries/commentQueries";
 import { RecipeDetail } from "@/containers/recipe/recipeDetail/recipeDetail";
-import { PIdToURL } from "@/utils/pidToUrl";
 
 export async function generateMetadata({
   params,
