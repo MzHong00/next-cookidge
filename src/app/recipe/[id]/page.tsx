@@ -4,6 +4,7 @@ import { RecipeService } from "@/services/recipe";
 import { RecipeQueries } from "@/services/recipe/queries/recipeQueries";
 import { CommentQueries } from "@/services/comment/queries/commentQueries";
 import { RecipeDetail } from "@/containers/recipe/recipeDetail/recipeDetail";
+import { PIdToURL } from "@/utils/pidToUrl";
 
 export async function generateMetadata({
   params,
@@ -17,6 +18,10 @@ export async function generateMetadata({
   return {
     title: `${recipe.name} | ${APP_NAME}`,
     description: recipe.introduction,
+    openGraph: {
+      title: recipe.name,
+      images: PIdToURL(recipe.pictures[0]),
+    },
   };
 }
 
