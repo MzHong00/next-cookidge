@@ -98,12 +98,14 @@ export const CreateIngredientForm = ({
                   </td>
                   <td>
                     <input
+                      type="text"
                       placeholder="재료 이름"
                       {...register(`ingredients.${i}.name`)}
                     />
                   </td>
                   <td>
                     <input
+                      type="text"
                       placeholder="수량"
                       {...register(`ingredients.${i}.quantity`)}
                     />
@@ -115,7 +117,7 @@ export const CreateIngredientForm = ({
                     />
                   </td>
                   <td>
-                    <button onClick={() => remove(i)}>
+                    <button type="button" onClick={() => remove(i)}>
                       <IconBox
                         Icon={CgRemoveR}
                         className={styles.removeButton}
@@ -132,11 +134,9 @@ export const CreateIngredientForm = ({
           </tbody>
         </table>
       </div>
-      <div className={styles.appendButton}>
-        <button onClick={onClickAppendField}>
-          <IconBox Icon={RiAddLine}>추가</IconBox>
-        </button>
-      </div>
+      <button onClick={onClickAppendField} style={{ width: "fit-content" }}>
+        <IconBox Icon={RiAddLine}>추가</IconBox>
+      </button>
       <input type="submit" className={styles.submit} value="생성" />
     </form>
   );

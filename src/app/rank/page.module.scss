@@ -1,7 +1,7 @@
 @use '/src/styles/mixin.scss' as m;
 
 .page {
-    @include m.flex-layout(column, normal, normal, 3rem);
+    @include m.flex-layout(column);
 
     &>section {
         @include m.flex-layout(column);
@@ -9,14 +9,5 @@
         .rankTitle {
             @include m.flex-layout(column, center, normal, 0);
         }
-    }
-}
-
-.skeletonRankList {
-    width: 100%;
-    @include m.grid-template(column, repeat(auto-fit, minmax(200px, 1fr)));
-
-    &>* {
-        padding: var(--base-padding);
     }
 }
