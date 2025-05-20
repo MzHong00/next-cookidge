@@ -11,9 +11,10 @@
         height: 100%;
         position: relative;
         @include m.flex-layout(row, center, center, 0);
-        @include m.main-button();
         cursor: pointer;
         aspect-ratio: 1;
+        border-style: dashed;
+        border-color: rgb(var(--color-main));
 
         .image {
             width: 100%;
@@ -24,6 +25,7 @@
 
         .uploadPlaceholder {
             @include m.flex-layout(column, center, center, 0.5rem);
+            color: rgb(var(--color-main));
         }
     }
 
@@ -32,7 +34,7 @@
     }
 
     &:hover svg {
-        transform: scale(0.9);
+        transform: scale(1.2);
         transition-duration: 0.3s;
         transition-timing-function: ease;
     }
