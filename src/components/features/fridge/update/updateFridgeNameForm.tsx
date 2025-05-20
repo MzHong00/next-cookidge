@@ -49,6 +49,7 @@ export const UpdateFridgeNameForm = ({
     <form className={styles.form}>
       <div onSubmit={handleSubmit(onSubmit)} className={styles.container}>
         <input
+          type="text"
           placeholder="변경할 이름을 입력하세요."
           className={styles.nameInput}
           {...register("name")}
