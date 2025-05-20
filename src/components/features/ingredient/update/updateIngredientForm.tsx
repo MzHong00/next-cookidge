@@ -84,8 +84,16 @@ const IngredientUpdateCard = ({
           </option>
         ))}
       </select>
-      <input placeholder="재료 이름" {...register(`ingredients.${i}.name`)} />
-      <input placeholder="수량" {...register(`ingredients.${i}.quantity`)} />
+      <input
+        type="text"
+        placeholder="재료 이름"
+        {...register(`ingredients.${i}.name`)}
+      />
+      <input
+        type="text"
+        placeholder="수량"
+        {...register(`ingredients.${i}.quantity`)}
+      />
       <input type="date" {...register(`ingredients.${i}.expired_at`)} />
     </div>
   );

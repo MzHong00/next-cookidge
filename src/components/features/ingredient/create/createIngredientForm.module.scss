@@ -46,6 +46,11 @@
         }
     }
 
+    .errorMessage {
+        font-size: var(--base-font-size-small);
+        color: red;
+    }
+
     .removeButton {
         padding: 0rem;
     }
