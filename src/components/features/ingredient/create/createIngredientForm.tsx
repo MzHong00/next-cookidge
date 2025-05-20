@@ -1,6 +1,7 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { CgRemoveR } from "@react-icons/all-files/cg/CgRemoveR";
@@ -16,7 +17,7 @@ import {
   INGREDIENT_TABLE_FIELD,
 } from "@/constants/ingredient";
 import { IconBox } from "@/components/common/iconBox";
-import { ErrorMessage } from "@/components/common/inputErrorMessage";
+import { useIngredientFormStore } from "@/lib/zustand/ingredientFormStore";
 import { useCreateIngredientMutation } from "@/services/ingredient/mutations/createIngredientMutation";
 
 import styles from "./createIngredientForm.module.scss";
@@ -26,20 +27,27 @@ export const CreateIngredientForm = ({
 }: {
   fridge_id: IFridge["_id"];
 }) => {
+  const router = useRouter();
   const { mutate } = useCreateIngredientMutation(fridge_id);
+  const { ingredients, setIngredients } = useIngredientFormStore();
 
   const {
+    reset,
     control,
     register,
+    getValues,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<IUpdateIngredientForm>({
     resolver: zodResolver(IngredientFormSchema),
     defaultValues: {
-      ingredients: [{ name: "", quantity: "", expired_at: "" }],
+      ingredients: ingredients,
     },
   });
+
+  useEffect(() => {
+    return () => setIngredients(getValues().ingredients);
+  }, [getValues().ingredients]);
 
   const { fields, append, remove } = useFieldArray({
     name: "ingredients",
@@ -60,6 +68,7 @@ export const CreateIngredientForm = ({
 
     mutate(ingredients);
     reset();
+    router.back();
   };
 
   return (
@@ -83,10 +92,7 @@ export const CreateIngredientForm = ({
               <Fragment key={ingredient.id}>
                 <tr className={styles.ingredientRow}>
                   <td>
-                    <select
-                      id="category"
-                      {...register(`ingredients.${i}.category`)}
-                    >
+                    <select {...register(`ingredients.${i}.category`)}>
                       {Object.entries(INGREDIENT_CATEGORIES).map(
                         ([text, emoji]) => (
                           <option key={text}>
@@ -98,12 +104,14 @@ export const CreateIngredientForm = ({
                   </td>
                   <td>
                     <input
+                      type="text"
                       placeholder="재료 이름"
                       {...register(`ingredients.${i}.name`)}
                     />
                   </td>
                   <td>
                     <input
+                      type="text"
                       placeholder="수량"
                       {...register(`ingredients.${i}.quantity`)}
                     />
@@ -115,7 +123,7 @@ export const CreateIngredientForm = ({
                     />
                   </td>
                   <td>
-                    <button onClick={() => remove(i)}>
+                    <button type="button" onClick={() => remove(i)}>
                       <IconBox
                         Icon={CgRemoveR}
                         className={styles.removeButton}
@@ -124,20 +132,26 @@ export const CreateIngredientForm = ({
                     </button>
                   </td>
                 </tr>
-                {errors.ingredients?.[i] && (
-                  <ErrorMessage msg="모든 항목을 입력해주세요." />
-                )}
+                <tr>
+                  {errors.ingredients?.[i] && (
+                    <td className={styles.errorMessage}>
+                      *모든 항목을 입력해주세요.
+                    </td>
+                  )}
+                </tr>
               </Fragment>
             ))}
           </tbody>
         </table>
       </div>
-      <div className={styles.appendButton}>
-        <button onClick={onClickAppendField}>
-          <IconBox Icon={RiAddLine}>추가</IconBox>
-        </button>
-      </div>
-      <input type="submit" className={styles.submit} value="생성" />
+      <button onClick={onClickAppendField} style={{ width: "fit-content" }}>
+        <IconBox Icon={RiAddLine}>추가</IconBox>
+      </button>
+      <input
+        type="submit"
+        className={styles.submit}
+        value={`생성 (${getValues().ingredients.length})`}
+      />
     </form>
   );
 };

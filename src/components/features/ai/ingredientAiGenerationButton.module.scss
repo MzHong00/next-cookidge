@@ -1,0 +1,39 @@
+@use '/src/styles/mixin.scss' as m;
+
+.button {
+    background: linear-gradient(-45deg, #5cdfcd, #388ed5, #d960ed);
+    font-weight: bold;
+    font-family: auto;
+    background-size: 125% 100%;
+    animation: shimmer 5s linear infinite;
+}
+
+.form {
+    @include m.flex-layout(column);
+
+    .explain {
+        font-size: var(--base-font-size-small);
+    }
+
+    .submit {
+        width: 100% !important;
+        @include m.button-shape();
+        background-color: rgba(var(--color-main), 0.8) !important;
+        letter-spacing: 1px;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 100% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+
+    }
+}

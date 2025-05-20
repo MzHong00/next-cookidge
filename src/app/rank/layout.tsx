@@ -9,7 +9,7 @@ export default function RankLayout({
 }) {
   return (
     <div>
-      <h2>사용자 탐색</h2>
+      <h2 className={styles.title}>랭킹</h2>
 
       <div className={styles.container}>
         {search}

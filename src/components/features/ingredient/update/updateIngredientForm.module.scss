@@ -13,7 +13,7 @@
         }
 
         .updateCard {
-            @include m.flex-layout(column, normal, normal, 0.55rem);
+            @include m.flex-layout(column, normal, normal, 0.25rem);
             @include m.light-dark-section();
 
             &>select {
