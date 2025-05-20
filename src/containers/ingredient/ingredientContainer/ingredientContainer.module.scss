@@ -4,24 +4,24 @@
     @include m.flex-layout(column, center, center);
     @include m.dark-section(rgb(var(--color-dark)));
 
-    .ingredientControls {
-        @include m.flex-layout(row);
+    .ingredientInputSection {
+        width: 100%;
+        @include m.flex-layout(row, normal, space-between);
+        flex-wrap: wrap;
     }
 
-    .ingredientActions {
+    .ingredientFilterSection {
         width: 100%;
         @include m.flex-layout(row);
 
         &>* {
             @include m.dark-section(rgb(var(--color-dark-light)));
+            padding-block: 0.5rem;
         }
     }
 }
 
 @media screen and (max-width: 767px) {
-    .ingredientContainer {
-        padding-inline: 0.5rem !important;
-    }
 
     .subInfo {
         flex-direction: column;

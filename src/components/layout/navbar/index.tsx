@@ -27,7 +27,9 @@ export function Navbar() {
             style={{ maxWidth: "300px" }}
             buttonComponent={<Profile picture={me.picture} disabled />}
           >
-            <Menu me={me} />
+            {({ closeHandler }) => (
+              <Menu me={me} commonHandler={closeHandler} />
+            )}
           </DialogCSR>
         ) : (
           <Link href="/login" scroll={false}>

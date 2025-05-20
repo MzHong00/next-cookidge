@@ -1,5 +1,9 @@
 @use '/src/styles/mixin.scss' as m;
 
+.title {
+    margin-bottom: 1rem;
+}
+
 .container {
     max-width: 500px;
     margin: auto;

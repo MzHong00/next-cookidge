@@ -7,10 +7,16 @@ import { LogoutButton } from "@/components/features/user/logout/logoutButton";
 
 import styles from "./menu.module.scss";
 
-export const Menu = ({ me }: { me: IUser }) => {
+export const Menu = ({
+  me,
+  commonHandler,
+}: {
+  me: IUser;
+  commonHandler: () => void;
+}) => {
   return (
     <ul className={styles.container}>
-      <li>
+      <li onClick={commonHandler}>
         <Link href={`/user/${me.name}`}>
           <IconBox Icon={RiUserLine} className={styles.icon}>
             내 정보
@@ -18,7 +24,7 @@ export const Menu = ({ me }: { me: IUser }) => {
         </Link>
       </li>
 
-      <li>
+      <li onClick={commonHandler}>
         <LogoutButton className={styles.icon} />
       </li>
     </ul>

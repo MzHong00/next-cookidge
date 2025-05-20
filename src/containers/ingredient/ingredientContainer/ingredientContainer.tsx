@@ -14,6 +14,7 @@ import { IconBox } from "@/components/common/iconBox";
 import { SearchInput } from "@/components/common/search";
 import { IngredientList } from "../ingredientList/ingredientList";
 import { UpdateIngredientForm } from "@/components/features/ingredient/update/updateIngredientForm";
+import { IngredientAIGenerationButton } from "@/components/features/ai/ingredientAiGenerationButton";
 
 import styles from "./ingredientContainer.module.scss";
 
@@ -35,20 +36,25 @@ export const IngredientContainer = ({
 
   return (
     <div className={styles.ingredientContainer}>
-      <div className={styles.ingredientControls}>
-        <Link href={`/fridge/${_id}/ingredient`} scroll={false}>
-          <IconBox Icon={CgAddR} className="main-button">
-            재료 추가
-          </IconBox>
-        </Link>
-        <button onClick={() => setIsReadMode((prev) => !prev)}>
-          <IconBox Icon={isReadMode ? RiEditBoxLine : RiCloseLine}>
-            {isReadMode ? "재료 수정" : "수정 닫기"}
-          </IconBox>
-        </button>
-      </div>
+      <section className={styles.ingredientInputSection}>
+        <div>
+          <IngredientAIGenerationButton id={_id} />
+        </div>
+        <div className="flex-row">
+          <Link href={`/fridge/${_id}/ingredient`} scroll={false}>
+            <IconBox Icon={CgAddR} className="main-button">
+              재료 추가
+            </IconBox>
+          </Link>
+          <button onClick={() => setIsReadMode((prev) => !prev)}>
+            <IconBox Icon={isReadMode ? RiEditBoxLine : RiCloseLine}>
+              {isReadMode ? "재료 수정" : "수정 닫기"}
+            </IconBox>
+          </button>
+        </div>
+      </section>
 
-      <div className={styles.ingredientActions}>
+      <section className={styles.ingredientFilterSection}>
         <SearchInput value={filterValue} onChange={onChangeFilterValue} />
         <select value={sortTypeValue} onChange={onChangeSortTypeValue}>
           {INGREDIENT_SORT_TYPES.map((value) => (
@@ -57,7 +63,7 @@ export const IngredientContainer = ({
             </option>
           ))}
         </select>
-      </div>
+      </section>
 
       {isReadMode ? (
         <IngredientList stored_ingredients={processedIngredients} />
