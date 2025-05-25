@@ -11,11 +11,13 @@ import { useSetQueryStringByInput } from "@/hooks/useSetQueryStringByInput";
 
 import styles from "./RecipeQueryBox.module.scss";
 
-export const RecipeQueryBox = () => {
-  const { value, onChangeSetValue } = useSetQueryStringByInput(RECIPE_QUERY_STRING_KEY);
+export const RecipeQueryBox = ({ className }: { className?: string }) => {
+  const { value, onChangeSetValue } = useSetQueryStringByInput(
+    RECIPE_QUERY_STRING_KEY
+  );
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${className}`}>
       <div className={styles.actionBar}>
         <SearchInput value={value} onChange={onChangeSetValue} />
         <div className={styles.option}>

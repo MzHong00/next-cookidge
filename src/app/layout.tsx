@@ -40,7 +40,7 @@ export default function RootLayout({
         <Provider>
           {auth}
           <Header />
-          <main style={{ padding: "1rem", marginBottom: "5rem" }}>
+          <main style={{ padding: "0.5rem", marginBottom: "5rem" }}>
             {children}
           </main>
           <Navbar />

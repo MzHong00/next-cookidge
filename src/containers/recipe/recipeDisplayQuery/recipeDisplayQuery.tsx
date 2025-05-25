@@ -14,36 +14,39 @@ export const RecipeDisplayQuery = () => {
 
   return (
     <div className={styles.container}>
-      <ul>
-        {RECIPE_SORT.map(
-          ({ query, text }) =>
-            searchParams.get("sort") === query && (
-              <li key={query} className={styles.sortItem}>
-                {text}
-              </li>
-            )
-        )}
-      </ul>
-
-      <ul className="flex-row">
-        {searchParams.getAll("categories").map((category) => (
-          <motion.li
-            key={category}
-            variants={fadeSlide}
-            initial="upSlide"
-            animate="visible"
-            className={styles.filterItem}
-          >
-            <button
-              onClick={() => {
-                setSearchParams.delete("categories", category);
-              }}
+      {searchParams.get("sort") && (
+        <ul>
+          {RECIPE_SORT.map(
+            ({ query, text }) =>
+              searchParams.get("sort") === query && (
+                <li key={query} className={styles.sortItem}>
+                  {text}
+                </li>
+              )
+          )}
+        </ul>
+      )}
+      {searchParams.getAll("categories") && (
+        <ul className={styles.filterList}>
+          {searchParams.getAll("categories").map((category) => (
+            <motion.li
+              key={category}
+              variants={fadeSlide}
+              initial="upSlide"
+              animate="visible"
+              className={styles.filterItem}
             >
-              {category} <RiCloseLine />
-            </button>
-          </motion.li>
-        ))}
-      </ul>
+              <button
+                onClick={() => {
+                  setSearchParams.delete("categories", category);
+                }}
+              >
+                {category} <RiCloseLine />
+              </button>
+            </motion.li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

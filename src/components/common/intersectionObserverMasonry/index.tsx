@@ -14,7 +14,7 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
     Masonry는 window API를 사용하기 때문에 CSR을 해야한다. Client Render 컴포넌
     트로 감싸면 마운트 된 후에 렌더링 하기 때문에 옵저버 ref에 할당이 안된다.
 */
-const GAP = 10;
+const GAP = 5;
 const MAX_DIVISION = 4;
 
 interface Props extends MasonryProps<"div"> {

@@ -3,7 +3,6 @@ import { create } from "zustand";
 interface DialogPayload {
   message: string;
   processMessage: string;
-  descriptions: string[];
   requestFn: () => Promise<void>;
   option: {
     backspace?: boolean;
@@ -28,7 +27,6 @@ const initialState = {
   payload: {
     message: "",
     processMessage: "",
-    descriptions: [],
     requestFn: async () => {},
     option: {
       backspace: true,

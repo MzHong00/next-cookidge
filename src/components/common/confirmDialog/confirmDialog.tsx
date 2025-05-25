@@ -16,14 +16,14 @@ export const ConfirmDialog = () => {
   const router = useRouter();
   const ref = useHandleShowingDialog();
   const { isOpen, isLoading, payload, actions } = useConfirmDialogStore();
-  const { message, processMessage, descriptions, requestFn, option } = payload;
+  const { message, processMessage, requestFn, option } = payload;
 
   const onClickConfirm = async () => {
     actions.setIsLoading(true);
 
     try {
       await requestFn();
-      if(option.backspace) router.back();
+      if (option.backspace) router.back();
     } catch (error) {
       console.error(error);
     } finally {
@@ -40,13 +40,10 @@ export const ConfirmDialog = () => {
         <header className={styles.header}>
           <Logo />
           <p>{message}</p>
-          <ol className={styles.descriptions}>
-            {descriptions.map((description, i) => (
-              <li key={i}>{description}</li>
-            ))}
-          </ol>
         </header>
-        {isLoading && <LoadingDots msg={processMessage} className={styles.processMessage}/>}
+        {isLoading && (
+          <LoadingDots msg={processMessage} className={styles.processMessage} />
+        )}
         {!isLoading && (
           <main className="flex-row">
             <button>

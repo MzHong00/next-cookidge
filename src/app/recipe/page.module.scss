@@ -1,7 +1,19 @@
 @use '/src/styles/mixin.scss' as m;
 
+.recipeQueryBox {
+    position: sticky;
+    top: 3rem;
+    z-index: 10;
+}
+
 .openFormButton {
     transition-duration: 0.3s;
     box-shadow: var(--base-box-shadow);
     background-color: rgb(var(--color-dark)) !important;
+}
+
+@media screen and (max-width: 768px) {
+    .openFormButton {
+        opacity: 0.7;
+    }
 }

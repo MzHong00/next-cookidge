@@ -117,11 +117,11 @@ export const UpdateRecipeForm = ({ recipe }: { recipe: IRecipe }) => {
   );
 };
 
-interface Props {
+interface FieldProps {
   useForm: UseFormReturn<IUpdateRecipeForm, undefined>;
 }
 
-const RecipeInfoFields = ({ useForm }: Props) => {
+const RecipeInfoFields = ({ useForm }: FieldProps) => {
   const {
     watch,
     register,
@@ -139,7 +139,7 @@ const RecipeInfoFields = ({ useForm }: Props) => {
         </label>
         <InputFile
           id="pictures"
-          style={{ width: "50px" }}
+          className={styles.inputFile}
           {...register(`pictures`)}
           multiple
         />
@@ -162,12 +162,14 @@ const RecipeInfoFields = ({ useForm }: Props) => {
       <InputBox
         id="name"
         label="이름"
+        type="text"
         placeholder="요리 이름을 입력하세요."
+        className={styles.inputBox}
         {...register("name")}
       />
       {errors.name && <ErrorMessage msg={errors.name.message}></ErrorMessage>}
 
-      <div className="flex-column">
+      <div className={styles.inputBox}>
         <label htmlFor="introduce">소개</label>
         <textarea
           id="introduce"
@@ -180,7 +182,7 @@ const RecipeInfoFields = ({ useForm }: Props) => {
         <ErrorMessage msg={errors.introduction.message}></ErrorMessage>
       )}
 
-      <div className="flex-column">
+      <div className={styles.inputBox}>
         <label htmlFor="category">카테고리</label>
         <select id="category" {...register("category")}>
           {FOOD_CATEGORIES.map((category) => (
@@ -199,6 +201,7 @@ const RecipeInfoFields = ({ useForm }: Props) => {
         label="조리 시간(분)"
         type="number"
         defaultValue={1}
+        className={styles.inputBox}
         {...register("cooking_time")}
       />
       {errors.cooking_time && (
@@ -210,6 +213,7 @@ const RecipeInfoFields = ({ useForm }: Props) => {
         label="인분"
         type="number"
         defaultValue={1}
+        className={styles.inputBox}
         {...register("servings")}
       />
       {errors.servings && (
@@ -219,7 +223,7 @@ const RecipeInfoFields = ({ useForm }: Props) => {
   );
 };
 
-const IngredientFields = ({ useForm }: Props) => {
+const IngredientFields = ({ useForm }: FieldProps) => {
   const {
     register,
     control,
@@ -236,12 +240,12 @@ const IngredientFields = ({ useForm }: Props) => {
   });
 
   return (
-    <div key="ingredients" className="flex-column">
+    <div key="ingredients" className={styles.ingredientContainer}>
       <label>재료</label>
-      <ul className="flex-column">
+      <ul className={styles.ingredientList}>
         {ingredientFields.map((filed, i) => (
           <Fragment key={filed.id}>
-            <li className="flex-row">
+            <li className={styles.ingredientItem}>
               <select id="category" {...register(`ingredients.${i}.category`)}>
                 {Object.entries(INGREDIENT_CATEGORIES).map(([text, emoji]) => (
                   <option key={text} value={text}>
@@ -251,11 +255,13 @@ const IngredientFields = ({ useForm }: Props) => {
               </select>
               <input
                 id="ingredient-1"
+                type="text"
                 placeholder="재료 이름을 입력하세요."
                 {...register(`ingredients.${i}.name`)}
               />
               <input
                 id="quantity-1"
+                type="text"
                 placeholder="양을 입력하세요. ex) 1개, 1큰술, 1컵"
                 {...register(`ingredients.${i}.quantity`)}
               />
@@ -290,7 +296,7 @@ const IngredientFields = ({ useForm }: Props) => {
   );
 };
 
-const CookingStepFields = ({ useForm }: Props) => {
+const CookingStepFields = ({ useForm }: FieldProps) => {
   const {
     watch,
     control,
@@ -310,7 +316,7 @@ const CookingStepFields = ({ useForm }: Props) => {
   const cooking_steps = watch("cooking_steps");
 
   return (
-    <div key="cookingSteps" className="flex-column">
+    <div key="cookingSteps" className={styles.stepContainer}>
       <label>요리 과정</label>
       <ul className={styles.stepInput}>
         {cookingStepFields.map((field, i) => (
@@ -383,6 +389,8 @@ const StepField = memo(
         <InputFile
           id={`cooking_steps.${i}.picture`}
           previewUrl={previewUrl}
+          style={{ ...(previewUrl && { border: "none" }) }}
+          className={styles.inputFile}
           {...register(`cooking_steps.${i}.picture`)}
         />
         <textarea

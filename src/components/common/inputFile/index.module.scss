@@ -2,9 +2,10 @@
 
 .container {
     height: 100%;
-    border: 1px solid black;
-    border-radius: 5px;
-    border: none;
+    border-radius: var(--border-radius);
+    border-style: dashed;
+    border-color: rgb(var(--color-main));
+    overflow: hidden;
 
     &>label {
         width: 100%;
@@ -13,8 +14,6 @@
         @include m.flex-layout(row, center, center, 0);
         cursor: pointer;
         aspect-ratio: 1;
-        border-style: dashed;
-        border-color: rgb(var(--color-main));
 
         .image {
             width: 100%;

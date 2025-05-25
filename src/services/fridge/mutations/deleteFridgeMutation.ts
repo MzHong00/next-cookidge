@@ -16,8 +16,8 @@ export const useDeleteFridgeMutation = (id: IFridge["_id"]) => {
       const { detail, list } = FridgeQueries.keys;
 
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: [list] }),
-        queryClient.removeQueries({ queryKey: [detail, id] }),
+        queryClient.invalidateQueries({ queryKey: list }),
+        queryClient.removeQueries({ queryKey: [...detail, id] }),
       ]);
 
       alertEnqueue({
