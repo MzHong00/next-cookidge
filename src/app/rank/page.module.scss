@@ -11,12 +11,3 @@
         }
     }
 }
-
-.skeletonRankList {
-    width: 100%;
-    @include m.grid-template(column, repeat(auto-fit, minmax(200px, 1fr)));
-
-    &>* {
-        padding: var(--base-padding);
-    }
-}

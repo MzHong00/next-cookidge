@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { forwardRef } from "react";
-import { RiUpload2Line } from "@react-icons/all-files/ri/RiUpload2Line";
+import { RiImageAddFill } from "@react-icons/all-files/ri/RiImageAddFill";
 
 import styles from "./index.module.scss";
 
@@ -23,7 +23,7 @@ export const InputFile = forwardRef<HTMLInputElement, Props>(
             />
           ) : (
             <div className={styles.uploadPlaceholder}>
-              <RiUpload2Line size={24} />
+              <RiImageAddFill size={32} />
             </div>
           )}
         </label>

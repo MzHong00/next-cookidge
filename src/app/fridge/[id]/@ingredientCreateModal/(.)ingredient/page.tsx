@@ -7,7 +7,7 @@ export default function IngredientCreateModal({
   params: Promise<{ id: string }>;
 }) {
   return (
-    <Dialog title="냉장고 생성">
+    <Dialog title="재료 생성" style={{ width: "80%" }}>
       <IngredientCreatePage params={params} />
     </Dialog>
   );

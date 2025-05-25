@@ -24,7 +24,7 @@ export async function generateMetadata({
     description: user.introduce,
     openGraph: {
       title: user.name,
-      images: PIdToURL(user.picture[0])
+      images: PIdToURL(user.picture)
     }
   };
 }

@@ -67,13 +67,13 @@ export const UserUpdateForm = ({ user }: { user: IUser }) => {
         {...register(`picture`)}
       />
       <InputBox
+        id="email"
         type="text"
         label="이메일"
-        id="email"
         value={user.email}
         disabled
       />
-      <InputBox type="text" label="이름" {...register("name")} />
+      <InputBox id="name" type="text" label="이름" {...register("name")} />
       <div className="flex-column">
         <label htmlFor="introduce">소개</label>
         <textarea id="introduce" maxLength={100} {...register("introduce")} />

@@ -7,11 +7,11 @@
     position: fixed;
     top: 0;
     background-color: rgb(var(--color-dark), 0.5);
-    z-index: 100;
+    z-index: 1000;
 
     .dialog {
         min-width: 300px;
-        max-height: 90%;
+        max-height: 80%;
         padding: var(--base-padding);
         @include m.flex-layout(column, normal, normal, 0.5rem);
         border-radius: var(--border-radius);

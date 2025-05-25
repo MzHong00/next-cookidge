@@ -2,9 +2,10 @@
 
 .form {
     flex-grow: 1;
+    border-radius: var(--border-radius);
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: inherit;
+    background-color: rgb(var(--color-dark));
 
     & input,
     & select,
@@ -27,12 +28,19 @@
         @include m.flex-layout(row, center, normal, 0.25rem);
     }
 
+    .inputFile {
+        width: 50px;
+        border-radius: 0;
+    }
+
     &>ul {
         @include m.flex-layout(row);
         flex-wrap: wrap;
 
         &>li {
             position: relative;
+            width: 200px;
+            height: 200px;
 
             &>img {
                 object-fit: cover;
@@ -42,23 +50,45 @@
     }
 }
 
-// 요리 과정 스타일
-.stepInput {
-    @include m.flex-layout(column);
+.inputBox {
+    @include m.flex-layout(column, normal, normal, calc(var(--base-gap) / 4));
+}
 
-    &>li {
-        width: 100%;
-        @include m.flex-layout(row);
+// 재료 스탭 스타일
+.ingredientContainer {
+    @include m.flex-layout(column, normal, normal, calc(var(--base-gap) / 4));
+
+    .ingredientList {
+        @include m.flex-layout(column, normal, normal, calc(var(--base-gap) / 2));
+
+        .ingredientItem {
+            @include m.flex-layout(row, normal, normal, calc(var(--base-gap) / 4))
+        }
     }
 }
 
-.stepField {
-    width: 100%;
-    @include m.flex-layout(row);
+// 요리 과정 스타일
+.stepContainer {
+    @include m.flex-layout(column, normal, normal, calc(var(--base-gap) / 2));
 
-    &>:first-child {
+    .stepInput {
+        @include m.flex-layout(column);
+
+        &>li {
+            width: 100%;
+            @include m.flex-layout(row, normal, normal, calc(var(--base-gap) / 2));
+        }
+    }
+
+    .stepField {
         width: 100%;
-        max-width: 300px;
+        @include m.flex-layout(row, normal, normal, calc(var(--base-gap) / 2));
+
+        .inputFile {
+            width: 100%;
+            max-width: 300px;
+            
+        }
     }
 }
 
@@ -73,48 +103,4 @@
 .removeButton {
     padding-inline: 0;
     color: red;
-}
-
-.errorMessage {
-    font-size: 0.75rem;
-    color: red;
-}
-
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-
-.imagePreview {
-    width: max(20%, 100px);
-    @include m.flex-layout(row, center, center);
-    overflow: hidden;
-    aspect-ratio: 1;
-}
-
-.previewStepImage {
-    height: 100%;
-    border: 1px solid black;
-    border-radius: 5px;
-    border: none;
-
-    &>label {
-        width: 100%;
-        height: 100%;
-        @include m.flex-layout(row, center, center, 0);
-        @include m.main-button();
-        cursor: pointer;
-        aspect-ratio: 1;
-    }
-
-    &>input {
-        display: none;
-    }
-
-    &:hover svg {
-        transform: scale(0.9);
-        transition-duration: 0.3s;
-        transition-timing-function: ease;
-    }
-}
-
-.uploadPlaceholder {
-    @include m.flex-layout(column, center, center, 0.5rem);
 }

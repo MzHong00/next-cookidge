@@ -11,15 +11,12 @@
 
     .header {
         @include m.flex-layout(column, center, normal, 0.5rem);
-
-        .descriptions {
-            margin-block-start: 1em;
-            font-size: 0.85em;
-            list-style: circle;
-        }
     }
 
     .processMessage {
+        position: relative;
+        left: 0;
         font-size: var(--base-font-size-small);
+        transform: none;
     }
 }
