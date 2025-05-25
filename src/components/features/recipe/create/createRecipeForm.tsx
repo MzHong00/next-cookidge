@@ -132,7 +132,7 @@ const RecipeInfoFields = ({ useForm }: FieldProps) => {
         </label>
         <InputFile
           id="pictures"
-          style={{ width: "50px" }}
+          className={styles.inputFile}
           {...register(`pictures`)}
           multiple
         />

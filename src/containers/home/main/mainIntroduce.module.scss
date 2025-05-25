@@ -4,16 +4,16 @@
     @include m.flex-layout(column, center, center, 3rem);
 }
 
-.logoText {
+.logoBox {
     @include m.flex-layout(column, center, center, 0);
 
     &>p {
         color: rgb(var(--color-main));
     }
 
-    &>:first-child {
+    .logo {
         gap: 0.5rem;
-        font-size: 4rem;
+        font-size: clamp(1rem, 12vw, 4rem);
         font-weight: bold;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }

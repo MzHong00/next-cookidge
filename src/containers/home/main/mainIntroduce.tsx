@@ -10,8 +10,8 @@ import { GradualSpacing } from "@/components/common/textAnimation/gradulaSpacing
 
 import styles from "./mainIntroduce.module.scss";
 
-const SERVICE_TYPES = NAV_TYPES.filter(
-  ({ text }) => ["레시피", "냉장고"].includes(text)
+const SERVICE_TYPES = NAV_TYPES.filter(({ text }) =>
+  ["레시피", "냉장고"].includes(text)
 );
 
 const ANIMATE_DELAY = 1;
@@ -21,8 +21,8 @@ const HOVER_SCALE = 1;
 export const MainIntroduce = () => {
   return (
     <section className={styles.container}>
-      <div className={styles.logoText}>
-        <GradualSpacing text="Cookidge" />
+      <div className={styles.logoBox}>
+        <GradualSpacing text="Cookidge" className={styles.logo} />
         <motion.p
           variants={fadeSlide}
           initial="upSlide"

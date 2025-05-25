@@ -28,6 +28,11 @@
         @include m.flex-layout(row, center, normal, 0.25rem);
     }
 
+    .inputFile {
+        width: 50px;
+        border-radius: 0;
+    }
+
     &>ul {
         @include m.flex-layout(row);
         flex-wrap: wrap;

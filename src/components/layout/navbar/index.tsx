@@ -41,9 +41,16 @@ export function Navbar() {
       <nav className={styles.nav}>
         {NAV_TYPES.map(({ Icon, href, text }) => {
           const isActiveTab = path.startsWith(href);
+          const requireAuthPage = text === "냉장고";
 
           return (
-            <Link key={href} href={href} title={text} scroll={false}>
+            <Link
+              key={href}
+              href={href}
+              title={text}
+              scroll={false}
+              prefetch={!requireAuthPage}
+            >
               <Icon
                 style={{
                   ...(isActiveTab && {
