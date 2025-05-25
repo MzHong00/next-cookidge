@@ -1,31 +1,27 @@
 @use '/src/styles/mixin.scss' as m;
 
 .container {
-    margin-bottom: var(--base-padding);
-    @include m.flex-layout(column);
-    position: sticky;
-    top: 4.5rem;
-    z-index: 10;
-}
+    @include m.flex-layout(column, normal, normal, 0);
 
-.actionBar {
-    @include m.flex-layout(row, center, normal);
-    flex-wrap: wrap;
+    .actionBar {
+        @include m.flex-layout(row, center, normal, 0.5rem);
+        flex-wrap: wrap;
 
-    &>:first-child {
-        height: 3rem;
-        border-radius: var(--border-radius);
-        background-color: rgb(var(--color-dark));
-        flex-grow: 1
-    }
-
-    .option {
-        @include m.flex-layout(row, center, normal);
-
-        &>* {
+        &>:first-child {
             height: 3rem;
             border-radius: var(--border-radius);
             background-color: rgb(var(--color-dark));
+            flex-grow: 1
+        }
+
+        .option {
+            @include m.flex-layout(row, center, normal, 0.5rem);
+
+            &>* {
+                height: 3rem;
+                border-radius: var(--border-radius);
+                background-color: rgb(var(--color-dark));
+            }
         }
     }
 }

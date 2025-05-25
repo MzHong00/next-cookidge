@@ -1,7 +1,6 @@
 @use '/src/styles/mixin.scss' as m;
 
 .header {
-    height: 4.5rem;
     position: sticky;
     top: 0;
     @include m.flex-layout(row, center, space-between);

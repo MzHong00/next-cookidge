@@ -1,12 +1,11 @@
 @use '/src/styles/mixin.scss' as m;
 
 .form {
-    padding-inline: 0.5rem;
     flex-grow: 1;
     overflow-x: hidden;
     overflow-y: auto;
     background-color: inherit;
-    
+
     & input,
     & select,
     & textarea {
@@ -16,7 +15,7 @@
         padding: 0.5rem;
         border-radius: var(--border-radius);
         color: rgb(var(--foreground));
-        background-color: rgb(var(--color-dark-light))
+        background-color: rgb(var(--color-dark-light)) !important;
     }
 }
 
@@ -34,7 +33,7 @@
 
         &>li {
             position: relative;
-            
+
             &>img {
                 object-fit: cover;
                 object-position: center;
@@ -57,7 +56,7 @@
     width: 100%;
     @include m.flex-layout(row);
 
-    &>:first-child{
+    &>:first-child {
         width: 100%;
         max-width: 300px;
     }

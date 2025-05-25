@@ -3,5 +3,5 @@
 .container {
     max-width: 500px;
     margin: auto;
-    @include m.flex-layout(column, normal, normal, 3rem);
+    @include m.flex-layout(column);
 }

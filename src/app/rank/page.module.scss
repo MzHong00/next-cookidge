@@ -1,7 +1,7 @@
 @use '/src/styles/mixin.scss' as m;
 
 .page {
-    @include m.flex-layout(column, normal, normal, 3rem);
+    @include m.flex-layout(column);
 
     &>section {
         @include m.flex-layout(column);

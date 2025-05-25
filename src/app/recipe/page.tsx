@@ -30,7 +30,7 @@ export default async function RecipePage({
         </IconBox>
       </Link>
 
-      <RecipeQueryBox />
+      <RecipeQueryBox className={styles.recipeQueryBox} />
 
       <Suspense fallback={<LoadingDots msg="레시피 목록 가져오는 중..." />}>
         <RecipeList recipeQuery={recipeQuery} />

@@ -1,8 +1,6 @@
 @use '/src/styles/mixin.scss' as m;
 
 .form {
-    padding: var(--base-padding);
-    padding-top: 0;
     flex-grow: 1;
     border-radius: var(--border-radius);
     overflow-x: hidden;
@@ -18,7 +16,7 @@
         padding: 0.5rem;
         border-radius: var(--border-radius);
         color: rgb(var(--foreground));
-        background-color: rgb(var(--color-dark-light))
+        background-color: rgb(var(--color-dark-light)) !important;
     }
 }
 

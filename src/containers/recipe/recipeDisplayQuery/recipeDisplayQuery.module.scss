@@ -1,21 +1,25 @@
 @use '/src/styles/mixin.scss' as m;
 
 .container {
-    @include m.flex-layout(row);
+    margin-block: calc(var(--base-margin) / 2);
+    @include m.flex-layout(row, normal, normal, 0.5rem);
 
     .sortItem {
         background: rgb(var(--color-dark));
-
     }
 
-    .filterItem {
-        background: rgb(var(--color-main));
+    .filterList {
+        @include m.flex-layout(row, center, normal, 0.5rem);
 
-        &>button {
-            @include m.flex-layout(row, center, normal, 0);
+        .filterItem {
+            background: rgb(var(--color-main));
 
-            & svg {
-                font-size: medium;
+            &>button {
+                @include m.flex-layout(row, center, normal, 0);
+
+                & svg {
+                    font-size: medium;
+                }
             }
         }
     }

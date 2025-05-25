@@ -128,7 +128,7 @@ const RecipeInfoFields = ({ useForm }: Props) => {
       <div className={styles.pictureInput}>
         <label>
           사진
-          <Tooltip message="사진을 드래그하여 여러 개 선택하세요!" />
+          <Tooltip message="사진을 드래그하여 여러 개 선택하세요." />
         </label>
         <InputFile
           id="pictures"
@@ -151,6 +151,7 @@ const RecipeInfoFields = ({ useForm }: Props) => {
       <InputBox
         id="name"
         label="이름"
+        type="text"
         placeholder="요리 이름을 입력하세요."
         {...register("name")}
       />
@@ -240,11 +241,13 @@ const IngredientFields = ({ useForm }: Props) => {
               </select>
               <input
                 id="ingredient-1"
+                type="text"
                 placeholder="재료 이름을 입력하세요."
                 {...register(`ingredients.${i}.name`)}
               />
               <input
                 id="quantity-1"
+                type="text"
                 placeholder="양을 입력하세요. ex) 1개, 1큰술, 1컵"
                 {...register(`ingredients.${i}.quantity`)}
               />
