@@ -1,76 +1,97 @@
 @use '/src/styles/mixin.scss' as m;
 
-.card {
-    padding: 1rem;
-    @include m.flex-layout(column, normal, normal, 0.5rem);
-    position: relative;
-    background-color: rgba(var(--color-dark), 0.4);
-    border-radius: var(--border-radius);
-    box-shadow: 0px 0px 8px -2px;
+.container {
+    @include m.flex-layout(column);
 
-    .cardHeader {
-        @include m.flex-layout(row, center, space-between, 0);
+    .recipeCard {
+        padding: 1rem;
+        @include m.flex-layout(column, normal, normal, 0.5rem);
+        position: relative;
+        background-color: rgba(var(--color-dark), 0.4);
+        border-radius: var(--border-radius);
+        box-shadow: 0px 0px 8px -2px;
 
-        .recipeAction {
-            @include m.flex-layout(row);
+        .recipeCardHeader {
+            @include m.flex-layout(row, center, space-between, 0);
+
+            .recipeEditAction {
+                @include m.flex-layout(row);
+            }
+        }
+
+        hr {
+            opacity: 0.5;
         }
     }
-}
 
-.contentContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    .contentContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
 
-    .contents {
-        padding: var(--base-padding);
-        @include m.flex-layout(column);
-        color: rgb(var(--foreground));
-        background-color: rgba(var(--color-dark), 0.55);
-        border-radius: var(--border-radius);
+        .pictureSlider {
+            max-height: 500px;
+            height: 50vh;
+            border-radius: var(--border-radius);
+        }
 
-        &>section:first-of-type {
-            @include m.flex-layout(row);
-            flex-wrap: wrap;
+        .rightSection {
+            @include m.flex-layout(column);
 
-            &>* {
-                background-color: rgba(var(--color-dark), 0.8);
+            .contents {
+                padding: var(--base-padding);
+                @include m.flex-layout(column, normal, normal, calc(var(--base-gap) / 2));
+                flex-grow: 1;
+                color: rgb(var(--foreground));
+                background-color: rgba(var(--color-dark), 0.55);
+                border-radius: var(--border-radius);
+
+                .subInfo {
+                    @include m.flex-layout(row, normal, normal, calc(var(--base-gap) / 4));
+                    flex-wrap: wrap;
+
+                    &>* {
+                        background-color: rgba(var(--color-dark), 0.8);
+                    }
+                }
+            }
+
+            .recipeSocialAction {
+                padding-inline: var(--base-padding);
+                background-color: rgba(var(--color-dark), 0.55);
+                border-radius: var(--border-radius);
             }
         }
     }
 
-    .pictureSlider {
-        height: 500px;
-        border-radius: var(--border-radius);
-    }
-}
+    .ingredients {
+        @include m.flex-layout(row);
+        flex-wrap: wrap;
 
+        &>li {
+            @include m.main-button-dark();
 
-.ingredients {
-    @include m.flex-layout(row);
-    flex-wrap: wrap;
-
-    &>li {
-        @include m.main-button-dark();
-
-        &>div {
-            box-shadow: 0px 0px 2px 0px;
+            &>div {
+                box-shadow: 0px 0px 2px 0px;
+            }
         }
     }
-}
 
-.cardTabIndex {
-    padding-bottom: 0.25rem;
-    @include m.flex-layout(row);
-    border-radius: inherit;
+    .cardTabIndex {
+        padding-bottom: 0.25rem;
+        @include m.flex-layout(row);
+        border-radius: inherit;
+    }
 }
 
 @media screen and (max-width: 768px) {
-    .contentContainer {
-        grid-template-columns: 1fr;
-    }
+    .container {
+        .contentContainer {
+            grid-template-columns: 1fr;
+        }
 
-    .pictureSlider {
-        height: 250px !important;
+        .pictureSlider {
+            height: 30vh !important;
+        }
     }
 }

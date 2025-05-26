@@ -35,7 +35,7 @@ export function RecipeDetail({ id }: { id: string }) {
   const { data: me } = useQuery(UserQueries.meQuery());
   const { data: recipe } = useSuspenseQuery(RecipeQueries.detailQuery(id));
 
-  const { _id, ingredients, cooking_steps, user, ...contents } = recipe;
+  const { ingredients, cooking_steps, user, ...contents } = recipe;
 
   const changeTabHandler = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -45,24 +45,25 @@ export function RecipeDetail({ id }: { id: string }) {
   );
 
   return (
-    <div className="flex-column">
+    <div className={styles.container}>
       <motion.section
-        className={styles.card}
         variants={fadeSlide}
         initial="leftSlide"
         animate="visible"
         custom={SLIDE_MOVE_PX}
+        className={styles.recipeCard}
       >
-        <header className={styles.cardHeader}>
+        <header className={styles.recipeCardHeader}>
           <UserCard name={user.name} picture={user.picture} />
           {me?._id === user._id && (
-            <div className={styles.recipeAction}>
+            <div className={styles.recipeEditAction}>
               <RecipeUpdateLink recipe_id={recipe._id} />
               <RecipeDeleteButton recipe_id={recipe._id} />
             </div>
           )}
         </header>
-        <hr style={{opacity: 0.5}}/>
+
+        <hr />
 
         <TabIndex tab={tab} onClick={changeTabHandler} />
 
@@ -84,11 +85,6 @@ export function RecipeDetail({ id }: { id: string }) {
             <RecipeStep recipeSteps={cooking_steps} />
           </motion.div>
         )}
-        <LikeButton
-          recipe_id={_id}
-          likeMembers={contents.like_members}
-          style={{ width: "fit-content" }}
-        />
       </motion.section>
 
       <section>
@@ -96,7 +92,7 @@ export function RecipeDetail({ id }: { id: string }) {
       </section>
 
       <section>
-        <CommentList recipe_id={_id} author_id={recipe.author_id} />
+        <CommentList recipe_id={recipe._id} author_id={recipe.author_id} />
       </section>
     </div>
   );
@@ -105,24 +101,42 @@ export function RecipeDetail({ id }: { id: string }) {
 const Contents = ({
   recipe,
 }: {
-  recipe: Omit<IRecipe, "_id" | "ingredients" | "cooking_steps">;
+  recipe: Omit<IRecipe, "ingredients" | "cooking_steps">;
 }) => {
-  const { name, introduction, pictures, servings, cooking_time, created_at } =
-    recipe;
+  const {
+    _id,
+    name,
+    introduction,
+    pictures,
+    servings,
+    cooking_time,
+    like_members,
+    created_at,
+  } = recipe;
 
   return (
     <div className={styles.contentContainer}>
       <PictureSlider pictures={pictures} className={styles.pictureSlider} />
-      <div className={styles.contents}>
-        <h2>{name}</h2>
-        <section>
-          <IconBox Icon={RiCalendarLine}>
-            {CurrentDateGap(created_at)}전
-          </IconBox>
-          <IconBox Icon={RiTimer2Line}>조리시간 {cooking_time}분</IconBox>
-          <IconBox Icon={RiGroupLine}>{servings}인분</IconBox>
-        </section>
-        <p>{introduction}</p>
+      
+      <div className={styles.rightSection}>
+        <div className={styles.contents}>
+          <h2>{name}</h2>
+          <section className={styles.subInfo}>
+            <IconBox Icon={RiCalendarLine}>
+              {CurrentDateGap(created_at)}전
+            </IconBox>
+            <IconBox Icon={RiTimer2Line}>조리시간 {cooking_time}분</IconBox>
+            <IconBox Icon={RiGroupLine}>{servings}인분</IconBox>
+          </section>
+          <p>{introduction}</p>
+        </div>
+        <div className={styles.recipeSocialAction}>
+          <LikeButton
+            recipe_id={_id}
+            likeMembers={like_members}
+            style={{ width: "fit-content" }}
+          />
+        </div>
       </div>
     </div>
   );

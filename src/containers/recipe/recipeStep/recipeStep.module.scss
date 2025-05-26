@@ -3,29 +3,6 @@
 .container {
     @include m.flex-layout(column, normal, normal, 0.5rem);
 
-    .indicatorContainer {
-        @include m.flex-layout(row, center, flex-end);
-        gap: 0.75rem;
-
-        & button {
-            width: 1rem;
-            height: 1rem;
-            border-radius: 100%;
-            background-color: rgb(var(--color-grey-light));
-            transition-duration: 0.2s;
-
-            &:hover {
-                background-color: rgb(var(--color-main));
-            }
-        }
-
-        .activeIndicator {
-            @include m.main-button();
-            transform: scale(1.4);
-        }
-    }
-
-
     .sliderContainer {
         width: 100%;
         display: flex;
@@ -47,7 +24,8 @@
             scroll-snap-align: center;
 
             .pictureBox {
-                height: 500px;
+                height: 50vh;
+                max-height: 500px;
                 position: relative;
                 border-radius: var(--border-radius);
                 overflow: hidden;
@@ -58,10 +36,10 @@
                 }
             }
 
-            &>:last-child {
-                padding: 1rem;
+            .descriptionBox {
+                padding: calc(var(--base-padding) / 1.5);
                 height: 100%;
-                @include m.flex-layout(column);
+                @include m.flex-layout(column, normal, normal, calc(var(--base-gap) / 4));
                 background-color: rgba(var(--color-dark), 0.55);
                 border-radius: var(--border-radius);
                 overflow-y: auto;
@@ -78,7 +56,7 @@
     }
 
     .navContainer {
-        @include m.flex-layout(row, normal, flex-end);
+        @include m.flex-layout(row, normal, space-between);
 
         &>:first-child {
             @include m.main-button-dark();
@@ -88,19 +66,41 @@
             @include m.main-button();
         }
     }
-}
 
+    .indicatorBox {
+        width: 100%;
+        @include m.flex-layout(row, center, center,calc(var(--base-gap) / 2));
 
-@media screen and (max-width: 768px) {
-    .container {
-        .sliderContainer {
-            &>li {
-                grid-template-columns: 1fr;
+        & button {
+            width: 10%;
+            max-width: 0.75rem;
+            height: auto;
+            display: flex;
+            border-radius: 100%;
+            background-color: rgb(var(--color-grey-light));
+            transition-duration: 0.2s;
+            aspect-ratio: 1;
+
+            &:hover {
+                background-color: rgb(var(--color-main));
             }
         }
 
-        .pictureBox {
-            height: 250px !important;
+        .activeIndicator {
+            @include m.main-button();
+            transform: scale(1.4);
         }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .sliderContainer {
+        &>li {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    .pictureBox {
+        height: 25vh !important;
     }
 }

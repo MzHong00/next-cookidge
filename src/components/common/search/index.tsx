@@ -13,7 +13,7 @@ const SearchInputComponent = (
 ) => {
   return (
     <div className={`${styles.container} ${className}`}>
-      <IconBox Icon={RiSearchLine} className={styles.icon} />
+      <RiSearchLine className={styles.icon} />
       <input ref={ref} type="text" {...props} />
       {children && <div className={styles.children}>{children}</div>}
     </div>
