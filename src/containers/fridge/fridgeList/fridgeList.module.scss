@@ -1,16 +1,24 @@
 @use '/src/styles/mixin.scss' as m;
 
-
 .container {
     @include m.flex-layout(column);
 
     .fridgeList {
         @include m.flex-layout(column);
 
-        &>li {
+        .fridgeItem {
             width: 100%;
             padding-inline: 1rem;
             border-left: 2px solid;
+
+            .fridgeName {
+                padding-inline: 0;
+            }
+
+            &:hover {
+                border-color: rgb(var(--color-main));
+                filter: none;
+            }
         }
 
         .fridgeSummary {

@@ -17,19 +17,22 @@ export const FridgeList = () => {
     <section className={styles.container}>
       <h2>냉장고 목록</h2>
       <ul className={styles.fridgeList}>
-        {fridgeList?.map(({ _id, name, stored_ingredients, last_updated }) => (
+        {fridgeList.map(({ _id, name, stored_ingredients, last_updated }) => (
           <li key={_id}>
             <Link
               key={_id}
               href={`/fridge/${_id}`}
+              className={styles.fridgeItem}
             >
-              <IconBox Icon={RiFridgeLine}>{name} 냉장고</IconBox>
+              <IconBox Icon={RiFridgeLine} className={styles.fridgeName}>
+                {name} 냉장고
+              </IconBox>
+              <FridgeSummary
+                last_updated={last_updated}
+                stored_ingredients={stored_ingredients}
+                className={styles.fridgeSummary}
+              />
             </Link>
-            <FridgeSummary
-              last_updated={last_updated}
-              stored_ingredients={stored_ingredients}
-              className={styles.fridgeSummary}
-            />
           </li>
         ))}
       </ul>

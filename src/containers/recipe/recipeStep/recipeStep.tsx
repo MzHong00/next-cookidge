@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { RiArrowLeftSLine } from "@react-icons/all-files/ri/RiArrowLeftSLine";
+import { RiArrowRightSLine } from "@react-icons/all-files/ri/RiArrowRightSLine";
 
 import type { ICookingStep } from "@/types/recipe/recipe";
 import { PIdToURL } from "@/utils/pidToUrl";
@@ -25,18 +27,6 @@ export const RecipeStep = ({
 
   return (
     <div className={styles.container}>
-      <ul className={styles.indicatorContainer}>
-        {Array.from({ length: recipeSteps.length }).map((_, i) => (
-          <li key={i}>
-            <button
-              className={`${index === i && styles.activeIndicator}`}
-              data-index={i}
-              onClick={onClickSlideByIndicator}
-            />
-          </li>
-        ))}
-      </ul>
-
       <ul
         ref={ref}
         onScroll={onScrollDetectIndex}
@@ -52,7 +42,7 @@ export const RecipeStep = ({
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
-            <div>
+            <div className={styles.descriptionBox}>
               <b>{idx + 1}</b>
               <p>{instruction}</p>
             </div>
@@ -62,12 +52,20 @@ export const RecipeStep = ({
 
       <nav className={styles.navContainer}>
         <button>
-          {" "}
-          <IconBox onClick={onClickPrev}>이전</IconBox>
+          <IconBox Icon={RiArrowLeftSLine} onClick={onClickPrev} />
         </button>
+        <div className={styles.indicatorBox}>
+          {Array.from({ length: recipeSteps.length }).map((_, i) => (
+            <button
+              key={i}
+              data-index={i}
+              className={`${index === i && styles.activeIndicator}`}
+              onClick={onClickSlideByIndicator}
+            />
+          ))}
+        </div>
         <button>
-          {" "}
-          <IconBox onClick={onClickNext}>다음</IconBox>
+          <IconBox Icon={RiArrowRightSLine} onClick={onClickNext} />
         </button>
       </nav>
     </div>

@@ -16,7 +16,7 @@
 
         &>* {
             @include m.dark-section(rgb(var(--color-dark-light)));
-            padding-block: 0.5rem;
+            padding-block: 0;
         }
     }
 }

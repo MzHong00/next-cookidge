@@ -6,13 +6,12 @@ const defaultOptions = {
   useWebWorker: true,
 };
 
-export const compressImage = (file: File, options?: Options) => {
-  return imageCompression(file, { ...defaultOptions, ...options });
-};
-
 export const compressImageToBase64 = async (file: File, options?: Options) => {
   try {
-    const compressedImage = await compressImage(file, options);
+    const compressedImage = await imageCompression(file, {
+      ...defaultOptions,
+      ...options,
+    });
     const compressedBase64Image = await blobToBase64(compressedImage);
 
     return compressedBase64Image;
