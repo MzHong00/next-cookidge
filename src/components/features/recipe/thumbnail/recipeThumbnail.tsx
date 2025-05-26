@@ -47,17 +47,20 @@ const Info = (props: IRecipe) => {
 
   return (
     <motion.div
-      className={styles.recipeInfo}
+      className={styles.info}
       variants={fadeSlide}
       initial="hidden"
       animate="visible"
     >
-      <header>
+      <header className={styles.infoHeader}>
         <h4>{name}</h4>
         <span>{CurrentDateGap(created_at)}전</span>
       </header>
-      <p>{introduction}</p>
-      <footer onClick={(e) => e.stopPropagation()} className="dark-section">
+      <p className={styles.infoDescription}>{introduction}</p>
+      <footer
+        className={styles.infoActionBar}
+        onClick={(e) => e.stopPropagation()}
+      >
         <LikeButton recipe_id={_id} likeMembers={like_members} />
         <Link
           href={{
