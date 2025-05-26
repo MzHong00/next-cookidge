@@ -11,11 +11,18 @@ import "@/styles/globals.scss";
 export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_CLIENT}`),
   title: {
-    default: "Cookidge",
+    default: "쿠키지 - 레시피 & 냉장고 관리 서비스",
     template: "%s | Cookidge",
   },
   description:
-    "Cookidge 서비스는 요리 관련 SNS와 냉장고를 관리하는 앱을 동시에 제공하는 서비스입니다.",
+    "AI 기능을 사용하여 식재료 관리를 한번에! 냉장고 관리 앱, 쿠키지에서 스마트한 식생활을 시작하세요.",
+  keywords: [
+    "쿠키지",
+    "Cookidge",
+    "레시피 사이트",
+    "냉장고 관리 앱",
+    "식재료 관리 앱",
+  ],
   verification: {
     google: "2-CPSScGx8YCokUPTZT-8xEzjDni6uKjhM0ZdCiD3iI",
     other: {
