@@ -47,7 +47,7 @@ export const CreateIngredientForm = ({
 
   useEffect(() => {
     return () => setIngredients(getValues().ingredients);
-  }, [getValues().ingredients]);
+  }, [setIngredients, getValues]);
 
   const { fields, append, remove } = useFieldArray({
     name: "ingredients",

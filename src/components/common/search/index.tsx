@@ -3,8 +3,6 @@
 import { type ForwardedRef, type InputHTMLAttributes, forwardRef } from "react";
 import { RiSearchLine } from "@react-icons/all-files/ri/RiSearchLine";
 
-import { IconBox } from "../iconBox";
-
 import styles from "./index.module.scss";
 
 const SearchInputComponent = (
