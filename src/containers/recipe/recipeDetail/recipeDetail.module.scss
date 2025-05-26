@@ -60,8 +60,7 @@
 }
 
 .cardTabIndex {
-    padding-block: 0.25rem;
-    padding-inline: 0.5rem;
+    padding-bottom: 0.25rem;
     @include m.flex-layout(row);
     border-radius: inherit;
 }

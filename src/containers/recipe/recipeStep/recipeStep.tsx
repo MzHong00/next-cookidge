@@ -8,6 +8,8 @@ import { useSlide } from "@/hooks/useSlide";
 import { IconBox } from "@/components/common/iconBox";
 
 import styles from "./recipeStep.module.scss";
+import { RiArrowLeftSLine } from "@react-icons/all-files/ri/RiArrowLeftSLine";
+import { RiArrowRightSLine } from "@react-icons/all-files/ri/RiArrowRightSLine";
 
 export const RecipeStep = ({
   recipeSteps,
@@ -62,12 +64,10 @@ export const RecipeStep = ({
 
       <nav className={styles.navContainer}>
         <button>
-          {" "}
-          <IconBox onClick={onClickPrev}>이전</IconBox>
+          <IconBox Icon={RiArrowLeftSLine} onClick={onClickPrev} />
         </button>
         <button>
-          {" "}
-          <IconBox onClick={onClickNext}>다음</IconBox>
+          <IconBox Icon={RiArrowRightSLine} onClick={onClickNext} />
         </button>
       </nav>
     </div>

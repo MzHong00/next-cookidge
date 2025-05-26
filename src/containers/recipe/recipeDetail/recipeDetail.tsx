@@ -62,6 +62,7 @@ export function RecipeDetail({ id }: { id: string }) {
             </div>
           )}
         </header>
+        <hr style={{opacity: 0.5}}/>
 
         <TabIndex tab={tab} onClick={changeTabHandler} />
 

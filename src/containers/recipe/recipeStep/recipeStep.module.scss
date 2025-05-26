@@ -18,12 +18,13 @@
                 background-color: rgb(var(--color-main));
             }
         }
+
+        .activeIndicator {
+            @include m.main-button();
+            transform: scale(1.4);
+        }
     }
 
-    .activeIndicator {
-        @include m.main-button();
-        transform: scale(1.4);
-    }
 
     .sliderContainer {
         width: 100%;
@@ -102,6 +103,4 @@
             height: 250px !important;
         }
     }
-
-
 }
