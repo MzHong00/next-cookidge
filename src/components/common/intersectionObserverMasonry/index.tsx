@@ -6,6 +6,7 @@ import { InfiniteQueryObserverResult } from "@tanstack/react-query";
 
 import { ClientRender } from "../clientRender";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useScrollRestorationCSR } from "@/hooks/useScrollRestorationCSR";
 
 /* 
   - Intersection Observer와 반응형 CSS가 적용된 MasonryLayout
@@ -36,6 +37,7 @@ const ResponsiveMasonry = ({
   children,
   ...props
 }: Props) => {
+  useScrollRestorationCSR();
   const column = useViewportDivision(item_width, MAX_DIVISION);
   const target = useIntersectionObserver({ hasNextPage, fetchNextPage });
 
